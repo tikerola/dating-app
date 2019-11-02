@@ -10,7 +10,15 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String,
     required: true
-  }
+  },
+  inbox: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message'
+  }],
+  sent: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message'
+  }]
 })
 
 userSchema.set('toJSON', { 

@@ -19,7 +19,7 @@ userRouter.post('/', async (req, res, next) => {
     return res.status(201).send(savedUser)
   }
   catch (error) {
-    next(error.message)
+    next(error)
   }
 
 })
