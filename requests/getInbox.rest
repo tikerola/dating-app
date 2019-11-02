@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/messages/sent
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikhhbm5hIiwiaWQiOiI1ZGJkNWI1NmQ5N2MzZjE1ZDAyZWUwZTQiLCJpYXQiOjE1NzI3MTIyODV9.1NjkqWaQFy2rmd6TBaObpdk8KLQSsuXZR-uhhdLKdtc

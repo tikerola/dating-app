@@ -9,8 +9,9 @@ describe('testing messages', () => {
 
   let newUser1
   let newUser2
+  let tero
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await User.deleteMany({})
     await Message.deleteMany({})
 
@@ -36,7 +37,7 @@ describe('testing messages', () => {
   })
 
   it('should be able to create a message', async () => {
-    const tero = await api
+    tero = await api
     .post('/api/login')
     .send(newUser1)
 
@@ -67,6 +68,28 @@ describe('testing messages', () => {
 
     const receiver = await User.findById(_id).populate('inbox')
     expect(receiver.inbox[0].title).toEqual('hei, me lennetään')
+  })
+
+  it('should be able to fetch inbox', async () => {
+
+    const { token } = tero.body
+    
+    const response = await api
+    .get('/api/messages/inbox')
+    .set('Authorization', 'bearer ' + token)
+    
+    expect(response.body).toEqual([])
+
+  })
+
+  it('should be able to fetch sent mail', async () => {
+    const { token } = tero.body
+    
+    const response = await api
+    .get('/api/messages/sent')
+    .set('Authorization', 'bearer ' + token)
+    
+    expect(response.body[0].title).toEqual('hei, me lennetään')
   })
 
 
