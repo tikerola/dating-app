@@ -1,11 +1,13 @@
 const User = require('../../../models/user')
 const Message = require('../../../models/message')
+const Profile = require('../../../models/profile')
 const app = require('../../../app')
 const supertest = require('supertest')
+const mongoose = require('mongoose')
 
 const api = supertest(app)
 
-describe('testing messages', () => { 
+describe('testing messages', () => {
 
   let newUser1
   let newUser2
@@ -14,37 +16,42 @@ describe('testing messages', () => {
   beforeAll(async () => {
     await User.deleteMany({})
     await Message.deleteMany({})
+    await Profile.deleteMany({})
 
     newUser1 = {
       username: 'tero',
-      password: 'sumussa'
+      password: 'sumussa',
+      gender: 'male',
+      age: 23
     }
 
     newUser2 = {
       username: 'minna',
-      password: 'sumussa'
+      password: 'sumussa',
+      gender: 'female',
+      age: 23
     }
 
     await api
-    .post('/api/signup')
-    .send(newUser1)
+      .post('/api/signup')
+      .send(newUser1)
 
     await api
-    .post('/api/signup')
-    .send(newUser2)
+      .post('/api/signup')
+      .send(newUser2)
 
 
   })
 
   it('should be able to create a message', async () => {
     tero = await api
-    .post('/api/login')
-    .send(newUser1)
+      .post('/api/login')
+      .send({ username: newUser1.username, password: newUser1.password })
 
     const { token, id } = tero.body
 
     const { _id } = await User.findOne({ username: newUser2.username })
-    
+
     const newMessage = new Message({
       title: "hei, me lennetään",
       content: "no eino wiseguy",
@@ -54,10 +61,10 @@ describe('testing messages', () => {
     })
 
     const response = await api
-    .post('/api/messages')
-    .set('Authorization', 'bearer ' + token)
-    .send(newMessage)
-    .expect(201)
+      .post('/api/messages')
+      .set('Authorization', 'bearer ' + token)
+      .send(newMessage)
+      .expect(201)
 
     expect(response.body.title).toEqual('hei, me lennetään')
     expect(response.body.author).toEqual(id)
@@ -73,24 +80,26 @@ describe('testing messages', () => {
   it('should be able to fetch inbox', async () => {
 
     const { token } = tero.body
-    
+
     const response = await api
-    .get('/api/messages/inbox')
-    .set('Authorization', 'bearer ' + token)
-    
+      .get('/api/messages/inbox')
+      .set('Authorization', 'bearer ' + token)
+
     expect(response.body).toEqual([])
 
   })
 
   it('should be able to fetch sent mail', async () => {
     const { token } = tero.body
-    
+
     const response = await api
-    .get('/api/messages/sent')
-    .set('Authorization', 'bearer ' + token)
-    
+      .get('/api/messages/sent')
+      .set('Authorization', 'bearer ' + token)
+
     expect(response.body[0].title).toEqual('hei, me lennetään')
   })
 
-
+  afterAll( async () => {
+    await mongoose.connection.close()
+  })
 })

@@ -11,6 +11,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  gender: { 
+    type: String,
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true
+  },
+  profile: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Profile'
+  },
   inbox: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Message'

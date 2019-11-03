@@ -1,7 +1,9 @@
 
 const User = require('../../../models/user')
+const Profile = require('../../../models/profile')
 const app = require('../../../app')
 const supertest = require('supertest')
+const mongoose = require('mongoose')
 
 const api = supertest(app)
 
@@ -9,10 +11,13 @@ describe('testing signup', () => {
 
   beforeEach(async () => {
     await User.deleteMany({})
+    await Profile.deleteMany({})
 
     const newUser = new User({
       username: 'maija',
-      passwordHash: 'idontgiveashit'
+      passwordHash: 'idontgiveashit',
+      gender: 'female',
+      age: 23
     })
 
     await newUser.save()
@@ -21,15 +26,15 @@ describe('testing signup', () => {
   it('should sign up with valid credentials', async () => {
     const newUser = {
       username: 'tero',
-      password: 'sumussa'
+      password: 'sumussa',
+      gender: 'male',
+      age: 31
     }
 
-    expect.assertions(1)
-
     const response = await api
-    .post('/api/signup')
-    .send(newUser)
-    .expect(201)
+      .post('/api/signup')
+      .send(newUser)
+      .expect(201)
 
     expect(response.body.username).toEqual('tero')
 
@@ -38,14 +43,20 @@ describe('testing signup', () => {
   it('should fail when user by same username exists', async () => {
     const newUser = {
       username: 'maija',
-      password: 'idontgiveashit'
+      password: 'idontgiveashit',
+      gender: 'female',
+      age: 23
     }
 
     const response = await api
-    .post('/api/signup')
-    .send(newUser)
-    .expect(409)
+      .post('/api/signup')
+      .send(newUser)
+      .expect(409)
 
+  })
+
+  afterAll( async () => {
+    await mongoose.connection.close()
   })
 
 })
