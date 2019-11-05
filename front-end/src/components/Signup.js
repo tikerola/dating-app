@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { theme } from '../theme/theme'
 import useField from '../hooks/useField'
+import signupService from '../services/user'
+import { signup } from '../actions/user'
+import { connect } from 'react-redux'
 
 const genders = [
   {
@@ -26,11 +29,12 @@ const useStyles = makeStyles({
     width: '100%',
     height: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   container: {
     width: '90%',
-    height: '90%',
+    height: '95%',
     margin: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -44,7 +48,8 @@ const useStyles = makeStyles({
   },
   textField: {
     color: theme.inputTextColor,
-    background: theme.textFieldBackgroundColor
+    background: theme.textFieldBackgroundColor,
+    marginBottom: '10px'
   },
   cssLabel: {
     color: theme.inputLabelColor
@@ -54,17 +59,14 @@ const useStyles = makeStyles({
     '&$cssFocused $notchedOutline': {
       borderColor: `${theme.inputFocusedBorderColor} !important`,
     },
-    color: 'white',
-    //boxShadow: '0 0 10px 0px black'
+    color: 'white'
   },
-
   cssFocused: {
     color: `${theme.inputFocusedLabelColor} !important`
   },
   icon: {
     backgroundColor: 'inherit'
   },
-
   notchedOutline: {
     borderWidth: '1px',
     borderColor: `${theme.inputBorderColor} !important`
@@ -72,26 +74,55 @@ const useStyles = makeStyles({
   button: {
     width: '50%',
     margin: '20px auto'
+  },
+  register: {
+    width: '90%',
+    height: '10%',
+    margin: '10px',
+    color: theme.signupHeaderColor,
+    fontSize: '1em',
+    textAlign: 'left',
+    '& p': {
+      color: 'white',
+      fontSize: '1.3em',
+      cursor: 'pointer'
+    }
   }
 })
 
 const Signup = props => {
 
   const [username, resetUsername] = useField('text')
-  const [gender, setGender] = useField('text')
+  const [gender, resetGender] = useField('text')
   const [age, resetAge] = useField('text', /\D|\d{3}/)
   const [password, resetPassword] = useField('password')
   const [confirmPassword, resetConfirmPassword] = useField('password')
   
-  
-
   const classes = useStyles()
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    
+
+    const response = await signupService.signup({
+      username: username.value,
+      password: password.value,
+      age: +age.value,
+      gender: gender.value
+    })
+
+    props.signup(response)
+
+    resetUsername()
+    resetGender()
+    resetAge()
+    resetPassword()
+    resetConfirmPassword()
+  }
 
   return (
     <div className={classes.root}>
-
-
-      <form className={classes.container}>
+      <div className={classes.container}>
         <div className={classes.header}>
           <h1>Sign Up</h1>
         </div>
@@ -100,6 +131,7 @@ const Signup = props => {
 
         <TextField
           {...username}
+          
           className={classes.textField}
           label="Username"
           fullWidth
@@ -121,6 +153,7 @@ const Signup = props => {
 
         <TextField
           select
+          
           className={classes.textField}
           label="Gender"
           {...gender}
@@ -148,11 +181,10 @@ const Signup = props => {
 
 
         <TextField
-          
           className={classes.textField}
           {...age}
-          label="Age"
           
+          label="Age"
           variant="outlined"
           InputLabelProps={{ 
             classes: {
@@ -171,7 +203,6 @@ const Signup = props => {
 
 
         <TextField
-          
           className={classes.textField}
           {...password}
           
@@ -194,9 +225,9 @@ const Signup = props => {
 
 
         <TextField
-          
           className={classes.textField}
           {...confirmPassword}
+          
           label="Confirm password"
           variant="outlined"
           InputLabelProps={{
@@ -214,13 +245,23 @@ const Signup = props => {
           }}
         />
 
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
           Submit
         </Button>
 
-      </form>
+        <div className={classes.register}>
+        Have already an account?
+        <p className={classes.link} onClick={props.toggleRegister}>Login here</p>
+      </div>
+
+      </div>
+      
     </div>
   )
 }
 
-export default Signup
+const mapDispatchToProps = {
+  signup
+}
+
+export default connect(null, mapDispatchToProps)(Signup)

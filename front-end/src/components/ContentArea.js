@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     width: '74%',
     height: '80%',
     marginRight: '1%',
-    background: theme.contentAreaBackground
+    background: theme.contentAreaBackground,
+    border: '2px solid #bbb'
   }
 })
 

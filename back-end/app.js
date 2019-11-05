@@ -7,7 +7,9 @@ const userRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
 const messagesRouter = require('./controllers/messages')
 const tokenFromHeaders = require('./middlewares/tokenFromHeaders')
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 
 

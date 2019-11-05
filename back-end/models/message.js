@@ -14,6 +14,14 @@ const messageSchema = new mongoose.Schema({
   }
 })
 
+messageSchema.set('toJSON', { 
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
 
 const Message = mongoose.model('Message', messageSchema)
 
