@@ -1,0 +1,47 @@
+const faker = require('faker')
+const developerRouter = require('express').Router()
+const User = require('../models/user')
+const Profile = require('../models/profile')
+
+developerRouter.post('/fake', async (req, res, next) => {
+  const { fakeAmount } = req.body
+
+  for (let i = 0; i < fakeAmount; i++) {
+
+    const gender = Math.random() > 0.5 ? 'male' : 'female'
+    const age = 18 + Math.floor(Math.random() * (99 - 18))
+    const passwordHash = faker.date.future()
+    const username = faker.name.firstName(gender)
+    const text = faker.lorem.paragraph(7)
+
+    const newProfile = new Profile({
+      username,
+      gender,
+      age,
+      image: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg',
+      profileText: text
+    })
+
+    try {
+
+      const createdProfile = await newProfile.save()
+
+      const newUser = new User({
+        username,
+        passwordHash,
+        gender,
+        age,
+        profile: createdProfile._id
+      })
+
+      await newUser.save()
+    }
+    catch (error) {
+      console.log(error)
+    }
+    
+  }
+  return res.status(201).send('Successfull Addition')
+})
+
+module.exports = developerRouter

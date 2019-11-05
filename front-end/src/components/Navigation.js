@@ -54,7 +54,7 @@ const Navigation = props => {
         ?
         <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{props.username}</span></p>
         { props.profile && <img src={props.profile.image} width='130' alt='face' />}
-        <Button variant='contained' color='secondary' size='small' onClick={handleLogout}>Log out</Button></div>
+        <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
         :
         ''
       }

@@ -2,8 +2,9 @@
 export const theme = {
   bodyBackgound: '#7F00FF',
   background: 'rgba(255, 255, 255, 0.2)',
-  navigationBackgound: 'rgba(0, 0, 0, 0.7)',
+  navigationBackgound: 'rgba(0, 0, 0, 0.8)',
   sidebarBackground: 'rgba(0, 0, 0, 0.5)',
+  searchbarBackground: 'rgba(0, 0, 0, 0.7)',
   contentAreaBackground: 'rgba(0, 0, 0, 0.5)',
 
   signupHeaderColor: '#bbb',
