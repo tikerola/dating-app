@@ -118,6 +118,7 @@ const Signup = props => {
     resetAge()
     resetPassword()
     resetConfirmPassword()
+    props.toggleRegister()
   }
 
   return (

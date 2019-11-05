@@ -144,7 +144,7 @@ const Login = props => {
         />
 
         <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
-          Submit
+          Login
         </Button>
       </form>
       <div className={classes.register}>

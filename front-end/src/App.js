@@ -43,7 +43,9 @@ function App(props) {
 
   useEffect(() => {
     const user = localStorage.getItem('userData')
-    props.setUserFromStorage(JSON.parse(user))
+    
+    if (user)
+      props.setUserFromStorage(JSON.parse(user))
   })
 
   return (
