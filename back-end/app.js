@@ -7,6 +7,7 @@ const userRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
 const messagesRouter = require('./controllers/messages')
 const developerRouter = require('./controllers/developer')
+const profilesRouter = require('./controllers/profiles')
 const tokenFromHeaders = require('./middlewares/tokenFromHeaders')
 const cors = require('cors')
 
@@ -25,6 +26,7 @@ app.use('/api/signup', userRouter)
 app.use('/api/login', loginRouter)
 app.use(tokenFromHeaders)
 app.use('/api/messages', messagesRouter)
+app.use('/api/profiles', profilesRouter)
 app.use('/developer', developerRouter)
 
 
