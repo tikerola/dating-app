@@ -40,8 +40,6 @@ const Navigation = props => {
 
   const classes = useStyles()
 
-  console.log(props.profile)
-
   const handleLogout = () => {
     props.logout()
   }

@@ -3,6 +3,8 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpb
 Content-Type: application/json
 
 {
-  "age": [40, 70],
-  "gender": "female"
+  "age": [18, 99],
+  "gender": "male",
+  "page": 0,
+  "limit": 5
 }

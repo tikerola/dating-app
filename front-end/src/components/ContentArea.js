@@ -2,6 +2,7 @@ import React from 'react'
 import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../theme/theme'
+import Profiles from './Profiles'
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +19,7 @@ const ContentArea = props => {
   const classes = useStyles()
   
   return <Paper className={classes.root} elevation={5}>
-
+    <Profiles />
 
   </Paper>
 }

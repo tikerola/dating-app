@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken')
 
 
 profilesRouter.post('/search', async (req, res, next) => {
-  const { age, gender } = req.body
-  
+  const { age, gender, page = 0, limit = 12 } = req.body
+
 
   try {
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
@@ -18,6 +18,9 @@ profilesRouter.post('/search', async (req, res, next) => {
       age: {$gte: age[0], $lte: age[1]},
       gender: gender
     })
+    .sort({ username: 1 })
+    .skip(page * limit)
+    .limit(limit)
 
 
     return res.status(200).send(profiles)

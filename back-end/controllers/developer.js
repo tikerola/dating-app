@@ -11,7 +11,7 @@ developerRouter.post('/fake', async (req, res, next) => {
     const gender = Math.random() > 0.5 ? 'male' : 'female'
     const age = 18 + Math.floor(Math.random() * (99 - 18))
     const passwordHash = faker.date.future()
-    const username = faker.name.firstName(gender)
+    const username = faker.name.firstName(Math.round(Math.random()))
     const text = faker.lorem.paragraph(7)
 
     const newProfile = new Profile({

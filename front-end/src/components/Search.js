@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Slider, Button, Typography, Grid, Switch } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { searchProfiles } from '../actions/profiles'
+import { setSearch } from '../actions/search'
 
 
 const useStyles = makeStyles({
@@ -51,11 +52,16 @@ const Search = props => {
   }
 
   const handleSubmit = () => {
-    
-    props.searchProfiles({
+
+    const searchData = {
       age: value,
       gender: gender === false ? 'male' : 'female'
-    })
+    }
+    
+    props.searchProfiles(searchData)
+
+    //laita tämä huomenna profiiliactioneihin ja katso kolmastoista
+    props.setSearch(searchData)
   }
 
   return (
@@ -106,4 +112,4 @@ const Search = props => {
 }
 
 
-export default connect(null, { searchProfiles })(Search)
+export default connect(null, { searchProfiles, setSearch })(Search)

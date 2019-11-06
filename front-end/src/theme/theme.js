@@ -5,7 +5,7 @@ export const theme = {
   navigationBackgound: 'rgba(0, 0, 0, 0.8)',
   sidebarBackground: 'rgba(0, 0, 0, 0.5)',
   searchbarBackground: 'rgba(0, 0, 0, 0.7)',
-  contentAreaBackground: 'rgba(0, 0, 0, 0.5)',
+  contentAreaBackground: 'rgba(0, 0, 0, 0.7)',
 
   signupHeaderColor: '#bbb',
   inputLabelColor: 'white',
