@@ -65,7 +65,7 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
       </div>
       {profiles.length > 0 && <div className={classes.pagination}>
         <Button
-          disabled={searchOptions.page === 0}
+          disabled={searchOptions.page === 1}
           onClick={() => handlePageChange('prev')}
         >
           {'< '}prev page

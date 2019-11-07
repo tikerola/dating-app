@@ -54,7 +54,9 @@ const Search = props => {
 
     const searchData = {
       age: value,
-      gender: gender === false ? 'male' : 'female'
+      gender: gender === false ? 'male' : 'female',
+      page: 1,
+      limit: 12
     }
     
     props.searchProfiles(searchData)

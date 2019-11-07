@@ -2,7 +2,7 @@
 const initialState = {
   age: [],
   gender: '',
-  page: 0,
+  page: 1,
   limit: 12,
   profileCount: 0
 }
