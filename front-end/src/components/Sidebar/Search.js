@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Slider, Button, Typography, Grid, Switch } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { searchProfiles } from '../../actions/profiles'
+import { withRouter } from 'react-router-dom'
 
 
 const useStyles = makeStyles({
@@ -60,6 +61,7 @@ const Search = props => {
     }
     
     props.searchProfiles(searchData)
+    props.history.push('/search/profiles')
   }
 
   return (
@@ -110,4 +112,4 @@ const Search = props => {
 }
 
 
-export default connect(null, { searchProfiles })(Search)
+export default connect(null, { searchProfiles })(withRouter(Search))

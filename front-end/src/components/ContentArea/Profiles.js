@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ProfileThumbnail from './ProfileThumbnail'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
 import { searchProfiles } from '../../actions/profiles'
-import Profile from './Profile'
+import { Link } from 'react-router-dom'
+
 
 const useStyles = makeStyles({
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 })
 
 const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
-  const [ selectedProfile, setSelectedProfile ] = useState('')
+  
 
   const classes = useStyles()
 
@@ -55,22 +56,19 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
     })
   }
 
-  if (selectedProfile)
-    return <Profile profile={selectedProfile} />
-
+  
   return (
     <div className={classes.root}>
       <h1>Profiles</h1>
       <div className={classes.center}>
         <div className={classes.container}>
           {
-            profiles.map(profile =>
+            profiles.map(profile => <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
               <ProfileThumbnail
-                setSelectedProfile={setSelectedProfile}
-                key={profile.id}
                 username={profile.username}
                 image={profile.image}
-              />)
+              />
+              </Link>)
           }
         </div>
       </div>

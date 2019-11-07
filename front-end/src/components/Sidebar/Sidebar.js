@@ -5,6 +5,9 @@ import { theme } from '../../theme/theme'
 import LoginAndSignup from './LoginAndSignup'
 import { connect } from 'react-redux'
 import Search from './Search'
+import Navigation from './Navigation'
+import { Route } from 'react-router-dom'
+import Profile from './Profile'
 
 
 const useStyles = makeStyles({
@@ -24,7 +27,10 @@ const Sidebar = props => {
   const classes = useStyles()
 
   return <Paper className={classes.root} elevation={10}>
-    { !props.loggedIn ? <LoginAndSignup /> : <Search />}
+    <Navigation />
+    <Route path="/search" component={Search} />
+    <Route exact path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Profile /> } />
+    
 
   </Paper>
 }

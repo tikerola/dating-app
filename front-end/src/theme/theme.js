@@ -6,6 +6,7 @@ export const theme = {
   sidebarBackground: 'rgba(0, 0, 0, 0.5)',
   searchbarBackground: 'rgba(0, 0, 0, 0.7)',
   contentAreaBackground: 'rgba(0, 0, 0, 0.7)',
+  smallNavigationBackground: 'rgba(0, 0, 0, 0.7)',
 
   signupHeaderColor: '#bbb',
   inputLabelColor: 'white',

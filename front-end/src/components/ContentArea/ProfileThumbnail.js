@@ -32,7 +32,7 @@ const ProfileThumbnail = props => {
   
 
   return (
-    <Card className={classes.card} elevation={10} onClick={() => props.setSelectedProfile(props.username)}>
+    <Card className={classes.card} elevation={10}>
       <CardContent className={classes.cardContent}>
         <img src={props.image} alt="profile" width="90" className={classes.image} />
       </CardContent>

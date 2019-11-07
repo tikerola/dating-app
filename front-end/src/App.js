@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Navigation from './components/Navigation/Navigation'
-import Sidebar from './components/Sidebar/Sidebar'
-import ContentArea from './components/ContentArea/ContentArea'
+
 import { theme } from './theme/theme'
 import { connect } from 'react-redux'
 import { setUserFromStorage } from './actions/user'
+import { BrowserRouter, Route } from 'react-router-dom'
+import MainPage from './components/MainPage'
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +44,7 @@ function App(props) {
 
   useEffect(() => {
     const user = localStorage.getItem('userData')
-    
+
     if (user)
       props.setUserFromStorage(JSON.parse(user))
   })
@@ -52,10 +53,10 @@ function App(props) {
     <div className={classes.root}>
       <Paper className={classes.container} elevation={8}>
         <Navigation />
-        <div className={classes.contentContainer}>
-          <Sidebar />
-          <ContentArea />
-        </div>
+        <BrowserRouter>
+          <Route path="/" render={(props) => <MainPage {...props} />} />
+        </BrowserRouter>
+
       </Paper>
     </div>
   );
