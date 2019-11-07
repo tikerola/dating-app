@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Slider, Button, Typography, Grid, Switch } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import { searchProfiles } from '../actions/profiles'
-import { setSearch } from '../actions/search'
 
 
 const useStyles = makeStyles({
@@ -59,9 +58,6 @@ const Search = props => {
     }
     
     props.searchProfiles(searchData)
-
-    //laita tämä huomenna profiiliactioneihin ja katso kolmastoista
-    props.setSearch(searchData)
   }
 
   return (
@@ -112,4 +108,4 @@ const Search = props => {
 }
 
 
-export default connect(null, { searchProfiles, setSearch })(Search)
+export default connect(null, { searchProfiles })(Search)

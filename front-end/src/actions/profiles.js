@@ -1,4 +1,5 @@
 import profilesService from '../services/profiles'
+import { setSearch } from './search'
 
 export const searchProfiles = (searchOptions) => {
 
@@ -9,10 +10,14 @@ export const searchProfiles = (searchOptions) => {
     profilesService.saveToken(token)
     const response = await profilesService.searchProfiles(searchOptions)
 
+    if (response.count >= 0)
+      dispatch(setSearch({ ...searchOptions, profileCount: response.count }))
+    else
+      dispatch(setSearch(searchOptions))
+
     dispatch({
       type: 'SEARCH_PROFILES',
-      profiles: response
+      profiles: response.profiles
     })
-
   }
 }

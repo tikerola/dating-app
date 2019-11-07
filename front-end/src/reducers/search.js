@@ -4,8 +4,7 @@ const initialState = {
   gender: '',
   page: 0,
   limit: 12,
-  nextPage: false,
-  prevPage: false
+  profileCount: 0
 }
 
 export default (state = initialState, action) => {

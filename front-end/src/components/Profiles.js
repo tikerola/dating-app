@@ -2,6 +2,8 @@ import React from 'react'
 import SingleProfile from './SingleProfile'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
+import { Button } from '@material-ui/core'
+import { searchProfiles } from '../actions/profiles'
 
 const useStyles = makeStyles({
 
@@ -17,13 +19,13 @@ const useStyles = makeStyles({
     width: '100%',
     flexDirection: 'column',
     alignItems: 'center'
-    
+
   },
   container: {
     width: '80%',
     display: 'grid',
     gridTemplateColumns: 'auto auto auto auto auto auto',
-    gridRowGap:'20px',
+    gridRowGap: '20px',
     alignContent: 'space-evenly'
   },
   pagination: {
@@ -37,9 +39,19 @@ const useStyles = makeStyles({
   }
 })
 
-const Profiles = ({ profiles }) => {
+const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
 
   const classes = useStyles()
+
+  const handlePageChange = direction => {
+    
+      searchProfiles({
+        age: searchOptions.age,
+        gender: searchOptions.gender,
+        page: direction === 'next' ? searchOptions.page + 1 : searchOptions.page - 1,
+        limit: searchOptions.limit
+      })
+  }
 
   return (
     <div className={classes.root}>
@@ -51,15 +63,32 @@ const Profiles = ({ profiles }) => {
           }
         </div>
       </div>
-      { profiles.length > 0 && <div className={classes.pagination}>
-          <p>{'< '}prev page</p> <p>next page{' >'}</p>
+      {profiles.length > 0 && <div className={classes.pagination}>
+        <Button
+          disabled={searchOptions.page === 0}
+          onClick={() => handlePageChange('prev')}
+        >
+          {'< '}prev page
+        </Button>
+
+        <Button
+          disabled={searchOptions.page * searchOptions.limit >= searchOptions.profileCount}
+          onClick={() => handlePageChange('next')}
+        >
+          next page{' >'}
+        </Button>
       </div>}
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  profiles: state.profiles
+  profiles: state.profiles,
+  searchOptions: state.search
 })
 
-export default connect(mapStateToProps)(Profiles)
+const mapDispatchToProps = {
+  searchProfiles
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profiles)
