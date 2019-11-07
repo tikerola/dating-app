@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Slider, Button, Typography, Grid, Switch } from '@material-ui/core/'
 import { connect } from 'react-redux'
-import { searchProfiles } from '../actions/profiles'
+import { searchProfiles } from '../../actions/profiles'
 
 
 const useStyles = makeStyles({

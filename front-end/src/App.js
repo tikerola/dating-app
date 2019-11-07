@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import Navigation from './components/Navigation'
-import Sidebar from './components/Sidebar'
-import ContentArea from './components/ContentArea'
+import Navigation from './components/Navigation/Navigation'
+import Sidebar from './components/Sidebar/Sidebar'
+import ContentArea from './components/ContentArea/ContentArea'
 import { theme } from './theme/theme'
 import { connect } from 'react-redux'
 import { setUserFromStorage } from './actions/user'

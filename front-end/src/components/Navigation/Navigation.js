@@ -1,9 +1,9 @@
 import React from 'react'
 import { Paper, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { theme } from '../theme/theme'
+import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
-import { logout } from '../actions/user'
+import { logout } from '../../actions/user'
 
 
 const useStyles = makeStyles({

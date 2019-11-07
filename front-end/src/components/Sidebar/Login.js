@@ -2,9 +2,9 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { theme } from '../theme/theme'
-import useField from '../hooks/useField'
-import { login } from '../actions/user'
+import { theme } from '../../theme/theme'
+import useField from '../../hooks/useField'
+import { login } from '../../actions/user'
 import { connect } from 'react-redux'
 
 

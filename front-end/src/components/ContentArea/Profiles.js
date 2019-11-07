@@ -3,7 +3,7 @@ import SingleProfile from './SingleProfile'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
-import { searchProfiles } from '../actions/profiles'
+import { searchProfiles } from '../../actions/profiles'
 
 const useStyles = makeStyles({
 
