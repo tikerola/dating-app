@@ -2,6 +2,7 @@ const faker = require('faker')
 const developerRouter = require('express').Router()
 const User = require('../models/user')
 const Profile = require('../models/profile')
+const Message = require('../models/message')
 
 developerRouter.post('/fake', async (req, res, next) => {
   const { fakeAmount } = req.body
@@ -11,14 +12,17 @@ developerRouter.post('/fake', async (req, res, next) => {
     const gender = Math.random() > 0.5 ? 'male' : 'female'
     const age = 18 + Math.floor(Math.random() * (99 - 18))
     const passwordHash = faker.date.future()
-    const username = faker.name.firstName(Math.round(Math.random()))
+    const username = faker.internet.userName()
     const text = faker.lorem.paragraph(7)
+    const image = faker.image.avatar()
+    
 
     const newProfile = new Profile({
       username,
       gender,
       age,
-      image: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg',
+      //image: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg',
+      image,
       profileText: text
     })
 
@@ -42,6 +46,14 @@ developerRouter.post('/fake', async (req, res, next) => {
     
   }
   return res.status(201).send('Successfull Addition')
+})
+
+developerRouter.delete('/', async (req, res, next) => {
+  await Message.deleteMany({})
+  await Profile.deleteMany({username: { $ne: 'timo' }})
+  await User.deleteMany({ username: { $ne: 'timo' }})
+
+  res.status(200).send('Deletion successful')
 })
 
 module.exports = developerRouter

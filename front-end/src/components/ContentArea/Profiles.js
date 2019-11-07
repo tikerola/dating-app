@@ -1,9 +1,10 @@
-import React from 'react'
-import SingleProfile from './SingleProfile'
+import React, { useState } from 'react'
+import ProfileThumbnail from './ProfileThumbnail'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
 import { searchProfiles } from '../../actions/profiles'
+import Profile from './Profile'
 
 const useStyles = makeStyles({
 
@@ -40,18 +41,22 @@ const useStyles = makeStyles({
 })
 
 const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
+  const [ selectedProfile, setSelectedProfile ] = useState('')
 
   const classes = useStyles()
 
   const handlePageChange = direction => {
-    
-      searchProfiles({
-        age: searchOptions.age,
-        gender: searchOptions.gender,
-        page: direction === 'next' ? searchOptions.page + 1 : searchOptions.page - 1,
-        limit: searchOptions.limit
-      })
+
+    searchProfiles({
+      age: searchOptions.age,
+      gender: searchOptions.gender,
+      page: direction === 'next' ? searchOptions.page + 1 : searchOptions.page - 1,
+      limit: searchOptions.limit
+    })
   }
+
+  if (selectedProfile)
+    return <Profile profile={selectedProfile} />
 
   return (
     <div className={classes.root}>
@@ -59,7 +64,13 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
       <div className={classes.center}>
         <div className={classes.container}>
           {
-            profiles.map(profile => <SingleProfile key={profile.id} username={profile.username} image={profile.image} />)
+            profiles.map(profile =>
+              <ProfileThumbnail
+                setSelectedProfile={setSelectedProfile}
+                key={profile.id}
+                username={profile.username}
+                image={profile.image}
+              />)
           }
         </div>
       </div>

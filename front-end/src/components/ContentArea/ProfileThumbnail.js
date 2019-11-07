@@ -23,16 +23,16 @@ const useStyles = makeStyles({
   },
   button: {
     margin: '0 auto',
-    fontSize: '0.7em'
+    fontSize: '0.5em'
   },
 });
 
-const SingleProfile = props => {
+const ProfileThumbnail = props => {
   const classes = useStyles()
   
 
   return (
-    <Card className={classes.card} elevation={10}>
+    <Card className={classes.card} elevation={10} onClick={() => props.setSelectedProfile(props.username)}>
       <CardContent className={classes.cardContent}>
         <img src={props.image} alt="profile" width="90" className={classes.image} />
       </CardContent>
@@ -42,4 +42,4 @@ const SingleProfile = props => {
     </Card>
   );
 }
-export default SingleProfile
+export default ProfileThumbnail
