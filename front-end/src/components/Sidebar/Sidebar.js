@@ -6,7 +6,7 @@ import LoginAndSignup from './LoginAndSignup'
 import { connect } from 'react-redux'
 import Search from './Search'
 import Navigation from './Navigation'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import Profile from './Profile'
 
 
@@ -27,9 +27,10 @@ const Sidebar = props => {
   const classes = useStyles()
 
   return <Paper className={classes.root} elevation={10}>
-    <Navigation />
+    { props.loggedIn && <Navigation /> }
     <Route path="/search" component={Search} />
-    <Route exact path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Profile /> } />
+    <Route path="/profile" component={Profile} />
+    <Route path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Redirect to="/profile" /> } />
     
 
   </Paper>

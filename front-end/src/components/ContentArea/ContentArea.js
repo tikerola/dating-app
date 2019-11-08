@@ -6,6 +6,7 @@ import Profiles from './Profiles'
 import { Route } from 'react-router-dom'
 import Profile from './Profile'
 import Navigation from './Navigation'
+import OwnProfile from './OwnProfile'
 
 const useStyles = makeStyles({
   root: {
@@ -23,8 +24,9 @@ const ContentArea = props => {
   
   return <Paper className={classes.root} elevation={5}>
     <Navigation />
-    <Route path="/search/profiles/:username" render={() => <Profile />} />
+    <Route exact path="/search/profiles/:username" render={() => <Profile />} />
     <Route exact path="/search/profiles" render={() => <Profiles />} />
+    <Route exact path="/profile" component={OwnProfile} />
     
 
   </Paper>

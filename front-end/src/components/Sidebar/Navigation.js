@@ -28,7 +28,7 @@ const Navigation = props => {
   const classes = useStyles()
 
   return <div className={classes.root}>
-    <p><NavLink to="/" activeClassName={classes.active} className={classes.navLink} exact >Profile</NavLink></p>
+    <p><NavLink to="/profile" activeClassName={classes.active} className={classes.navLink} exact >Profile</NavLink></p>
     <p><NavLink to="/search" activeClassName={classes.active} className={classes.navLink} >Search</NavLink></p>
   </div>
 }

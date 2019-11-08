@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/user'
+import { withRouter } from 'react-router-dom'
 
 
 const useStyles = makeStyles({
@@ -42,6 +43,7 @@ const Navigation = props => {
 
   const handleLogout = () => {
     props.logout()
+    props.history.push('/')
   }
 
   return <Paper className={classes.root} elevation={5}>
@@ -71,4 +73,4 @@ const mapDispatchToProps = ({
   logout
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

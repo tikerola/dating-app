@@ -52,8 +52,8 @@ function App(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.container} elevation={8}>
-        <Navigation />
         <BrowserRouter>
+          <Navigation />
           <Route path="/" render={(props) => <MainPage {...props} />} />
         </BrowserRouter>
 

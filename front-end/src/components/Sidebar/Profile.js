@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,9 @@ const useStyles = makeStyles({
   container: {
     width: '60%',
     height: '50%',
-    
+  },
+  link: {
+    color: '#bbb'
   }
 })
 
@@ -32,8 +35,8 @@ const Profile = ({ user }) => {
       <p>Gender: {user.gender}</p>
       <p>Age: {user.age}</p>
       <h2>Posts</h2>
-      <p>Inbox</p>
-      <p>Sent mail</p>
+      <p><Link to="/profile/inbox" className={classes.link}>Inbox</Link></p>
+      <p><Link to="/profile/sent" className={classes.link}>Sent mail</Link></p>
     </div>
   </div>
 }
