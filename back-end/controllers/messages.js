@@ -3,10 +3,11 @@ const messagesRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
 const Message = require('../models/message')
 const User = require('../models/user')
+const moment = require('moment')
 
 
 messagesRouter.post('/', async (req, res, next) => {
-  const { title, content, author, createdAt, receiver } = req.body
+  const { title, content, author, receiver } = req.body
 
   try {
 
@@ -16,17 +17,17 @@ messagesRouter.post('/', async (req, res, next) => {
       title,
       content,
       author,
-      createdAt,
+      createdAt: moment().format('LLL'),
       receiver
     })
 
     const savedMessage = await newMessage.save()
 
-    const newAuthor = await User.findById(author)
+    const newAuthor = await User.findOne({ username: author })
     newAuthor.sent = newAuthor.sent.concat(savedMessage._id)
     await newAuthor.save()
 
-    const newReceiver = await User.findById(receiver)
+    const newReceiver = await User.findOne({ username: receiver })
     newReceiver.inbox = newReceiver.inbox.concat(savedMessage._id)
     await newReceiver.save()
 

@@ -4,9 +4,9 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikhhb
 Content-Type: application/json
 
 {
-  "title": "first message",
-  "content": "something wicked",
-  "author": "5dbea27249d45820e4e78422",
-  "createdAt": "Sat Nov 02 2019 13:33:59 GMT+0200 (Eastern European Standard Time)",
-  "receiver": "5dbea24f49d45820e4e78421"
+  "title": "Or do I",
+  "content": "just kidding",
+  "author": "timo",
+  "receiver": "hanna"
 }
+

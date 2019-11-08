@@ -19,7 +19,6 @@ const useStyles = makeStyles({
     backgroundImage: "url('/assets/images/33.jpg')",
     margin: 0,
     padding: 0,
-    fontFamily: 'roboto',
     color: theme.signupHeaderColor
   },
   container: {

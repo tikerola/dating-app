@@ -5,11 +5,11 @@ const messageSchema = new mongoose.Schema({
   content: String,
   createdAt: Date,
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.String,
     ref: 'User'
   },
   receiver: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.String,
     ref: 'User'
   }
 })

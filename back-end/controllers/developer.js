@@ -49,9 +49,9 @@ developerRouter.post('/fake', async (req, res, next) => {
 })
 
 developerRouter.delete('/', async (req, res, next) => {
-  await Message.deleteMany({})
-  await Profile.deleteMany({username: { $ne: 'timo' }})
-  await User.deleteMany({ username: { $ne: 'timo' }})
+  //await Message.deleteMany({})
+  await Profile.deleteMany({username: { $nin: ['timo', 'hanna'] }})
+  await User.deleteMany({ username: { $nin: ['timo', 'hanna'] }})
 
   res.status(200).send('Deletion successful')
 })
