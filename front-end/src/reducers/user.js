@@ -20,6 +20,12 @@ export default (state = initialState, action) => {
     case 'LOGOUT':
       return initialState
 
+      case 'EDIT_PROFILE_TEXT':
+        return {
+          ...state,
+          profile: action.profile
+        }
+
     default:
       return state
   }

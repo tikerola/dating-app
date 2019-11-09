@@ -11,6 +11,7 @@ import Inbox from './Inbox'
 import SentMail from './SentMail'
 import MailContent from './MailContent'
 import SendMailForm from './SendMailForm'
+import EditProfile from './EditProfile'
 
 const useStyles = makeStyles({
   root: {
@@ -35,6 +36,7 @@ const ContentArea = props => {
     <Route exact path="/profile/inbox" component={Inbox} />
     <Route exact path="/profile/sent/:id" component={MailContent} />
     <Route exact path="/profile/sent" component={SentMail} />
+    <Route exact path="/profile/edit" component={EditProfile} />
     <Route exact path="/profile" component={OwnProfile} />
   
   </Paper>

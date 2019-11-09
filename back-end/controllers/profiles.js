@@ -37,9 +37,9 @@ profilesRouter.post('/search', async (req, res, next) => {
   catch (error) {
     next(error)
   }
-
- 
 })
+
+
 
 
 

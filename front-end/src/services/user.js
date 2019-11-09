@@ -1,6 +1,11 @@
 import axios from 'axios'
 
-const baseUrl = '/api'
+let token
+const baseUrl = '/api/user'
+
+const saveToken = tokenToSave => {
+  token = 'bearer ' + tokenToSave
+}
 
 const signup = async (data) => {
   const response = await axios.post(`${baseUrl}/signup`, data)
@@ -12,4 +17,16 @@ const login =  async (data) => {
   return response.data
 }
 
-export default { signup, login }
+const edit = async profileText => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await axios.post(`${baseUrl}/edit`, profileText, config)
+  return response.data
+
+}
+
+export default { signup, login, edit, saveToken }

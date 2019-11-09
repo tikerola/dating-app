@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const config = require('./utils/config')
 const handleError = require('./middlewares/handleError')
 const userRouter = require('./controllers/user')
-const loginRouter = require('./controllers/login')
 const messagesRouter = require('./controllers/messages')
 const developerRouter = require('./controllers/developer')
 const profilesRouter = require('./controllers/profiles')
@@ -21,10 +20,9 @@ mongoose.connect(config.MONGODB_URI, {
   useCreateIndex: true
 }).catch(error => handleError(error))
 
-
-app.use('/api/signup', userRouter)
-app.use('/api/login', loginRouter)
 app.use(tokenFromHeaders)
+app.use('/api/user', userRouter)
+
 app.use('/api/messages', messagesRouter)
 app.use('/api/profiles', profilesRouter)
 app.use('/developer', developerRouter)
