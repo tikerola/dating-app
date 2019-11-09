@@ -33,6 +33,7 @@ const ContentArea = props => {
     <Route exact path="/profile/inbox/:id/reply" component={SendMailForm} />
     <Route exact path="/profile/inbox/:id" component={MailContent} />
     <Route exact path="/profile/inbox" component={Inbox} />
+    <Route exact path="/profile/sent/:id" component={MailContent} />
     <Route exact path="/profile/sent" component={SentMail} />
     <Route exact path="/profile" component={OwnProfile} />
   

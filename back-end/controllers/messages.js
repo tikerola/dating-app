@@ -38,6 +38,47 @@ messagesRouter.post('/', async (req, res, next) => {
   }
 })
 
+messagesRouter.post('/reply', async (req, res, next) => {
+  const { messageId, content } = req.body
+
+  try {
+
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const message = await Message.findById(messageId)
+
+    const newMessage = new Message({
+      author: message.receiver,
+      receiver: message.author,
+      content,
+      title: 'Re: ' + message.title,
+      createdAt: moment().format('LLL')
+    })
+
+    const savedMessage = await newMessage.save()
+    
+
+    const newAuthor = await User.findOne({ username: savedMessage.author })
+    console.log(newAuthor, '*************')
+    newAuthor.sent = newAuthor.sent.concat(savedMessage)
+    await newAuthor.save()
+
+    const newReceiver = await User.findOne({ username: savedMessage.receiver })
+    newReceiver.inbox = newReceiver.inbox.concat(savedMessage)
+    await newReceiver.save()
+
+    return res.status(201).send(savedMessage)
+
+
+  } catch (error) {
+    next(error)
+  }
+
+})
+
 messagesRouter.get('/inbox', async (req, res, next) => {
 
   try {

@@ -31,3 +31,19 @@ export const fetchSent = () => {
     })
   }
 }
+
+export const reply = (messageId, content) => {
+
+  return async (dispatch, getState) => {
+
+    const { token } = getState().user
+    mailService.saveToken(token)
+    const response = await mailService.reply({ messageId, content })
+
+    dispatch({
+      type: 'REPLY',
+      mail: response
+    })
+
+  }
+}

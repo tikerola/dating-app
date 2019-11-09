@@ -32,5 +32,17 @@ const fetchSent = async () => {
   return response.data
 }
 
+const reply = async data => {
 
-export default { fetchInbox, fetchSent, saveToken }
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await axios.post(`${baseUrl}/reply`, data, config)
+  return response.data
+}
+
+
+export default { fetchInbox, fetchSent, reply, saveToken }

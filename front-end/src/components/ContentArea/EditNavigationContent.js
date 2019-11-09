@@ -22,12 +22,12 @@ const MailNavigationContent = props => {
   return (
     <div className={classes.root}>
       <p><NavLink
-        to={`/profile/inbox/${props.match.params.id}/reply`}
+        to={`/profile/edit`}
         exact
         className={classes.navLink}
         activeClassName={classes.active}
       >
-        Reply
+        Edit profile text
         </NavLink></p>
     </div>
   )

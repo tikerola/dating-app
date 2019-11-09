@@ -31,17 +31,24 @@ const MailContent = ({ mail }) => {
     return <div></div>
 
   return <div className={classes.root}>
-    { <h1>{mail.title}</h1> }
+    {<h1>{mail.title}</h1>}
     <div className={classes.container}>
-      { mail.content }
+      {mail.content}
 
     </div>
   </div>
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    mail: state.mail.inbox.find(mail => mail.id === ownProps.match.params.id)
-  }
+const mapStateToProps = (state, { match }) => {
+
+  if (match.path.includes('inbox'))
+    return {
+      mail: state.mail.inbox.find(mail => mail.id === match.params.id)
+    }
+
+  else
+    return {
+      mail: state.mail.sent.find(mail => mail.id === match.params.id)
+    }
 }
 export default connect(mapStateToProps)(MailContent)

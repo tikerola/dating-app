@@ -18,6 +18,12 @@ export default (state = initialState, action) => {
         sent: action.sent
       }
 
+    case 'REPLY':
+      return {
+        ...state,
+        sent: state.sent.concat(action.mail)
+      }
+
 
     default:
       return state

@@ -1,7 +1,10 @@
 import React from 'react'
+import useField from '../../hooks/useField'
 import { makeStyles } from '@material-ui/styles'
 import { TextField, Button } from '@material-ui/core'
 import { theme } from '../../theme/theme'
+import { connect } from 'react-redux'
+import { reply } from '../../actions/mail'
 
 const useStyles = makeStyles({
   root: {
@@ -43,15 +46,23 @@ const useStyles = makeStyles({
 
 })
 
-const SendMailForm = props => {
+const SendMailForm = ({ match, history, reply, recipient }) => {
+
+  const [text, clearText] = useField('text')
 
   const classes = useStyles()
 
+  if (!recipient)
+    return <div></div>
+
+
+
   return <div className={classes.root}>
-    <h1>Reply to</h1>
+    <h1>Reply to: {recipient.author} </h1>
     <TextField
       id="outlined-multiline-static"
       label="Reply"
+      {...text}
       multiline
       rows="7"
       className={classes.textField}
@@ -72,8 +83,25 @@ const SendMailForm = props => {
       }}
     />
 
-    <Button variant="contained" color="primary" onClick={() => {}} className={classes.button}>Send</Button>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => {
+        reply(match.params.id, text.value)
+        clearText()
+        history.push('/profile')
+      }}
+      className={classes.button}
+    >
+      Send
+      </Button>
   </div>
 }
 
-export default SendMailForm
+const mapStateToProps = (state, ownProps) => {
+  return {
+    recipient: state.mail.inbox.find(m => m.id === ownProps.match.params.id)
+  }
+}
+
+export default connect(mapStateToProps, { reply })(SendMailForm)
