@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { setUserFromStorage } from './actions/user'
 import { BrowserRouter, Route } from 'react-router-dom'
 import MainPage from './components/MainPage'
+import Notification from './components/NotificationSnackbar/Notification';
+
 
 const useStyles = makeStyles({
   root: {
@@ -55,7 +57,7 @@ function App(props) {
           <Navigation />
           <Route path="/" render={(props) => <MainPage {...props} />} />
         </BrowserRouter>
-
+        <Notification />
       </Paper>
     </div>
   );

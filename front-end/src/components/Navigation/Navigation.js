@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { logout } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
 
+import openSocket from 'socket.io-client'
+import { setNotification } from '../../actions/notification'
 
 const useStyles = makeStyles({
   root: {
@@ -39,21 +41,30 @@ const useStyles = makeStyles({
 
 const Navigation = props => {
 
+  const { username, loggedIn, profile, logout, setNotification, history } = props
+
   const classes = useStyles()
 
+  const socket = openSocket('http://localhost:3001')
+  socket.on('mail', data => { 
+    if(data.username === username) {
+      setNotification(`${data.mail.author} sent you mail`)
+    }
+  })
+
   const handleLogout = () => {
-    props.logout()
-    props.history.push('/')
+    logout()
+    history.push('/')
   }
 
   return <Paper className={classes.root} elevation={5}>
     <img src='/assets/images/title.png' alt='title' />
     <div className={classes.loggedInContainer}>
       {
-        props.loggedIn 
+        loggedIn 
         ?
-        <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{props.username}</span></p>
-        { props.profile && <img src={props.profile.image} width='130' alt='face' />}
+        <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{username}</span></p>
+        { profile && <img src={profile.image} width='130' alt='face' />}
         <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
         :
         ''
@@ -70,7 +81,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = ({
-  logout
+  logout,
+  setNotification
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

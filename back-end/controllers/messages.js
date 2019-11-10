@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const Message = require('../models/message')
 const User = require('../models/user')
 const moment = require('moment')
+const io = require('../socket/socket')
 
 
 messagesRouter.post('/', async (req, res, next) => {
@@ -60,9 +61,8 @@ messagesRouter.post('/reply', async (req, res, next) => {
 
     const savedMessage = await newMessage.save()
     
-
     const newAuthor = await User.findOne({ username: savedMessage.author })
-    console.log(newAuthor, '*************')
+    
     newAuthor.sent = newAuthor.sent.concat(savedMessage)
     await newAuthor.save()
 
@@ -70,8 +70,9 @@ messagesRouter.post('/reply', async (req, res, next) => {
     newReceiver.inbox = newReceiver.inbox.concat(savedMessage)
     await newReceiver.save()
 
-    return res.status(201).send(savedMessage)
+    io.getIo().emit('mail', { username: newReceiver.username, mail: savedMessage })
 
+    return res.status(201).send(savedMessage)
 
   } catch (error) {
     next(error)
