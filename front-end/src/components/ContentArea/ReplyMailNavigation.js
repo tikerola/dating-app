@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 })
 
-const MailNavigationContent = props => {
+const ReplyMailNavigation = props => {
 
   const classes = useStyles()
 
@@ -33,4 +33,4 @@ const MailNavigationContent = props => {
   )
 }
 
-export default MailNavigationContent
+export default ReplyMailNavigation

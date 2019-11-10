@@ -18,9 +18,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    //background: 'rgba(0, 0, 0, 0.7)',
-    padding: '20px',
-    //borderRadius: '5px'
+    padding: '20px'
     
   },
   image: {

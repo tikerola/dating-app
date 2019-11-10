@@ -10,7 +10,7 @@ import OwnProfile from './OwnProfile'
 import Inbox from './Inbox'
 import SentMail from './SentMail'
 import MailContent from './MailContent'
-import SendMailForm from './SendMailForm'
+import ReplyMailForm from './ReplyMailForm'
 import EditProfile from './EditProfile'
 
 const useStyles = makeStyles({
@@ -31,7 +31,7 @@ const ContentArea = props => {
     <Navigation />
     <Route exact path="/search/profiles/:username" render={() => <Profile />} />
     <Route exact path="/search/profiles" render={() => <Profiles />} />
-    <Route exact path="/profile/inbox/:id/reply" component={SendMailForm} />
+    <Route exact path="/profile/inbox/:id/reply" component={ReplyMailForm} />
     <Route exact path="/profile/inbox/:id" component={MailContent} />
     <Route exact path="/profile/inbox" component={Inbox} />
     <Route exact path="/profile/sent/:id" component={MailContent} />

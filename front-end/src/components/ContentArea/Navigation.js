@@ -2,8 +2,9 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
 import { Route } from 'react-router-dom'
-import MailNavigationContent from './MailNavigationContent'
+import ReplyMailNavigation from './ReplyMailNavigation'
 import EditNavigationContent from './EditNavigationContent'
+import SendMailNavigation from './SendMailNavigation'
 
 const useStyles = makeStyles({
   root: {
@@ -23,8 +24,9 @@ const Navigation = props => {
   const classes = useStyles()
 
   return <div className={classes.root}>
-    <Route exact path="/profile/inbox/:id" component={MailNavigationContent} />
+    <Route exact path="/profile/inbox/:id" component={ReplyMailNavigation} />
     <Route exact path="/profile" component={EditNavigationContent} />
+    <Route exact path="/search/profiles/:username" component={SendMailNavigation} />
 
   </div>
 }

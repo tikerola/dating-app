@@ -70,7 +70,7 @@ messagesRouter.post('/reply', async (req, res, next) => {
     newReceiver.inbox = newReceiver.inbox.concat(savedMessage)
     await newReceiver.save()
 
-    io.getIo().emit('mail', { username: newReceiver.username, mail: savedMessage })
+    io.getIo().emit('mail', { receiver: newReceiver.username, author: newAuthor.username, mail: savedMessage })
 
     return res.status(201).send(savedMessage)
 

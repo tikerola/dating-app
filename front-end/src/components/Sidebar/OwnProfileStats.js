@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Profile = ({ user, fetchInbox, fetchSent }) => {
+const OwnProfileStats = ({ user, fetchInbox, fetchSent }) => {
 
   const classes = useStyles()
 
@@ -51,4 +51,4 @@ const mapDispatchToProps = {
   fetchSent
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(OwnProfileStats)

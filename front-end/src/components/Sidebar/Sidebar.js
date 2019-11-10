@@ -7,7 +7,8 @@ import { connect } from 'react-redux'
 import Search from './Search'
 import Navigation from './Navigation'
 import { Route, Redirect } from 'react-router-dom'
-import Profile from './Profile'
+import OwnProfileStats from './OwnProfileStats'
+import ProfileStats from './ProfileStats'
 
 
 const useStyles = makeStyles({
@@ -28,8 +29,9 @@ const Sidebar = props => {
 
   return <Paper className={classes.root} elevation={10}>
     { props.loggedIn && <Navigation /> }
-    <Route path="/search" component={Search} />
-    <Route path="/profile" component={Profile} />
+    <Route path="/search/profiles/:username" component={ProfileStats} />
+    <Route exact path="/search" component={Search} />
+    <Route path="/profile" component={OwnProfileStats} />
     <Route path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Redirect to="/profile" /> } />
     
 

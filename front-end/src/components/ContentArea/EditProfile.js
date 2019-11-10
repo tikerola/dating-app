@@ -48,14 +48,12 @@ const useStyles = makeStyles({
 
 const EditProfile = ({ history, editProfileText, oldText }) => {
 
-  const [text, clearText] = useField('text')
+  const [text, clearText] = useField('text', undefined, oldText)
 
   const classes = useStyles()
 
   if (!oldText)
     return <div></div>
-
-    
 
   return <div className={classes.root}>
     <h1>Edit profile text</h1>

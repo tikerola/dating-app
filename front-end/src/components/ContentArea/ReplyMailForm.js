@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 
 })
 
-const SendMailForm = ({ match, history, reply, recipient }) => {
+const ReplyMailForm = ({ match, history, reply, recipient }) => {
 
   const [text, clearText] = useField('text')
 
@@ -54,8 +54,6 @@ const SendMailForm = ({ match, history, reply, recipient }) => {
 
   if (!recipient)
     return <div></div>
-
-
 
   return <div className={classes.root}>
     <h1>Reply to: {recipient.author} </h1>
@@ -104,4 +102,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { reply })(SendMailForm)
+export default connect(mapStateToProps, { reply })(ReplyMailForm)

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-const useField = (type, pattern) => {
-  const [ value, setValue ] = useState('')
+const useField = (type, pattern, defaultValue) => {
+  const [ value, setValue ] = useState(defaultValue ? defaultValue : '')
 
   const onChange = e => {
     if (pattern && pattern.test(e.target.value))

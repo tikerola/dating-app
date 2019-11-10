@@ -47,8 +47,11 @@ const Navigation = props => {
 
   const socket = openSocket('http://localhost:3001')
   socket.on('mail', data => { 
-    if(data.username === username) {
+    if(data.receiver === username) {
       setNotification(`${data.mail.author} sent you mail`)
+    }
+    else if (data.author === username) {
+      setNotification(`You sent mail to ${data.mail.receiver}`)
     }
   })
 
