@@ -4,7 +4,7 @@ import profilesReducer from '../reducers/profiles'
 import searchReducer from '../reducers/search'
 import mailReducer from '../reducers/mail'
 import notificationReducer from '../reducers/notification'
-import logger from 'redux-logger'
+//import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
@@ -15,6 +15,6 @@ const rootReducer = combineReducers({
   notification: notificationReducer
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger))
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store

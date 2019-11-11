@@ -13,6 +13,7 @@ import MailContent from './MailContent'
 import ReplyMailForm from './ReplyMailForm'
 import EditProfile from './EditProfile'
 import SendMailForm from './SendMailForm'
+import Chat from './chat/chat'
 
 const useStyles = makeStyles({
   root: {
@@ -31,6 +32,7 @@ const ContentArea = props => {
   return <Paper className={classes.root} elevation={5}>
     <Navigation />
     <Route exact path="/search/profiles/:username/send" component={SendMailForm} />
+    <Route exact path="/search/profiles/:username/chat" component={Chat} />
     <Route exact path="/search/profiles/:username" render={() => <Profile />} />
     <Route exact path="/search/profiles" render={() => <Profiles />} />
     <Route exact path="/profile/inbox/:id/reply" component={ReplyMailForm} />
