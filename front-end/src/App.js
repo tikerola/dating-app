@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Navigation from './components/Navigation/Navigation'
 
 import { theme } from './theme/theme'
-import { connect } from 'react-redux'
-import { setUserFromStorage } from './actions/user'
 import { BrowserRouter, Route } from 'react-router-dom'
 import MainPage from './components/MainPage'
 import Notification from './components/NotificationSnackbar/Notification';
@@ -43,13 +41,6 @@ function App(props) {
 
   const classes = useStyles()
 
-  useEffect(() => {
-    const user = localStorage.getItem('userData')
-
-    if (user)
-      props.setUserFromStorage(JSON.parse(user))
-  })
-
   return (
     <div className={classes.root}>
       <Paper className={classes.container} elevation={8}>
@@ -63,8 +54,5 @@ function App(props) {
   );
 }
 
-const mapDispatchToProps = ({
-  setUserFromStorage
-})
 
-export default connect(null, mapDispatchToProps)(App);
+export default App;

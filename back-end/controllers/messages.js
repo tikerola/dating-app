@@ -55,7 +55,7 @@ messagesRouter.post('/reply', async (req, res, next) => {
       author: message.receiver,
       receiver: message.author,
       content,
-      title: 'Re: ' + message.title,
+      title: message.title.includes('Re: ') ? message.title : 'Re: ' + message.title,
       createdAt: moment().format('LLL')
     })
 
@@ -128,7 +128,7 @@ messagesRouter.get('/inbox', async (req, res, next) => {
 
     const userWithInbox = await User.findById(user.id).populate('inbox')
     
-    return res.send(userWithInbox.inbox)
+    return res.send(userWithInbox.inbox.sort((a, b) => b.createdAt - a.createdAt))
   }
   catch (error) {
     next(error)
@@ -141,7 +141,7 @@ messagesRouter.get('/sent', async (req, res, next) => {
 
     const userWithSent = await User.findById(user.id).populate('sent')
     
-    return res.send(userWithSent.sent)
+    return res.send(userWithSent.sent.sort((a, b) => b.createdAt - a.createdAt))
   }
   catch (error) {
     next(error)

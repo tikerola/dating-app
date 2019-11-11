@@ -11,7 +11,6 @@ export default (state = initialState, action) => {
         ...action.userData
       }
     case 'LOGIN':
-    case 'SET_USER_FROM_STORAGE':
       return {
         loggedIn: true,
         ...action.userData

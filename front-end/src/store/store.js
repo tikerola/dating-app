@@ -4,8 +4,16 @@ import profilesReducer from '../reducers/profiles'
 import searchReducer from '../reducers/search'
 import mailReducer from '../reducers/mail'
 import notificationReducer from '../reducers/notification'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 //import logger from 'redux-logger'
 import thunk from 'redux-thunk'
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['user', 'profiles', 'search', 'mail', 'notification']
+}
 
 const rootReducer = combineReducers({
   user: usersReducer,
@@ -15,6 +23,6 @@ const rootReducer = combineReducers({
   notification: notificationReducer
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = createStore(persistReducer(persistConfig, rootReducer), applyMiddleware(thunk))
 
-export default store
+export const persistor = persistStore(store)

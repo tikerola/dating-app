@@ -1,54 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react'
+import { Launcher } from 'react-chat-window'
 
-const ChatPortal = props => {
-
-  let externalWindow = useRef(null)
-  
-
-  useEffect(() => {
-    externalWindow.current = window.open('', '', 'width=400,height=500,left=200,top=200')
-   
-    externalWindow.current.document.title = 'Let\'s find love - chat';
-
-    externalWindow.current.addEventListener('beforeunload', () => {
-      props.closeWindowPortal();
-    });
-
-    return () => {
-      externalWindow.current.close()
-    }
-  })
-
-  return ReactDOM.createPortal(props.children, document.body)
-}
 
 const Chat = props => {
-  const [showPortal, setShowPortal] = useState(true)
 
-  useEffect(() => {
-    window.addEventListener('beforeunload', () => {
-      closeWindowPortal();
-    });
-  })
+  const [ messages, setMessages ] = React.useState([])
 
-  // const toggleWindowPortal = () => {
-  //   setShowPortal(!showPortal)
-  // }
-
-  const closeWindowPortal = () => {
-    setShowPortal(false)
+  const onMessageWasSent = message => {
+    setMessages([...messages, message])
   }
 
-  return <div>
-    { showPortal && <ChatPortal closeWindowPortal={closeWindowPortal}>
-      <div>Fuck you</div>
-
-      <button onClick={() => closeWindowPortal()} >
-        Close me!
-            </button>
-    </ChatPortal>}
-  </div>
+  return (
+    <div>
+      <Launcher
+        agentProfile={{
+          teamName: 'Let\'s find love - Chat',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+        }}
+        onMessageWasSent={onMessageWasSent}
+        messageList={messages}
+        showEmoji
+        
+      />
+    </div>
+  )
 }
 
 export default Chat

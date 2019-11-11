@@ -28,7 +28,7 @@ const StyledTableCell = withStyles({
 const useStyles = makeStyles({
   container: {
     width: '100%',
-    height: '90%',
+    height: '80%',
     color: '#bbb',
     textAlign: 'center',
     display: 'flex',
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     alignItems: 'center'
   },
   root: {
-    width: '60%',
+    width: '70%',
     overflowX: 'auto',
     background: 'rgba(0, 0, 0, 0.2)'
     

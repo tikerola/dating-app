@@ -21,13 +21,6 @@ export const login = credentials => {
   }
 }
 
-export const setUserFromStorage = userData => {
-  return {
-    type: 'SET_USER_FROM_STORAGE',
-    userData
-  }
-}
-
 export const logout = () => {
   localStorage.clear()
 
