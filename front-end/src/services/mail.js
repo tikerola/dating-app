@@ -44,5 +44,17 @@ const reply = async data => {
   return response.data
 }
 
+const sendMail = async data => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { fetchInbox, fetchSent, reply, saveToken }
+  const response = await axios.post(`${baseUrl}/send`, data, config)
+  return response.data
+
+}
+
+
+export default { fetchInbox, fetchSent, reply, sendMail, saveToken }

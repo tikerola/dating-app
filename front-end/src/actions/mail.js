@@ -44,6 +44,20 @@ export const reply = (messageId, content) => {
       type: 'REPLY',
       mail: response
     })
+  }
+}
 
+export const sendMail = (username, title, content) => {
+
+  return async (dispatch, getState) => {
+
+    const { token } = getState().user
+    mailService.saveToken(token)
+    const response = await mailService.sendMail({ username, title, content })
+
+    dispatch({
+      type: 'SEND_MAIL',
+      mail: response
+    })
   }
 }
