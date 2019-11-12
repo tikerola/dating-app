@@ -4,6 +4,7 @@ import profilesReducer from '../reducers/profiles'
 import searchReducer from '../reducers/search'
 import mailReducer from '../reducers/mail'
 import notificationReducer from '../reducers/notification'
+import chatReducer from '../reducers/chat'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 //import logger from 'redux-logger'
@@ -12,7 +13,7 @@ import thunk from 'redux-thunk'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'profiles', 'search', 'mail', 'notification']
+  whitelist: ['user', 'profiles', 'search', 'mail', 'notification', 'chat']
 }
 
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   profiles: profilesReducer,
   search: searchReducer,
   mail: mailReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  chat: chatReducer
 })
 
 export const store = createStore(persistReducer(persistConfig, rootReducer), applyMiddleware(thunk))

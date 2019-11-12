@@ -13,7 +13,7 @@ import MailContent from './MailContent'
 import ReplyMailForm from './ReplyMailForm'
 import EditProfile from './EditProfile'
 import SendMailForm from './SendMailForm'
-import Chat from './chat/chat'
+import Chat from './chat/Chat'
 
 const useStyles = makeStyles({
   root: {
