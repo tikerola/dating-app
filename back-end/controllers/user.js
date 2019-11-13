@@ -1,6 +1,7 @@
 require('dotenv').config()
 const userRouter = require('express').Router()
 const User = require('../models/user')
+const parser = require('../utils/cloudinary')()
 const Profile = require('../models/profile')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -11,11 +12,12 @@ userRouter.post('/signup', async (req, res, next) => {
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 
+
   const newProfile = new Profile({
     username,
     gender,
     age,
-    image: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg',
+    image: { imageUrl: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg' },
     profileText: 'Nothing to show just yet'
   })
 
@@ -45,7 +47,7 @@ userRouter.post('/login', async (req, res, next) => {
 
   const user = await User.findOne({ username }).populate('profile')
   const match = await bcrypt.compare(password, user.passwordHash)
-  
+
 
   if (!user || !match) {
     return res.status(401).send('Unauthorized user')
@@ -88,6 +90,31 @@ userRouter.post('/edit', async (req, res, next) => {
 
   }
   catch (error) {
+    next(error)
+  }
+})
+
+userRouter.post('/image', parser.single("file"), async (req, res, next) => {
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const profileToUpdate = await Profile.findOne({ username: user.username })
+
+    const image = {
+      imageUrl: req.file.url,
+      id: req.file.public_id
+    }
+
+    profileToUpdate.image = image
+    await profileToUpdate.save()
+
+    res.status(201).send(image)
+
+  } catch (error) {
     next(error)
   }
 })

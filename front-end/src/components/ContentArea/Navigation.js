@@ -9,7 +9,7 @@ import SendMailNavigation from './SendMailNavigation'
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    height: '60px',
+    height: '10%',
     background: theme.smallNavigationBackground,
     display: 'flex',
     flexDirection: 'row',
@@ -27,7 +27,6 @@ const Navigation = props => {
     <Route exact path="/profile/inbox/:id" component={ReplyMailNavigation} />
     <Route exact path="/profile" component={EditNavigationContent} />
     <Route exact path="/search/profiles/:username" component={SendMailNavigation} />
-
   </div>
 }
 

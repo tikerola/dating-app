@@ -29,4 +29,21 @@ const edit = async profileText => {
 
 }
 
-export default { signup, login, edit, saveToken }
+const addProfileImage = async file => {
+
+  const data = new FormData()
+  data.append('file', file, file.name)
+
+  const config = {
+    headers: {
+      Authorization: token,
+      'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+    },
+  }
+
+  const response = await axios.post(`${baseUrl}/image`, data, config)
+  return response.data
+}
+
+
+export default { signup, login, edit, addProfileImage, saveToken }

@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 
 const Navigation = props => {
 
-  const { username, loggedIn, profile, logout, setNotification, history } = props
+  const { username, loggedIn, logout, setNotification, history } = props
 
   const classes = useStyles()
 
@@ -67,7 +67,7 @@ const Navigation = props => {
         loggedIn 
         ?
         <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{username}</span></p>
-        { profile && <img src={profile.image} width='130' alt='face' />}
+        <img src="/assets/images/boygirl.png" width='130' alt='face' /> 
         <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
         :
         ''
@@ -80,7 +80,6 @@ const Navigation = props => {
 const mapStateToProps = state => ({
   username: state.user.username,
   loggedIn: state.user.loggedIn,
-  profile: state.user.profile
 })
 
 const mapDispatchToProps = ({

@@ -2,7 +2,7 @@ import React from 'react'
 import { Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import Profiles from './Profiles'
 import Profile from './Profile'
 import Navigation from './Navigation'
@@ -15,22 +15,39 @@ import EditProfile from './EditProfile'
 import SendMailForm from './SendMailForm'
 import Chat from './chat/Chat'
 
+
 const useStyles = makeStyles({
   root: {
     width: '74%',
     height: '80%',
     marginRight: '1%',
     background: theme.contentAreaBackground,
-    border: '2px solid #bbb'
+    border: '2px solid #bbb',
+    overflow: 'hidden'
+  },
+  welcome: {
+    width: '100%',
+    height: '100%',
+    backgroundImage: "url('/assets/images/tausta2.jpg')"
+    
   }
 })
 
-const ContentArea = props => {
+const Welcome = props => {
+  const classes = useStyles()
 
+  return <div className={classes.welcome}>
+    
+  </div>
+}
+
+const ContentArea = ({ location }) => {
+
+  
   const classes = useStyles()
   
   return <Paper className={classes.root} elevation={5}>
-    <Navigation />
+    { location.pathname !== '/' && <Navigation /> }
     <Route exact path="/search/profiles/:username/send" component={SendMailForm} />
     <Route exact path="/search/profiles/:username/chat" component={Chat} />
     <Route exact path="/search/profiles/:username" render={() => <Profile />} />
@@ -42,9 +59,10 @@ const ContentArea = props => {
     <Route exact path="/profile/sent" component={SentMail} />
     <Route exact path="/profile/edit" component={EditProfile} />
     <Route exact path="/profile" component={OwnProfile} />
+    <Route exact path="/" component={Welcome} />
   
   </Paper>
 }
 
 
-export default ContentArea
+export default withRouter(ContentArea)

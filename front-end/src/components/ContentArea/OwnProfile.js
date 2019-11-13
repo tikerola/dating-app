@@ -53,7 +53,7 @@ const Profile = ({ profile }) => {
     <div className={classes.root}>
       <h1>{profile.username}</h1>
       <div className={classes.container}>
-        <img src={profile.image} alt={`${profile.username}`} width="100" className={classes.image} />
+        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="100" className={classes.image} />
         <div className={classes.text}>
           {profile.profileText ? profile.profileText : <div className={classes.noText}>No profile text added yet</div>}
         </div>

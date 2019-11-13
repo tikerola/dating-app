@@ -25,6 +25,15 @@ export default (state = initialState, action) => {
           profile: action.profile
         }
 
+      case 'ADD_PROFILE_PICTURE':
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            image: action.image
+          }
+        }
+
     default:
       return state
   }

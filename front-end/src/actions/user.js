@@ -44,3 +44,19 @@ export const editProfileText = profileText => {
     })
   }
 }
+
+export const addProfileImage = file => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.addProfileImage(file)
+
+    dispatch({
+      type: 'ADD_PROFILE_PICTURE',
+      image: response
+    })
+
+  }
+}

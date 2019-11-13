@@ -22,7 +22,7 @@ developerRouter.post('/fake', async (req, res, next) => {
       gender,
       age,
       //image: gender === 'male' ? 'https://image.flaticon.com/icons/svg/145/145867.svg' : 'https://image.flaticon.com/icons/svg/145/145852.svg',
-      image,
+      image: { imageUrl: image },
       profileText: text
     })
 
