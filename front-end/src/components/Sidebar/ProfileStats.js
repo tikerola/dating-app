@@ -1,6 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
+import { theme } from '../../theme/theme'
+import { Paper } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
@@ -12,14 +14,20 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start',
     marginTop: '20%',
     alignItems: 'center',
-    
+
   },
   container: {
-    width: '60%',
+    width: '80%',
     height: '50%',
   },
   link: {
     color: '#bbb'
+  },
+  paper: {
+    background: theme.sidebarBackground,
+    padding: '16px',
+    color: '#bbb',
+    textAlign: 'center'
   }
 })
 
@@ -29,10 +37,12 @@ const ProfileStats = ({ profile }) => {
 
   return <div className={classes.root}>
     <div className={classes.container}>
-      <h2>Personal info</h2>
-      <p>Username: {profile.username}</p>
-      <p>Gender: {profile.gender}</p>
-      <p>Age: {profile.age}</p>
+      <Paper className={classes.paper} elevation={10}>
+        <h2>Personal info</h2>
+        <p>Username: {profile.username}</p>
+        <p>Gender: {profile.gender}</p>
+        <p>Age: {profile.age}</p>
+      </Paper>
     </div>
   </div>
 }
