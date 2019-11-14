@@ -12,7 +12,9 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    color: '#bbb'
+    color: '#bbb',
+    //boxShadow: '0px 2px 18px 2px rgba(255,255,255,0.75)'
+    boxShadow: '-1px 5px 18px 0px rgba(255,255,255,0.7)'
   },
   navLink: {
     color: '#999',

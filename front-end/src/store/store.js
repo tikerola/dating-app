@@ -10,7 +10,7 @@ import storage from 'redux-persist/lib/storage'
 //import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-const persistConfig = {
+export const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['user', 'profiles', 'search', 'mail', 'notification', 'chat']

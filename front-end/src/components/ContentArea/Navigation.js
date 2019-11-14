@@ -6,16 +6,20 @@ import ReplyMailNavigation from './ReplyMailNavigation'
 import EditNavigationContent from './EditNavigationContent'
 import SendMailNavigation from './SendMailNavigation'
 
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
     height: '10%',
-    background: theme.smallNavigationBackground,
+    backgroundColor: theme.smallNavigationBackground,
+    
+    background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 0 %, rgba(0, 0, 0, 1) 35 %, rgba(0, 212, 255, 1) 100 %)',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    color: '#999'
+    color: '#999',
+    boxShadow: '-1px 5px 18px 0px rgba(255,255,255,0.7)'
   }
 })
 

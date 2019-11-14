@@ -56,8 +56,9 @@ const Navigation = props => {
   })
 
   const handleLogout = () => {
-    logout()
     history.push('/')
+    logout()
+    
   }
 
   return <Paper className={classes.root} elevation={5}>
