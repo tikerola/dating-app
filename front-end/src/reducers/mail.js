@@ -25,6 +25,9 @@ export default (state = initialState, action) => {
         sent: state.sent.concat(action.mail)
       }
 
+    case 'RESET':
+      return initialState
+
     default:
       return state
   }

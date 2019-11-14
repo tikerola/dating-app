@@ -51,6 +51,11 @@ const SentMail = ({ sent }) => {
 
   const classes = useStyles()
 
+  if (sent.length === 0)
+    return <div className={classes.container}>
+      <h1>No Mails Sent</h1>
+    </div>
+
   return <div className={classes.container}>
     <h1>Sent Mail</h1>
     <Paper className={classes.root}>

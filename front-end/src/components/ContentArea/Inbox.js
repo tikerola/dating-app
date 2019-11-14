@@ -48,8 +48,13 @@ const useStyles = makeStyles({
 })
 
 const Inbox = ({ inbox }) => {
-
+  
   const classes = useStyles()
+
+  if (inbox.length === 0)
+    return <div className={classes.container}>
+      <h1>Inbox is Empty</h1>
+    </div>
 
   return <div className={classes.container}>
     <h1>Inbox</h1>

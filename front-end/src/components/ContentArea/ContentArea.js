@@ -36,9 +36,7 @@ const useStyles = makeStyles({
 const Welcome = props => {
   const classes = useStyles()
 
-  return <div className={classes.welcome}>
-    
-  </div>
+  return <div className={classes.welcome} />
 }
 
 const ContentArea = ({ location }) => {

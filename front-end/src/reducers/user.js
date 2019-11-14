@@ -17,22 +17,23 @@ export default (state = initialState, action) => {
       }
 
     case 'LOGOUT':
+    case 'RESET':
       return initialState
 
-      case 'EDIT_PROFILE_TEXT':
-        return {
-          ...state,
-          profile: action.profile
-        }
+    case 'EDIT_PROFILE_TEXT':
+      return {
+        ...state,
+        profile: action.profile
+      }
 
-      case 'ADD_PROFILE_PICTURE':
-        return {
-          ...state,
-          profile: {
-            ...state.profile,
-            image: action.image
-          }
+    case 'ADD_PROFILE_PICTURE':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          image: action.image
         }
+      }
 
     default:
       return state

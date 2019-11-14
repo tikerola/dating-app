@@ -1,7 +1,5 @@
 
 import userService from '../services/user'
-import { purgeStoredState } from 'redux-persist'
-import { persistConfig } from '../store/store'
 
 export const signup = userData => {
   return {
@@ -25,10 +23,9 @@ export const login = credentials => {
 
 export const logout = () => {
   localStorage.clear()
-  purgeStoredState(persistConfig)
 
   return {
-    type: 'LOGOUT'
+    type: 'RESET'
   }
 }
 

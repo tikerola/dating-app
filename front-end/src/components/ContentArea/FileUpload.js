@@ -6,10 +6,10 @@ import { addProfileImage } from '../../actions/user'
 
 const FileWindow = styled('div')({
   width: '300px',
-  height: '40px',
   backgroundColor: '#1769aa',
   color: '#fff',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '16px',
@@ -19,7 +19,7 @@ const FileWindow = styled('div')({
   left: '50%',
   top: '50%',
   fontSize: '17px',
-  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
+  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
 })
 
 
@@ -44,6 +44,8 @@ const FileUpload = props => {
           onChange={handleChange}
         />
       </Button>
+      <p style={{ fontSize: '0.7em', color: '#ccc'}}>max width/height: 500px (jpg/png)</p>
+      
   </FileWindow>
 }
 

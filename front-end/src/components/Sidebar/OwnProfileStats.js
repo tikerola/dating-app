@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    marginTop: '20%',
+    marginTop: '12%',
     alignItems: 'center',
     
   },

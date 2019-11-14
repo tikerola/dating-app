@@ -7,6 +7,7 @@ const userRouter = require('./controllers/user')
 const messagesRouter = require('./controllers/messages')
 const developerRouter = require('./controllers/developer')
 const profilesRouter = require('./controllers/profiles')
+const chatRouter = require('./controllers/chat')
 const tokenFromHeaders = require('./middlewares/tokenFromHeaders')
 const cors = require('cors')
 
@@ -23,7 +24,7 @@ mongoose.connect(config.MONGODB_URI, {
 
 app.use(tokenFromHeaders)
 app.use('/api/user', userRouter)
-
+app.use('/api/chat', chatRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/profiles', profilesRouter)
 app.use('/developer', developerRouter)

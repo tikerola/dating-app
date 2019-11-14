@@ -5,8 +5,9 @@ import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
-
 import openSocket from 'socket.io-client'
+import { receiveChatMessage } from '../../actions/chat'
+
 import { setNotification } from '../../actions/notification'
 
 const useStyles = makeStyles({
@@ -42,36 +43,42 @@ const useStyles = makeStyles({
 const Navigation = props => {
 
   const { username, loggedIn, logout, setNotification, history } = props
-
+  const socket = openSocket('http://localhost:3001')
   const classes = useStyles()
 
-  const socket = openSocket('http://localhost:3001')
-  socket.on('mail', data => { 
-    if(data.receiver === username) {
+  socket.on('mail', data => {
+    if (data.receiver === username) {
       setNotification(`${data.mail.author} sent you mail`)
     }
     else if (data.author === username) {
       setNotification(`You sent mail to ${data.mail.receiver}`)
+    }
+    console.log('paskaa')
+  })
+  socket.on('chat', data => {
+    console.log(data.message.to, username, '****************')
+    if (data.message.to === username) {
+      receiveChatMessage(data.message) 
     }
   })
 
   const handleLogout = () => {
     history.push('/')
     logout()
-    
+
   }
 
   return <Paper className={classes.root} elevation={5}>
     <img src='/assets/images/title.png' alt='title' />
     <div className={classes.loggedInContainer}>
       {
-        loggedIn 
-        ?
-        <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{username}</span></p>
-        <img src="/assets/images/boygirl.png" width='130' alt='face' /> 
-        <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
-        :
-        ''
+        loggedIn
+          ?
+          <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{username}</span></p>
+            <img src="/assets/images/boygirl.png" width='130' alt='face' />
+            <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
+          :
+          ''
       }
     </div>
 
@@ -85,7 +92,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = ({
   logout,
-  setNotification
+  setNotification,
+  receiveChatMessage
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

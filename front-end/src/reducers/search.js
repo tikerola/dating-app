@@ -15,6 +15,9 @@ export default (state = initialState, action) => {
         ...action.data
       }
 
+    case 'RESET':
+      return initialState
+
     default:
       return state
   }
