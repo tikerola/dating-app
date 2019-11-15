@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Paper, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
@@ -40,27 +40,41 @@ const useStyles = makeStyles({
   }
 })
 
+//koita useEffectiä tai toista tiedostoa
+const socket = openSocket('http://localhost:3001')
+
 const Navigation = props => {
 
-  const { username, loggedIn, logout, setNotification, history } = props
-  const socket = openSocket('http://localhost:3001')
+  const { username, loggedIn, logout, setNotification, history, receiveChatMessage } = props
+  
   const classes = useStyles()
 
-  socket.on('mail', data => {
-    if (data.receiver === username) {
-      setNotification(`${data.mail.author} sent you mail`)
-    }
-    else if (data.author === username) {
-      setNotification(`You sent mail to ${data.mail.receiver}`)
-    }
-    console.log('paskaa')
-  })
-  socket.on('chat', data => {
-    console.log(data.message.to, username, '****************')
-    if (data.message.to === username) {
-      receiveChatMessage(data.message) 
-    }
-  })
+  useEffect(() => {
+    socket.on('mail', data => {
+      if (data.receiver === username) {
+        setNotification(`${data.mail.author} sent you mail`)
+      }
+      else if (data.author === username) {
+        setNotification(`You sent mail to ${data.mail.receiver}`)
+      }
+      console.log('paskaa')
+    })
+  }, [setNotification, username])
+
+  useEffect(() => {
+    
+
+    
+    socket.on('chat', data => {
+      
+      if (data.message.to === username) {
+        console.log(data.message.to, username, '****************')
+        receiveChatMessage(data.message) 
+      }
+    })
+  }, [username, receiveChatMessage])
+
+  
 
   const handleLogout = () => {
     history.push('/')
