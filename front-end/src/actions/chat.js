@@ -27,7 +27,7 @@ export const sendChatMessage = (from, to, message) => {
     dispatch({
       type: 'ADD_CHAT_MESSAGE',
       id: to,
-      message: message
+      message: `You: ${message}`
     })
   }
 }
@@ -44,8 +44,21 @@ export const createChatSession = (to) => {
   }
 }
 
-export const receiveChatMessage = (from, message) => ({
-  type: 'RECEIVE_CHAT_MESSAGE',
-  id: from,
-  message
-})
+export const receiveChatMessage = (from, message) => {
+
+
+  return async (dispatch, getState) => {
+
+    const sessions = getState().chat.sessions
+
+    if (!sessions[from])
+      await dispatch(createChatSession(from))
+
+    dispatch({type: 'RECEIVE_CHAT_MESSAGE',
+    id: from,
+    message: `${from}: ${message}`})
+
+  }
+
+  
+}

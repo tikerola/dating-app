@@ -60,13 +60,14 @@ const Navigation = props => {
 
   useEffect(() => {
     
-    socket.emit('newUser', username)
+    if (username)
+      socket.emit('newUser', username)
+    
     
     socket.on('chat', data => {
       console.log(data)
       if (data.to === username) {
-        console.log(data.to, username, '****************')
-        receiveChatMessage(data.from, `${data.from}: ${data.message}`) 
+        receiveChatMessage(data.from, data.message) 
       }
     })
   }, [username, receiveChatMessage])

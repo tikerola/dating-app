@@ -102,7 +102,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Chat = ({ sendChatMessage, messages, username, closeChat, chatWith, sessions }) => {
+const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')

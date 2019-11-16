@@ -10,26 +10,27 @@ const io = require('./socket/socket').init(server)
 io.on('connection', socket => {
 
   socket.on('newUser', username => {
-    clients[username] = socket.id
-    //console.log(clients[username], ' connected')
+    
+    if (username !== null)
+      clients[username] = socket.id
   })
 
   socket.on('chat', data => {
-    console.log(data, 'ÅÅÅÅÅÅÅÅÅÅ')
-    const id = clients[data.to]
     
+    const id = clients[data.to]
+    console.log(clients, 'in chat')
     io.to(`${id}`).emit('chat', data)
   })
   
   
+  
   socket.on('disconnect', function (data) {
-    //console.log(clients[socket.id] + " disconnected");
     
     for (key in clients) {
       if (clients[key] === socket.id) {
-        console.log(`${key} disconnected`)
         delete clients[key]
       }
     }
+   
   })
 })

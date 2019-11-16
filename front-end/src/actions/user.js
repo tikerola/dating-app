@@ -1,5 +1,6 @@
 
 import userService from '../services/user'
+import { socket } from '../index'
 
 export const signup = userData => {
   return {
@@ -23,6 +24,8 @@ export const login = credentials => {
 
 export const logout = () => {
   localStorage.clear()
+  socket.disconnect()
+  window.location.reload(true)
 
   return {
     type: 'RESET'

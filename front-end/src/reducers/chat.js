@@ -1,9 +1,6 @@
 
 const initialState = {
-  sessions: {
-    
-  }
-  ,
+  sessions: {},
   chatOpen: false
 }
 
