@@ -5,10 +5,10 @@ import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
-import openSocket from 'socket.io-client'
 import { receiveChatMessage } from '../../actions/chat'
-
+import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
+import Chat from '../ContentArea/chat/Chat'
 
 const useStyles = makeStyles({
   root: {
@@ -40,12 +40,9 @@ const useStyles = makeStyles({
   }
 })
 
-//koita useEffectiä tai toista tiedostoa
-const socket = openSocket('http://localhost:3001')
-
 const Navigation = props => {
 
-  const { username, loggedIn, logout, setNotification, history, receiveChatMessage } = props
+  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen } = props
   
   const classes = useStyles()
 
@@ -63,13 +60,13 @@ const Navigation = props => {
 
   useEffect(() => {
     
-
+    socket.emit('newUser', username)
     
     socket.on('chat', data => {
-      
-      if (data.message.to === username) {
-        console.log(data.message.to, username, '****************')
-        receiveChatMessage(data.message) 
+      console.log(data)
+      if (data.to === username) {
+        console.log(data.to, username, '****************')
+        receiveChatMessage(data.from, `${data.from}: ${data.message}`) 
       }
     })
   }, [username, receiveChatMessage])
@@ -94,6 +91,8 @@ const Navigation = props => {
           :
           ''
       }
+
+      { chatOpen && <Chat />}
     </div>
 
   </Paper>
@@ -102,6 +101,7 @@ const Navigation = props => {
 const mapStateToProps = state => ({
   username: state.user.username,
   loggedIn: state.user.loggedIn,
+  chatOpen: state.chat.chatOpen
 })
 
 const mapDispatchToProps = ({

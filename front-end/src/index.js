@@ -4,9 +4,12 @@ import App from './App';
 import { persistor, store } from './store/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import openSocket from 'socket.io-client'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
+
+export const socket = openSocket('http://localhost:3001')
+
 
 ReactDOM.render(
   <Provider store={store}>

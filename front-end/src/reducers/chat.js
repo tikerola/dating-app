@@ -1,6 +1,9 @@
 
 const initialState = {
-  messages: [],
+  sessions: {
+    
+  }
+  ,
   chatOpen: false
 }
 
@@ -27,17 +30,40 @@ export default (state = initialState, action) => {
     case 'ADD_CHAT_MESSAGE':
       return {
         ...state,
-        messages: state.messages.concat(action.message)
+        sessions: {
+          ...state.sessions,
+          [action.id]: {
+            ...[action.id],
+            messages: state.sessions[action.id].messages.concat(action.message)
+          }
+        }
       }
 
-      case 'RECEIVE_CHAT_MESSAGE':
-        return {
-          chatOpen: true,
-          messages: state.messages.concat(action.message)
+    case 'RECEIVE_CHAT_MESSAGE':
+      return {
+        ...state,
+        chatOpen: true,
+        sessions: {
+          ...state.sessions,
+          [action.id]: {
+            ...[action.id],
+            messages: state.sessions[action.id].messages.concat(action.message)
+          }
         }
+      }
 
-      case 'RESET':
-        return initialState
+    case 'CREATE_CHAT_SESSION': 
+    return {
+      ...state,
+      chatOpen: true,
+      sessions: {
+        ...state.sessions,
+        [action.id]: action.session
+      }
+    }
+
+    case 'RESET':
+      return initialState
 
     default:
       return state

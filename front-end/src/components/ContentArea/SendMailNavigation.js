@@ -1,9 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
-import Chat from './chat/Chat'
 import { connect } from 'react-redux'
-import { toggleChat } from '../../actions/chat'
+import { createChatSession } from '../../actions/chat'
+
 
 const useStyles = makeStyles({
   root: {
@@ -40,24 +40,15 @@ const SendMailNavigation = props => {
         </NavLink></p>
 
         <p className={classes.navLink} onClick={() => {
-          props.toggleChat()
+          props.createChatSession(props.match.params.username, props.username)
         }}>Chat</p>
-
-        {/* <p><NavLink
-        to={`/search/profiles/${props.match.params.username}/chat`}
-        exact
-        className={classes.navLink}
-        activeClassName={classes.active}
-      >
-        Chat
-        </NavLink></p> */}
-        {props.chatOpen && <Chat />}
+       
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  chatOpen: state.chat.chatOpen
+  username: state.user.username
 })
 
-export default connect(mapStateToProps, { toggleChat })(SendMailNavigation)
+export default connect(mapStateToProps, { createChatSession })(SendMailNavigation)

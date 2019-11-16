@@ -1,5 +1,6 @@
 
-import chatService from '../services/chat'
+
+import { socket } from '../index'
 
 export const openChat = () => ({
   type: 'OPEN_CHAT'
@@ -13,22 +14,38 @@ export const toggleChat = () => ({
   type: 'TOGGLE_CHAT'
 })
 
-export const sendChatMessage = (message) => {
+export const sendChatMessage = (from, to, message) => {
   
   return async (dispatch, getState) => {
-    const { token } = getState().user
-    chatService.saveToken(token)
+    // const { token } = getState().user
+    // chatService.saveToken(token)
 
-    const response = await chatService.sendChatMessage(message)
+    // const response = await chatService.sendChatMessage(message)
+
+    socket.emit('chat', { from, to, message })
 
     dispatch({
       type: 'ADD_CHAT_MESSAGE',
-      message: response
+      id: to,
+      message: message
     })
   }
 }
 
-export const receiveChatMessage = message => ({
+export const createChatSession = (to) => {
+  const session = {
+    messages: []
+  }
+
+  return {
+    type: 'CREATE_CHAT_SESSION',
+    id: to,
+    session
+  }
+}
+
+export const receiveChatMessage = (from, message) => ({
   type: 'RECEIVE_CHAT_MESSAGE',
+  id: from,
   message
 })

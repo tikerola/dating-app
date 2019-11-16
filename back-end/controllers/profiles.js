@@ -19,12 +19,14 @@ profilesRouter.post('/search', async (req, res, next) => {
     if (page === 1)
       count = await Profile.find({
         age: {$gte: age[0], $lte: age[1]},
+        username: {$ne: user.username },
         gender: gender
       })
       .countDocuments()
 
     const profiles = await Profile.find({
       age: {$gte: age[0], $lte: age[1]},
+      username: {$ne: user.username },
       gender: gender
     })
     .sort({ username: 1 })

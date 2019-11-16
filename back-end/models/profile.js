@@ -1,16 +1,5 @@
 const mongoose = require('mongoose')
 
-// const imageSchema = new mongoose.Schema({
-//   url: {
-//     type: String,
-//     unique: true
-//   },
-//   imageId: String
-// })
-
-// const Image = mongoose.model('Image', imageSchema)
-
-
 const profileSchema = new mongoose.Schema({
   username: {
     type: String,

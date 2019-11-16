@@ -1,24 +1,35 @@
 const config = require('./utils/config')
 const app = require('./app')
 
-let clients = []
+let clients = {}
 
 
 const server = app.listen(config.PORT, () => console.log(`Server serving from port ${config.PORT}`))
 
 const io = require('./socket/socket').init(server)
 io.on('connection', socket => {
-  // socket.on('chat', data => {
-  //   console.log('*********', data)
-  //   io.emit('chat', data)
-  // })
-  
-  clients[socket.id] = socket
 
-  console.log(socket.id)
+  socket.on('newUser', username => {
+    clients[username] = socket.id
+    //console.log(clients[username], ' connected')
+  })
+
+  socket.on('chat', data => {
+    console.log(data, 'ÅÅÅÅÅÅÅÅÅÅ')
+    const id = clients[data.to]
+    
+    io.to(`${id}`).emit('chat', data)
+  })
+  
   
   socket.on('disconnect', function (data) {
-    console.log(socket.id + " disconnected");
-    delete clients[socket.id];
+    //console.log(clients[socket.id] + " disconnected");
+    
+    for (key in clients) {
+      if (clients[key] === socket.id) {
+        console.log(`${key} disconnected`)
+        delete clients[key]
+      }
+    }
   })
 })

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { styled, makeStyles } from '@material-ui/styles'
 import useField from '../../../hooks/useField'
-import ArrowDropDownCircleTwoToneIcon from '@material-ui/icons/ArrowDropDownCircleTwoTone'
+import { Button } from '@material-ui/core'
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import { connect } from 'react-redux'
 import { sendChatMessage } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
+import { closeChat } from '../../../actions/chat'
 
 const ChatWindowMax = styled('div')({
   width: '300px',
@@ -20,6 +22,7 @@ const ChatWindowMax = styled('div')({
   bottom: '30px',
   fontSize: '17px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
+
 })
 
 const ChatWindowMin = styled('div')({
@@ -34,7 +37,10 @@ const ChatWindowMin = styled('div')({
   right: '5%',
   bottom: '30px',
   fontSize: '17px',
-  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
+  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around'
 })
 
 const useStyles = makeStyles({
@@ -72,8 +78,8 @@ const useStyles = makeStyles({
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginRight: '5%'
+    justifyContent: 'flex-start',
+    margin: '10px'
   },
   inputContainer: {
     height: '15%',
@@ -90,10 +96,13 @@ const useStyles = makeStyles({
     margin: 0,
     width: '92%',
     borderRadius: '5px'
+  },
+  button: {
+    fontSize: '0.5em'
   }
 })
 
-const Chat = ({ sendChatMessage, messages, match, username }) => {
+const Chat = ({ sendChatMessage, messages, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
@@ -102,25 +111,42 @@ const Chat = ({ sendChatMessage, messages, match, username }) => {
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
-      sendChatMessage({ to: match.params.username, from: username, message: message.value })
+      sendChatMessage(username, chatWith[0], message.value )
       clearMessage()
     }
   }
 
   if (!maximized)
-    return <ChatWindowMin onClick={() => setMaximized(true)}>Chat</ChatWindowMin>
+    return <ChatWindowMin>
+      <Button
+        size="small"
+        className={classes.button}
+        onClick={() => setMaximized(true)}
+      >
+        Open
+        </Button>
+      <span>Chat</span>
+      <Button
+        size="small"
+        className={classes.button}
+        onClick={() => closeChat()}
+      >
+        close
+        </Button>
+    </ChatWindowMin>
 
   return (
     <ChatWindowMax>
       <div className={classes.root}>
         <div className={classes.navigation}>
-          <p>Let's Find Love - Chat</p>
-          <ArrowDropDownCircleTwoToneIcon onClick={() => setMaximized(false)}>minimize</ArrowDropDownCircleTwoToneIcon>
+          {chatWith.map((person) => <span key={person}>{person}</span>)}
+          <ArrowDropDown onClick={() => setMaximized(false)}>minimize</ArrowDropDown>
         </div>
         <div className={classes.body}>
           <div className={classes.text}>
             <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-              { messages && messages.map((message, index) => <li style={{ padding: '10px' }} key={index}>{message.message}</li>)}
+              {chatWith && sessions[chatWith].messages.map((message, index) => 
+              <li style={{ padding: '10px' }} key={index}>{message}</li>)}
             </ul>
           </div>
           <div className={classes.inputContainer}>
@@ -136,8 +162,10 @@ const mapStateToProps = state => {
 
   return {
     messages: state.chat.messages,
-    username: state.user.username
+    username: state.user.username,
+    chatWith: Object.keys(state.chat.sessions),
+    sessions: state.chat.sessions
   }
 }
 
-export default connect(mapStateToProps, { sendChatMessage })(withRouter(Chat))
+export default connect(mapStateToProps, { sendChatMessage, closeChat })(withRouter(Chat))
