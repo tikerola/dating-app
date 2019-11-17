@@ -65,11 +65,20 @@ const Navigation = props => {
     
     
     socket.on('chat', data => {
-      console.log(data)
       if (data.to === username) {
+        console.log(data, '***********')
         receiveChatMessage(data.from, data.message) 
       }
     })
+
+    socket.on('disconnect', (reason) => {
+      if (reason === 'io server disconnect') {
+        
+        socket.connect();
+      }
+      
+    })
+
   }, [username, receiveChatMessage])
 
   

@@ -8,6 +8,7 @@ const server = app.listen(config.PORT, () => console.log(`Server serving from po
 
 const io = require('./socket/socket').init(server)
 io.on('connection', socket => {
+  console.log(socket.id, ' connected')
 
   socket.on('newUser', username => {
     
@@ -18,7 +19,7 @@ io.on('connection', socket => {
   socket.on('chat', data => {
     
     const id = clients[data.to]
-    console.log(clients, 'in chat')
+    
     io.to(`${id}`).emit('chat', data)
   })
   
@@ -31,6 +32,8 @@ io.on('connection', socket => {
         delete clients[key]
       }
     }
+
+    console.log(socket.id, ' disconnected')
    
   })
 })

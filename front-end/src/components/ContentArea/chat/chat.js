@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { styled, makeStyles } from '@material-ui/styles'
+import { TextField, MenuItem } from '@material-ui/core'
 import useField from '../../../hooks/useField'
 import { Button } from '@material-ui/core'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
@@ -7,31 +8,33 @@ import { connect } from 'react-redux'
 import { sendChatMessage } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
 import { closeChat } from '../../../actions/chat'
+import { theme } from '../../../theme/theme'
+
 
 const ChatWindowMax = styled('div')({
-  width: '300px',
+  width: '350px',
   height: '400px',
-  backgroundColor: '#1769aa',
+  backgroundColor: 'blue',
   color: '#fff',
   textAlign: 'center',
-  padding: '1%',
   borderRadius: '5px',
   position: 'fixed',
   zIndex: 50,
   right: '5%',
-  bottom: '30px',
+  bottom: '40px',
   fontSize: '17px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
 
 })
 
 const ChatWindowMin = styled('div')({
-  width: '300px',
+  width: '350px',
   backgroundColor: '#1769aa',
   color: '#fff',
   textAlign: 'center',
   borderRadius: '5px',
-  padding: '1%',
+  paddingTop: '10px',
+  paddingBottom: '10px',
   position: 'fixed',
   zIndex: 50,
   right: '5%',
@@ -46,72 +49,128 @@ const ChatWindowMin = styled('div')({
 const useStyles = makeStyles({
   root: {
     height: '100%',
-    width: '100%',
-
+    width: '100%'
   },
   navigation: {
     height: '12%',
     color: 'white',
+    background: 'rgba(0, 0, 0, 0.4)',
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginBottom: '2%',
-    padding: '5px',
-    boxShadow: '0px 0px 13px 0px rgba(0,0,0,0.75)'
+    padding: '5px'
 
   },
   body: {
-    height: '84%',
+    height: '88%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    paddingTop: '10px',
-
-
+    
   },
   text: {
+    width: '100%',
     height: '85%',
     overflow: 'auto',
     color: 'white',
-    borderRadius: '5px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    margin: '10px'
+    borderRadius: '5px'
   },
   inputContainer: {
-    height: '15%',
+    height: '12%',
     width: '100%',
     padding: 0,
     borderRadius: '5px',
-    margin: 0,
+
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center'
+
   },
   input: {
-    padding: '10px',
-    margin: 0,
-    width: '92%',
+    width: '100%',
+    borderRadius: '5px',
+
+  },
+  left: {
+    width: '95%',
+    paddingLeft: '5%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    textAlign: 'left'
+    
+  },
+  right: {
+    width: '95%',
+    paddingRight: '5%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    textAlign: 'right',
+  },
+  li: {
+    maxWidth: '60%', 
+    padding: '5px',
+    marginTop: '10px',
+    marginBottom: '10px',
     borderRadius: '5px'
   },
   button: {
     fontSize: '0.5em'
-  }
+  },
+  textField: {
+    width: '200px',
+    background: 'purple',
+    fontSize: '0.5em'
+  },
+  cssLabel: {
+    color: theme.inputLabelColor
+  },
+
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `${theme.inputFocusedBorderColor} !important`,
+    },
+    color: 'white'
+  },
+  cssFocused: {
+    color: `${theme.inputFocusedLabelColor} !important`
+  },
+  icon: {
+    backgroundColor: 'inherit'
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: `${theme.inputBorderColor} !important`
+  },
 })
 
 const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
+  const [ selectedPerson ] = useField('text')
+
+  const messagesRef = useRef()
 
   const classes = useStyles()
 
+  const scrollToBottom = () => {
+    if (messagesRef.current)
+      messagesRef.current.scrollIntoView({ behavior: 'smooth'})
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  })
+
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
-      sendChatMessage(username, chatWith[0], message.value )
+      sendChatMessage(username, chatWith[0], message.value)
       clearMessage()
     }
   }
@@ -125,7 +184,33 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
       >
         Open
         </Button>
-      <span>Chat</span>
+        <TextField
+          select
+          
+          className={classes.textField}
+          label="Chat with..."
+          {...selectedPerson}
+          variant="outlined"
+          InputLabelProps={{
+            classes: {
+              root: classes.cssLabel,
+              focused: classes.cssFocused,
+            },
+          }}
+          InputProps={{ 
+            classes: {
+              root: classes.cssOutlinedInput,
+              focused: classes.cssFocused,
+              notchedOutline: classes.notchedOutline,
+            }
+          }}
+        >
+          {chatWith.map(name => (
+            <MenuItem key={name} value={name}>
+              {name}
+            </MenuItem>))}
+
+        </TextField>
       <Button
         size="small"
         className={classes.button}
@@ -139,15 +224,21 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
     <ChatWindowMax>
       <div className={classes.root}>
         <div className={classes.navigation}>
-          {chatWith.map((person) => <span key={person}>{person}</span>)}
+          { selectedPerson.value }
+          
           <ArrowDropDown onClick={() => setMaximized(false)}>minimize</ArrowDropDown>
         </div>
         <div className={classes.body}>
           <div className={classes.text}>
-            <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-              {chatWith && sessions[chatWith].messages.map((message, index) => 
-              <li style={{ padding: '10px' }} key={index}>{message}</li>)}
+            <ul style={{ listStyleType: 'none', margin: 0, padding: 0, width: '100%' }} >
+              {selectedPerson.value && sessions[selectedPerson.value].messages.map((message, index) =>
+                <div key={index} className={message.includes('You: ') ? classes.right : classes.left}>
+                  <li className={classes.li} style={{ background: message.includes('You: ') ? 'light-blue' : 'purple' }} >{message}</li>
+                </div>)
+              }
+              {chatWith && <div ref={messagesRef}></div>}
             </ul>
+            
           </div>
           <div className={classes.inputContainer}>
             <input {...message} onKeyUp={handleKeyUp} className={classes.input} placeholder="write something..." />
