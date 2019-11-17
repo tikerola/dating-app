@@ -24,7 +24,6 @@ const ChatWindowMax = styled('div')({
   bottom: '40px',
   fontSize: '17px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
-
 })
 
 const ChatWindowMin = styled('div')({
@@ -60,14 +59,15 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    padding: '5px'
+    padding: '5px',
+    marginBottom: '3%'
 
   },
   body: {
     height: '88%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
     
   },
   text: {
@@ -82,7 +82,7 @@ const useStyles = makeStyles({
     width: '100%',
     padding: 0,
     borderRadius: '5px',
-
+    marginTop: '3%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center'
@@ -91,7 +91,8 @@ const useStyles = makeStyles({
   input: {
     width: '100%',
     borderRadius: '5px',
-
+    padding: '10px',
+    borderStyle: 'none'
   },
   left: {
     width: '95%',
@@ -120,40 +121,40 @@ const useStyles = makeStyles({
     borderRadius: '5px'
   },
   button: {
-    fontSize: '0.5em'
+    fontSize: '0.5em',
+    color: '#aaa'
   },
   textField: {
-    width: '200px',
-    background: 'purple',
-    fontSize: '0.5em'
+    width: '180px'
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '0.7em',
+    
   },
 
   cssOutlinedInput: {
-    '&$cssFocused $notchedOutline': {
-      borderColor: `${theme.inputFocusedBorderColor} !important`,
+    '&$cssFocused': {
+      borderColor: `${theme.inputFocusedBorderColor} !important`
     },
-    color: 'white'
+    
+    color: 'white',
+    fontSize: '0.8em'
   },
   cssFocused: {
     color: `${theme.inputFocusedLabelColor} !important`
   },
   icon: {
-    backgroundColor: 'inherit'
+    backgroundColor: 'white'
   },
-  notchedOutline: {
-    borderWidth: '1px',
-    borderColor: `${theme.inputBorderColor} !important`
-  },
+  
 })
 
 const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
-  const [ selectedPerson ] = useField('text')
+  const [ selectedPerson ] = useField('text', undefined, chatWith)
 
   const messagesRef = useRef()
 
@@ -186,11 +187,6 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
         </Button>
         <TextField
           select
-          
-          className={classes.textField}
-          label="Chat with..."
-          {...selectedPerson}
-          variant="outlined"
           InputLabelProps={{
             classes: {
               root: classes.cssLabel,
@@ -200,10 +196,12 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
           InputProps={{ 
             classes: {
               root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
+              focused: classes.cssFocused
             }
           }}
+          className={classes.textField}
+          label="Chat with..."
+          {...selectedPerson}
         >
           {chatWith.map(name => (
             <MenuItem key={name} value={name}>
@@ -252,7 +250,6 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 const mapStateToProps = state => {
 
   return {
-    messages: state.chat.messages,
     username: state.user.username,
     chatWith: Object.keys(state.chat.sessions),
     sessions: state.chat.sessions
