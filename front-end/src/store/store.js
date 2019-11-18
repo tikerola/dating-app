@@ -7,7 +7,7 @@ import notificationReducer from '../reducers/notification'
 import chatReducer from '../reducers/chat'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-//import logger from 'redux-logger'
+import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 export const persistConfig = {
@@ -25,6 +25,6 @@ const rootReducer = combineReducers({
   chat: chatReducer
 })
 
-export const store = createStore(persistReducer(persistConfig, rootReducer), applyMiddleware(thunk))
+export const store = createStore(persistReducer(persistConfig, rootReducer), applyMiddleware(thunk, logger))
 
 export const persistor = persistStore(store)

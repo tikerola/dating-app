@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     flexDirection: 'row'
   },
   image: {
-    borderRadius: '5px'
+    borderRadius: '5px',
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
   },
   text: {
     marginLeft: '20px',
@@ -38,7 +39,7 @@ const Profile = ({ match, profiles }) => {
     <div className={classes.root}>
       <h1>{profile.username}</h1>
       <div className={classes.container}>
-        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="200" className={classes.image} />
+        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="150" className={classes.image} />
         <p className={classes.text}>{profile.profileText}</p>
       </div>
     </div>

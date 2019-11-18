@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Slider, Button, Typography, Grid, Switch, TextField } from '@material-ui/core/'
 import { connect } from 'react-redux'
-import { searchProfiles } from '../../actions/profiles'
+import { searchProfiles, searchProfile } from '../../actions/profiles'
 import { withRouter } from 'react-router-dom'
 import { theme } from '../../theme/theme'
 import { Paper } from '@material-ui/core'
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
-      borderColor: `#444 !important`,
+      borderColor: `#1769aa !important`,
     },
     borderColor: '#444',
     color: '#444'
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
   },
   notchedOutline: {
     borderWidth: '1px',
-    borderColor: `#444 !important`
+    borderColor: `#1769aa !important`
   },
   paper: {
     width: '90%',
@@ -86,7 +86,13 @@ const Search = props => {
     setValue(newValue);
   }
 
-  const handleSubmit = () => {
+  const handleSearchProfile = () => {
+    props.searchProfile(username.value, props.history)
+    
+    clearUsername()
+  }
+
+  const handleSearchProfiles = () => {
 
     const searchData = {
       age: value,
@@ -137,9 +143,9 @@ const Search = props => {
         <Button
           className={classes.button}
           size="small"
-          variant='contained'
+          variant="outlined"
           color='primary'
-          onClick={handleSubmit}
+          onClick={handleSearchProfiles}
         >
           Search
         </Button>
@@ -150,7 +156,7 @@ const Search = props => {
           {...username}
           className={classes.textField}
           label="Search by username"
-          margin="normal"
+          margin="dense"
           fullWidth
           variant="outlined"
           InputLabelProps={{
@@ -170,9 +176,9 @@ const Search = props => {
         <Button
           className={classes.button}
           size="small"
-          variant='contained'
+          variant="outlined"
           color='primary'
-          onClick={handleSubmit}
+          onClick={handleSearchProfile}
         >
           Search
         </Button>
@@ -183,4 +189,4 @@ const Search = props => {
 }
 
 
-export default connect(null, { searchProfiles })(withRouter(Search))
+export default connect(null, { searchProfiles, searchProfile })(withRouter(Search))

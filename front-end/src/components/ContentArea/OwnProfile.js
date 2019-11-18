@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     
   },
   image: {
-    borderRadius: '5px'
+    borderRadius: '5px',
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
   },
   text: {
     width: '90%',
@@ -53,7 +54,7 @@ const Profile = ({ profile }) => {
     <div className={classes.root}>
       <h1>{profile.username}</h1>
       <div className={classes.container}>
-        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="100" className={classes.image} />
+        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="150" className={classes.image} />
         <div className={classes.text}>
           {profile.profileText ? profile.profileText : <div className={classes.noText}>No profile text added yet</div>}
         </div>

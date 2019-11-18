@@ -20,5 +20,17 @@ const searchProfiles = async (searchOptions) => {
   return response.data
 }
 
+const searchProfile = async username => {
 
-export default { searchProfiles, saveToken }
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await axios.post(`${baseUrl}/searchOne`, { username }, config)
+  return response.data
+}
+
+
+export default { searchProfiles, searchProfile, saveToken }

@@ -12,7 +12,10 @@ module.exports = (error, req, res, next) => {
   if (error.message.includes('invalid token'))
     return res.status(401).send('Error: invalid token!')
 
-  
-  
+  if (error.message.includes('No such username'))
+    return res.status(400).send('Error: no such username')
+
+
+
   next(error)
 }

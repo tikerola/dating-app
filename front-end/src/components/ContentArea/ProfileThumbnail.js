@@ -12,8 +12,8 @@ const useStyles = makeStyles({
     height: '100%',
     background: 'black',
     marginLeft: '10px',
-    marginBottom: '10px'
-    
+    marginBottom: '10px',
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
   },
   cardContent: {
     padding: 0

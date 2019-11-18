@@ -37,11 +37,16 @@ const useStyles = makeStyles({
     borderWidth: '1px',
     borderColor: `${theme.inputBorderColor} !important`
   },
+  buttonContainer: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
   button: {
-    marginTop: '30px',
-    marginLeft: 'auto',
-    marginRight: '10%',
-    width: '175px'
+    marginTop: '10px',
+    marginRight: '30px',
+    width: '100px'
   }
 
 })
@@ -80,19 +85,31 @@ const ReplyMailForm = ({ match, history, reply, recipient }) => {
         }
       }}
     />
-
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => {
-        reply(match.params.id, text.value)
-        clearText()
-        history.push('/profile')
-      }}
-      className={classes.button}
-    >
-      Send
+    <div className={classes.buttonContainer}>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => {
+          history.goBack()
+        }}
+        className={classes.button}
+      >
+        Cancel
       </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          reply(match.params.id, text.value)
+          clearText()
+          history.push('/profile')
+        }}
+        className={classes.button}
+      >
+        Send
+      </Button>
+    </div>
   </div>
 }
 

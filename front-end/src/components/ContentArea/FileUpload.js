@@ -32,7 +32,7 @@ const FileUpload = props => {
   }
 
   return <FileWindow>
-    <div style={{ width: '100%', textAlign: 'right'}}>
+    <div style={{ width: '100%', textAlign: 'right', cursor: 'pointer'}}>
     <CloseIcon fontSize="small" onClick={() => props.setShowFileUpload(false)} />
     </div>
     <Button

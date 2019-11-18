@@ -41,6 +41,30 @@ profilesRouter.post('/search', async (req, res, next) => {
   }
 })
 
+profilesRouter.post('/searchOne', async (req, res, next) => {
+  const { username } = req.body
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const profile = await Profile.findOne({ username })
+
+    if (!profile) {
+      throw new Error('No such username')
+    }
+
+    return res.send(profile)
+
+  }
+  catch (error) {
+    next(error)
+  }
+
+
+})
+
 
 
 

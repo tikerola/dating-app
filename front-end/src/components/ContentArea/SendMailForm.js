@@ -108,7 +108,7 @@ const SendMailForm = ({ match, history, sendMail }) => {
     />
     <div className={classes.buttonContainer}>
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={() => {
           history.goBack()

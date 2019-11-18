@@ -88,7 +88,7 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
     />
     <div className={classes.buttonContainer}>
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={() => {
           history.push('/profile')
