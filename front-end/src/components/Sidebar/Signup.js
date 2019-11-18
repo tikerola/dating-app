@@ -132,7 +132,7 @@ const Signup = props => {
 
         <TextField
           {...username}
-          
+          margin="dense"
           className={classes.textField}
           label="Username"
           fullWidth
@@ -154,7 +154,7 @@ const Signup = props => {
 
         <TextField
           select
-          
+          margin="dense"
           className={classes.textField}
           label="Gender"
           {...gender}
@@ -184,7 +184,7 @@ const Signup = props => {
         <TextField
           className={classes.textField}
           {...age}
-          
+          margin="dense"
           label="Age"
           variant="outlined"
           InputLabelProps={{ 
@@ -206,7 +206,7 @@ const Signup = props => {
         <TextField
           className={classes.textField}
           {...password}
-          
+          margin="dense"
           label="Password"
           variant="outlined"
           InputLabelProps={{
@@ -228,7 +228,7 @@ const Signup = props => {
         <TextField
           className={classes.textField}
           {...confirmPassword}
-          
+          margin="dense"
           label="Confirm password"
           variant="outlined"
           InputLabelProps={{
@@ -246,7 +246,7 @@ const Signup = props => {
           }}
         />
 
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+        <Button variant="contained" size="small" color="primary" className={classes.button} onClick={handleSubmit}>
           Submit
         </Button>
 

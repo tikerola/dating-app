@@ -9,7 +9,8 @@ import { receiveChatMessage } from '../../actions/chat'
 import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
 import Chat from '../ContentArea/chat/Chat'
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from '@material-ui/icons/Person'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
   username: {
     color: 'white'
   },
-  iconAndName: {
+  iconAndText: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
@@ -102,11 +103,15 @@ const Navigation = props => {
         loggedIn
           ?
           <div className={classes.loggedIn}>
-            <div className={classes.iconAndName}>
+            <div className={classes.iconAndText}>
               <PersonIcon style={{ paddingRight: '5px' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
             </div>
             <img src="/assets/images/boygirl.png" width='130' alt='face' />
-            <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
+            <div className={classes.iconAndText}>
+              <ExitToAppIcon style={{ paddingRight: '5px' }} />
+              <Button color='primary' size='small' onClick={handleLogout}>Log out</Button>
+            </div>
+          </div>
           :
           ''
       }

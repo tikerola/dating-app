@@ -13,22 +13,26 @@ import { theme } from '../../../theme/theme'
 
 
 const ChatWindowMax = styled('div')({
-  width: '350px',
-  height: '400px',
-  backgroundColor: 'blue',
+  width: '322px',
+  height: '500px',
+  overflow: 'hidden',
   color: '#fff',
   textAlign: 'center',
-  borderRadius: '5px',
+  borderTopLeftRadius: '50px',
+  borderTopRightRadius: '50px',
+  borderBottomRightRadius: '5px',
+  borderBottomLeftRadius: '5px',
   position: 'fixed',
   zIndex: 50,
   right: '5%',
-  bottom: '40px',
+  bottom: '30px',
   fontSize: '17px',
-  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)'
+  boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
+  backgroundImage: "url('/assets/images/puh1.png')",
 })
 
 const ChatWindowMin = styled('div')({
-  width: '350px',
+  width: '322px',
   backgroundColor: '#1769aa',
   color: '#fff',
   textAlign: 'center',
@@ -49,33 +53,35 @@ const ChatWindowMin = styled('div')({
 const useStyles = makeStyles({
   root: {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    
   },
   navigation: {
-    height: '12%',
+    height: '20%',
     color: 'white',
-    background: 'rgba(0, 0, 0, 0.4)',
-    borderRadius: '5px',
+    background: 'rgba(25, 25, 250, 0.8)',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: '20px',
-    marginBottom: '3%'
+    paddingLeft: '25px',
+    
 
   },
   body: {
-    height: '88%',
+    height: '80%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end'
-
+    justifyContent: 'flex-end',
+    background: 'rgba(25, 25, 250, 0.8)',
+    
   },
   text: {
+    paddingTop: '30px',
     width: '100%',
     height: '85%',
     overflow: 'auto',
-    color: 'white',
+    color: 'black',
     borderRadius: '5px'
   },
   inputContainer: {
@@ -86,18 +92,19 @@ const useStyles = makeStyles({
     marginTop: '3%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center'
-
+    justifyContent: 'center',
+    
   },
   input: {
     width: '100%',
-    borderRadius: '5px',
+    borderStyle: 'none',
     padding: '10px',
-    borderStyle: 'none'
+    borderBottomLeftRadius: '5px',
+    borderBottomRightRadius: '5px'
   },
   left: {
-    width: '95%',
-    paddingLeft: '5%',
+    width: '88%',
+    paddingLeft: '12%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -106,8 +113,8 @@ const useStyles = makeStyles({
 
   },
   right: {
-    width: '95%',
-    paddingRight: '5%',
+    width: '90%',
+    paddingRight: '10%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -115,7 +122,7 @@ const useStyles = makeStyles({
     textAlign: 'right',
   },
   li: {
-    maxWidth: '60%',
+    maxWidth: '70%',
     padding: '5px',
     marginTop: '10px',
     marginBottom: '10px',
@@ -126,7 +133,8 @@ const useStyles = makeStyles({
     color: '#aaa'
   },
   textField: {
-    width: '180px'
+    width: '180px',
+    
   },
   cssLabel: {
     color: theme.inputLabelColor,
@@ -162,7 +170,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
-  const [selectedPerson] = useField('text', undefined, chatWith)
+  const [selectedPerson] = useField('text')
 
   const messagesRef = useRef()
 
@@ -179,7 +187,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
-      sendChatMessage(username, chatWith[0], message.value)
+      sendChatMessage(username, selectedPerson.value, message.value)
       clearMessage()
     }
   }
@@ -190,11 +198,14 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
         size="small"
         className={classes.button}
         onClick={() => setMaximized(true)}
+        disabled={!selectedPerson.value}
       >
         Open
         </Button>
       <TextField
         select
+        variant="outlined"
+        margin="dense"
         InputLabelProps={{
           classes: {
             root: classes.cssLabel,

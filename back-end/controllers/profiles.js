@@ -49,7 +49,7 @@ profilesRouter.post('/searchOne', async (req, res, next) => {
     if (!user)
       throw new Error('Unauthorized')
 
-    const profile = await Profile.findOne({ username })
+    const profile = await Profile.findOne({ $and:  [{ username }, {username: { $ne: user.username }}]})
 
     if (!profile) {
       throw new Error('No such username')
