@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { fetchInbox, fetchSent } from '../../actions/mail'
 import { Paper } from '@material-ui/core'
 import { theme } from '../../theme/theme'
+import EmailIcon from '@material-ui/icons/Email'
+import MailOutlineIcon from '@material-ui/icons/MailOutline'
 
 const useStyles = makeStyles({
   root: {
@@ -24,16 +26,25 @@ const useStyles = makeStyles({
   },
   postsContainer: {
     width: '80%',
-    marginTop: '40px'
+    marginTop: '40px',
+    
   },
   link: {
-    color: '#bbb'
+    color: '#bbb',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    textDecoration: 'none'
   },
   paper: {
     background: theme.sidebarBackground,
     padding: '16px',
+    paddingLeft: '40px',
     color: '#bbb',
-    textAlign: 'center'
+    textAlign: 'left'
+  },
+  icon: {
+    paddingRight: '5px'
   }
 })
 
@@ -53,8 +64,12 @@ const OwnProfileStats = ({ user, fetchInbox, fetchSent }) => {
     <div className={classes.postsContainer}>
       <Paper elevation={10} className={classes.paper}>
       <h2>Posts</h2>
-      <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>Inbox</Link></p>
-      <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >Sent mail</Link></p>
+      <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
+        <EmailIcon className={classes.icon} />
+        Inbox</Link></p>
+      <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >
+        <MailOutlineIcon className={classes.icon} />
+        Sent mail</Link></p>
       </Paper>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { styled } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { addProfileImage } from '../../actions/user'
+import CloseIcon from '@material-ui/icons/Close';
 
 const FileWindow = styled('div')({
   width: '300px',
@@ -31,21 +32,25 @@ const FileUpload = props => {
   }
 
   return <FileWindow>
-      <Button
-        color="primary"
-        variant="contained"
-        component="label"
-      >
-        Upload File
+    <div style={{ width: '100%', textAlign: 'right'}}>
+    <CloseIcon fontSize="small" onClick={() => props.setShowFileUpload(false)} />
+    </div>
+    <Button
+      color="primary"
+      variant="contained"
+      component="label"
+    >
+      Upload File
         <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleChange}
-        />
-      </Button>
-      <p style={{ fontSize: '0.7em', color: '#ccc'}}>max width/height: 500px (jpg/png)</p>
-      
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleChange}
+      />
+    </Button>
+
+    <p style={{ fontSize: '0.7em', color: '#ccc' }}>max width/height: 500px (jpg/png)</p>
+
   </FileWindow>
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
+import ReplyIcon from '@material-ui/icons/Reply'
 
 const useStyles = makeStyles({
   root: {
@@ -8,10 +9,16 @@ const useStyles = makeStyles({
   },
   navLink: {
     color: '#999',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   active: {
     color: 'white'
+  },
+  icon: {
+    paddingRight: '5px'
   }
 })
 
@@ -27,6 +34,7 @@ const ReplyMailNavigation = props => {
         className={classes.navLink}
         activeClassName={classes.active}
       >
+        <ReplyIcon className={classes.icon} />
         Reply
         </NavLink></p>
     </div>

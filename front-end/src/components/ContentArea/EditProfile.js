@@ -37,11 +37,16 @@ const useStyles = makeStyles({
     borderWidth: '1px',
     borderColor: `${theme.inputBorderColor} !important`
   },
+  buttonContainer: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
   button: {
-    marginTop: '30px',
-    marginLeft: 'auto',
-    marginRight: '10%',
-    width: '175px'
+    marginTop: '10px',
+    marginRight: '30px',
+    width: '100px'
   }
 
 })
@@ -59,7 +64,7 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
     <h1>Edit profile text</h1>
     <TextField
       id="outlined-multiline-static"
-      
+
       label="Edit"
       {...text}
       multiline
@@ -81,19 +86,31 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
         }
       }}
     />
-
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => {
-        editProfileText(text.value)
-        clearText()
-        history.push('/profile')
-      }}
-      className={classes.button}
-    >
-      Send
+    <div className={classes.buttonContainer}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push('/profile')
+        }}
+        className={classes.button}
+      >
+        Cancel
       </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          editProfileText(text.value)
+          clearText()
+          history.push('/profile')
+        }}
+        className={classes.button}
+      >
+        Send
+      </Button>
+    </div>
   </div>
 }
 

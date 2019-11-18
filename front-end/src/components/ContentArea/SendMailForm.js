@@ -37,11 +37,16 @@ const useStyles = makeStyles({
     borderWidth: '1px',
     borderColor: `${theme.inputBorderColor} !important`
   },
+  buttonContainer: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
   button: {
-    marginTop: '30px',
-    marginLeft: 'auto',
-    marginRight: '10%',
-    width: '175px'
+    marginTop: '10px',
+    marginRight: '30px',
+    width: '100px'
   }
 
 })
@@ -57,26 +62,26 @@ const SendMailForm = ({ match, history, sendMail }) => {
     <h1>Send Mail To: {match.params.username} </h1>
 
     <TextField
-          {...title}
-          className={classes.textField}
-          label="Title"
-          margin="normal"
-          fullWidth
-          variant="outlined"
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused,
-            },
-          }}
-          InputProps={{
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-            }
-          }}
-        />
+      {...title}
+      className={classes.textField}
+      label="Title"
+      margin="normal"
+      fullWidth
+      variant="outlined"
+      InputLabelProps={{
+        classes: {
+          root: classes.cssLabel,
+          focused: classes.cssFocused,
+        },
+      }}
+      InputProps={{
+        classes: {
+          root: classes.cssOutlinedInput,
+          focused: classes.cssFocused,
+          notchedOutline: classes.notchedOutline,
+        }
+      }}
+    />
 
     <TextField
       id="outlined-multiline-static"
@@ -101,20 +106,32 @@ const SendMailForm = ({ match, history, sendMail }) => {
         }
       }}
     />
-
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => {
-        sendMail(match.params.username, title.value, content.value)
-        clearContent()
-        clearTitle()
-        history.push('/profile')
-      }}
-      className={classes.button}
-    >
-      Send
+    <div className={classes.buttonContainer}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.goBack()
+        }}
+        className={classes.button}
+      >
+        Cancel
       </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          sendMail(match.params.username, title.value, content.value)
+          clearContent()
+          clearTitle()
+          history.push('/profile')
+        }}
+        className={classes.button}
+      >
+        Send
+      </Button>
+    </div>
   </div>
 }
 
