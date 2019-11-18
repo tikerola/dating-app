@@ -4,6 +4,7 @@ import { TextField, MenuItem } from '@material-ui/core'
 import useField from '../../../hooks/useField'
 import { Button } from '@material-ui/core'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
+import ClearIcon from '@material-ui/icons/Clear'
 import { connect } from 'react-redux'
 import { sendChatMessage } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
@@ -58,8 +59,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    padding: '5px',
+    justifyContent: 'space-between',
+    paddingLeft: '20px',
     marginBottom: '3%'
 
   },
@@ -68,7 +69,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end'
-    
+
   },
   text: {
     width: '100%',
@@ -102,7 +103,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'flex-start',
     textAlign: 'left'
-    
+
   },
   right: {
     width: '95%',
@@ -114,7 +115,7 @@ const useStyles = makeStyles({
     textAlign: 'right',
   },
   li: {
-    maxWidth: '60%', 
+    maxWidth: '60%',
     padding: '5px',
     marginTop: '10px',
     marginBottom: '10px',
@@ -130,14 +131,14 @@ const useStyles = makeStyles({
   cssLabel: {
     color: theme.inputLabelColor,
     fontSize: '0.7em',
-    
+
   },
 
   cssOutlinedInput: {
     '&$cssFocused': {
       borderColor: `${theme.inputFocusedBorderColor} !important`
     },
-    
+
     color: 'white',
     fontSize: '0.8em'
   },
@@ -147,14 +148,21 @@ const useStyles = makeStyles({
   icon: {
     backgroundColor: 'white'
   },
-  
+  icons: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: '25px'
+
+  }
+
 })
 
 const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
-  const [ selectedPerson ] = useField('text', undefined, chatWith)
+  const [selectedPerson] = useField('text', undefined, chatWith)
 
   const messagesRef = useRef()
 
@@ -162,7 +170,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const scrollToBottom = () => {
     if (messagesRef.current)
-      messagesRef.current.scrollIntoView({ behavior: 'smooth'})
+      messagesRef.current.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -185,30 +193,30 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
       >
         Open
         </Button>
-        <TextField
-          select
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused,
-            },
-          }}
-          InputProps={{ 
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused
-            }
-          }}
-          className={classes.textField}
-          label="Chat with..."
-          {...selectedPerson}
-        >
-          {chatWith.map(name => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>))}
+      <TextField
+        select
+        InputLabelProps={{
+          classes: {
+            root: classes.cssLabel,
+            focused: classes.cssFocused,
+          },
+        }}
+        InputProps={{
+          classes: {
+            root: classes.cssOutlinedInput,
+            focused: classes.cssFocused
+          }
+        }}
+        className={classes.textField}
+        label="Chat with..."
+        {...selectedPerson}
+      >
+        {chatWith.map(name => (
+          <MenuItem key={name} value={name}>
+            {name}
+          </MenuItem>))}
 
-        </TextField>
+      </TextField>
       <Button
         size="small"
         className={classes.button}
@@ -222,9 +230,20 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
     <ChatWindowMax>
       <div className={classes.root}>
         <div className={classes.navigation}>
-          { selectedPerson.value }
-          
-          <ArrowDropDown onClick={() => setMaximized(false)}>minimize</ArrowDropDown>
+          {selectedPerson.value}
+
+          <div className={classes.icons}>
+            <ArrowDropDown
+              fontSize="small"
+              style={{ paddingRight: '10px' }}
+              onClick={() => setMaximized(false)}
+            />
+            <ClearIcon
+              fontSize="small"
+              onClick={() => closeChat()}
+            />
+          </div>
+
         </div>
         <div className={classes.body}>
           <div className={classes.text}>
@@ -236,7 +255,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
               }
               {chatWith && <div ref={messagesRef}></div>}
             </ul>
-            
+
           </div>
           <div className={classes.inputContainer}>
             <input {...message} onKeyUp={handleKeyUp} className={classes.input} placeholder="write something..." />

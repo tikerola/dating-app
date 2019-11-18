@@ -9,6 +9,7 @@ import { receiveChatMessage } from '../../actions/chat'
 import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
 import Chat from '../ContentArea/chat/Chat'
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
     color: '#bbb',
     fontSize: '1.3em',
     marginRight: '15px',
-    width: '30%'
+    width: '35%'
   },
   loggedIn: {
     display: 'flex',
@@ -37,13 +38,18 @@ const useStyles = makeStyles({
   },
   username: {
     color: 'white'
+  },
+  iconAndName: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 })
 
 const Navigation = props => {
 
   const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen } = props
-  
+
   const classes = useStyles()
 
   useEffect(() => {
@@ -59,29 +65,29 @@ const Navigation = props => {
   }, [setNotification, username])
 
   useEffect(() => {
-    
+
     if (username)
       socket.emit('newUser', username)
-    
-    
+
+
     socket.on('chat', data => {
       if (data.to === username) {
         console.log(data, '***********')
-        receiveChatMessage(data.from, data.message) 
+        receiveChatMessage(data.from, data.message)
       }
     })
 
     socket.on('disconnect', (reason) => {
       if (reason === 'io server disconnect') {
-        
+
         socket.connect();
       }
-      
+
     })
 
   }, [username, receiveChatMessage])
 
-  
+
 
   const handleLogout = () => {
     history.push('/')
@@ -95,14 +101,17 @@ const Navigation = props => {
       {
         loggedIn
           ?
-          <div className={classes.loggedIn}><p>Logged in: <span className={classes.username}>{username}</span></p>
+          <div className={classes.loggedIn}>
+            <div className={classes.iconAndName}>
+              <PersonIcon style={{ paddingRight: '5px' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
+            </div>
             <img src="/assets/images/boygirl.png" width='130' alt='face' />
             <Button color='primary' size='small' onClick={handleLogout}>Log out</Button></div>
           :
           ''
       }
 
-      { chatOpen && <Chat />}
+      {chatOpen && <Chat />}
     </div>
 
   </Paper>

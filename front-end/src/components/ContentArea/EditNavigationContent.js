@@ -2,46 +2,56 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
 import FileUpload from './FileUpload'
+import PhotoIcon from '@material-ui/icons/Photo'
+import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
-  },
-  p: {
-    marginLeft: '10%',
-    cursor: 'pointer'
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    color: '#999'
   },
   navLink: {
     color: '#999',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    marginLeft: '150px',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   active: {
     color: 'white'
+  },
+  icon: {
+    paddingRight: '5px'
   }
 })
 
 const MailNavigationContent = props => {
 
-  const [ showFileUpload, setShowFileUpload ] = React.useState(false)
+  const [showFileUpload, setShowFileUpload] = React.useState(false)
 
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      <p className={classes.p}><NavLink
-        to={`/profile/edit`}
-        exact
-        className={classes.navLink}
-        activeClassName={classes.active}
-      >
-        Edit Profile Text
+      <p >
+        <NavLink
+          to={`/profile/edit`}
+          exact
+          className={classes.navLink}
+          activeClassName={classes.active}
+        >
+          <EditIcon className={classes.icon} />
+          Edit Profile Text
         </NavLink></p>
-
-        <p className={classes.p} onClick={() => setShowFileUpload(!showFileUpload)}>Add Image</p>
-        { showFileUpload && <FileUpload setShowFileUpload={setShowFileUpload} />}
+      <p className={classes.navLink} onClick={() => setShowFileUpload(!showFileUpload)}>
+        <PhotoIcon className={classes.icon} />
+        Add Image</p>
+      {showFileUpload && <FileUpload setShowFileUpload={setShowFileUpload} />}
     </div>
   )
 }

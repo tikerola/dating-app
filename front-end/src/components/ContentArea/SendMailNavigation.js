@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createChatSession, openChat } from '../../actions/chat'
-
+import ChatIcon from '@material-ui/icons/Chat'
+import MailOutlineIcon from '@material-ui/icons/MailOutline'
 
 const useStyles = makeStyles({
   root: {
@@ -17,10 +18,16 @@ const useStyles = makeStyles({
     color: '#999',
     textDecoration: 'none',
     marginLeft: '150px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   active: {
     color: 'white'
+  },
+  icon: {
+    paddingRight: '5px'
   }
 })
 
@@ -36,17 +43,19 @@ const SendMailNavigation = props => {
         className={classes.navLink}
         activeClassName={classes.active}
       >
+        <MailOutlineIcon className={classes.icon} />
         Send Mail
         </NavLink></p>
 
-        <p className={classes.navLink} onClick={() => {
-          if (!props.session)
-            props.createChatSession(props.match.params.username, props.username)
+      <p className={classes.navLink} onClick={() => {
+        if (!props.session)
+          props.createChatSession(props.match.params.username, props.username)
 
-          else
-            props.openChat()
-        }}>Chat</p>
-       
+        else
+          props.openChat()
+      }}>
+        <ChatIcon className={classes.icon} /> Chat</p>
+
     </div>
   )
 }
