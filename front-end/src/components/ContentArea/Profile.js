@@ -26,11 +26,9 @@ const useStyles = makeStyles({
 })
 
 
-const Profile = ({ match, profiles }) => {
+const Profile = ({ match, profile }) => {
 
   const classes = useStyles()
-
-  const profile = profiles.find(profile => profile.username === match.params.username)
 
   if (!profile)
     return <div></div>
@@ -46,9 +44,9 @@ const Profile = ({ match, profiles }) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { match }) => {
   return {
-    profiles: state.profiles
+    profile: state.profiles.find(profile => profile.username === match.params.username)
   }
 }
 

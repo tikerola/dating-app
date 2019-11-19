@@ -3,7 +3,6 @@ import ProfileThumbnail from './ProfileThumbnail'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
-import { searchProfiles } from '../../actions/profiles'
 import { Link } from 'react-router-dom'
 
 
@@ -41,25 +40,20 @@ const useStyles = makeStyles({
   }
 })
 
-const Favorites = ({ profiles, searchOptions, searchProfiles }) => {
+const Favorites = ({ profiles }) => {
   
 
   const classes = useStyles()
 
   const handlePageChange = direction => {
 
-    searchProfiles({
-      age: searchOptions.age,
-      gender: searchOptions.gender,
-      page: direction === 'next' ? searchOptions.page + 1 : searchOptions.page - 1,
-      limit: searchOptions.limit
-    })
+    
   }
 
   
   return (
     <div className={classes.root}>
-      <h1>Profiles</h1>
+      <h1>Your Favorites</h1>
       <div className={classes.center}>
         <div className={classes.container}>
           {
@@ -74,14 +68,14 @@ const Favorites = ({ profiles, searchOptions, searchProfiles }) => {
       </div>
       {profiles.length > 0 && <div className={classes.pagination}>
         <Button
-          disabled={searchOptions.page === 1}
+          disabled={true}
           onClick={() => handlePageChange('prev')}
         >
           {'< '}prev page
         </Button>
 
         <Button
-          disabled={searchOptions.page * searchOptions.limit >= searchOptions.profileCount}
+          disabled={true}
           onClick={() => handlePageChange('next')}
         >
           next page{' >'}
@@ -92,12 +86,8 @@ const Favorites = ({ profiles, searchOptions, searchProfiles }) => {
 }
 
 const mapStateToProps = state => ({
-  profiles: state.profiles,
-  searchOptions: state.search
+  profiles: state.user.favorites
 })
 
-const mapDispatchToProps = {
-  searchProfiles
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites)
+export default connect(mapStateToProps)(Favorites)

@@ -8,7 +8,6 @@ const server = app.listen(config.PORT, () => console.log(`Server serving from po
 
 const io = require('./socket/socket').init(server)
 io.on('connection', socket => {
-  console.log(socket.id, ' connected')
 
   socket.on('newUser', username => {
     
@@ -32,8 +31,6 @@ io.on('connection', socket => {
         delete clients[key]
       }
     }
-
-    console.log(socket.id, ' disconnected')
    
   })
 })

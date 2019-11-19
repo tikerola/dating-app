@@ -4,6 +4,8 @@ import { theme } from '../../theme/theme'
 import { NavLink } from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { connect } from 'react-redux'
+import { fetchFavorites } from '../../actions/profiles'
 
 const useStyles = makeStyles({
   root: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Navigation = props => {
+const Navigation = ({ fetchFavorites, favorites })=> {
 
   const classes = useStyles()
 
@@ -43,10 +45,14 @@ const Navigation = props => {
         <AccountCircleIcon className={classes.icon} />
         Profile</NavLink></p>
     <p>
-      <NavLink to="/search" activeClassName={classes.active} className={classes.navLink} >
+      <NavLink to="/search" activeClassName={classes.active} className={classes.navLink} onClick={() => fetchFavorites(favorites)} >
       <SearchIcon className={classes.icon} />
       Search</NavLink></p>
   </div>
 }
 
-export default Navigation
+const mapStateToProps = state => ({
+  favorites: state.user.favorites
+})
+
+export default connect(mapStateToProps, { fetchFavorites })(Navigation)

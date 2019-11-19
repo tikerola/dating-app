@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   }
 })
 
-const ProfileStats = ({ profile }) => {
+const ProfileStats = ({ profile, fromFavorites }) => {
 
   const classes = useStyles()
 
@@ -47,9 +47,11 @@ const ProfileStats = ({ profile }) => {
   </div>
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  profile: state.profiles.find(profile => profile.username === ownProps.match.params.username)
-})
+const mapStateToProps = (state, { match }) => {
+  return {
+    profile: state.profiles.find(profile => profile.username === match.params.username)
+  }
+}
 
 
 export default connect(mapStateToProps)(ProfileStats)

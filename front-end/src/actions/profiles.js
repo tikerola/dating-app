@@ -49,11 +49,9 @@ export const searchProfile = (username, history) => {
 }
 
 
-export const fetchFavorites = () => {
-
-  return async (dispatch, getState) => {
-    const { token } = getState().user
-
-    profilesService.saveToken(token)
+export const fetchFavorites = favorits => {
+  return {
+    type: 'FETCH_FAVORITES',
+    profiles: favorits
   }
 }

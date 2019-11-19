@@ -13,6 +13,7 @@ import MailContent from './MailContent'
 import ReplyMailForm from './ReplyMailForm'
 import EditProfile from './EditProfile'
 import SendMailForm from './SendMailForm'
+import Favorites from './Favorites'
 
 
 const useStyles = makeStyles({
@@ -46,8 +47,9 @@ const ContentArea = ({ location }) => {
   return <Paper className={classes.root} elevation={5}>
     { location.pathname !== '/' && <Navigation /> }
     <Route exact path="/search/profiles/:username/send" component={SendMailForm} />
-    <Route exact path="/search/profiles/:username" render={() => <Profile />} />
+    <Route exact path="/search/profiles/:username" component={Profile} />
     <Route exact path="/search/profiles" render={() => <Profiles />} />
+    <Route exact path="/search" component={Favorites} />
     <Route exact path="/profile/inbox/:id/reply" component={ReplyMailForm} />
     <Route exact path="/profile/inbox/:id" component={MailContent} />
     <Route exact path="/profile/inbox" component={Inbox} />

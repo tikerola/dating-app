@@ -130,18 +130,18 @@ userRouter.post('/addToFavorites', async (req, res, next) => {
       throw new Error('Unauthorized')
 
     const userWithFavorites = await User.findById(user.id)
-    const profileToAdd = await Profile.findOne({ username })
+    const profileToAddOrRemove = await Profile.findOne({ username })
 
     if (operation === 'add') {
-      userWithFavorites.favorites = userWithFavorites.favorites.concat(profileToAdd._id)
+      userWithFavorites.favorites = userWithFavorites.favorites.concat(profileToAddOrRemove._id)
     }
 
     else {
-      userWithFavorites.favorites = userWithFavorites.favorites.filter(favProfile => favProfile.username !== username)
+      userWithFavorites.favorites = userWithFavorites.favorites.filter(favProfile => favProfile.toString() !== profileToAddOrRemove._id.toString())
     }
 
     const savedUser = await userWithFavorites.save()
-    return res.status(201).send({ operation, profile: profileToAdd })
+    return res.status(201).send({ operation, profile: profileToAddOrRemove })
 
   } catch (error) {
     next(error)
