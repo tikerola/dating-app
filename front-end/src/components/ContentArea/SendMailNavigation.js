@@ -3,8 +3,11 @@ import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createChatSession, openChat } from '../../actions/chat'
+import { addToFavorites } from '../../actions/user'
 import ChatIcon from '@material-ui/icons/Chat'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
+import StarBorderIcon from '@material-ui/icons/StarBorder'
+import StarIcon from '@material-ui/icons/Star'
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +57,23 @@ const SendMailNavigation = props => {
         else
           props.openChat()
       }}>
-        <ChatIcon className={classes.icon} /> Chat</p>
+        <ChatIcon className={classes.icon} /> Chat
+      </p>
+        
+      <p  >
+        { props.isFavorite 
+        ? 
+        <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'remove')}>
+          <StarIcon className={classes.icon} /> 
+          Remove from favorites
+          </span>
+        :
+        <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'add')}>
+          <StarBorderIcon className={classes.icon} /> 
+          Add to favorites
+          </span>
+      }
+      </p>
 
     </div>
   )
@@ -62,7 +81,8 @@ const SendMailNavigation = props => {
 
 const mapStateToProps = (state, ownProps) => ({
   username: state.user.username,
-  session: state.chat.sessions[ownProps.match.params.username]
+  session: state.chat.sessions[ownProps.match.params.username],
+  isFavorite: state.user.favorites.includes(ownProps.match.params.username)
 })
 
-export default connect(mapStateToProps, { createChatSession, openChat })(SendMailNavigation)
+export default connect(mapStateToProps, { createChatSession, openChat, addToFavorites })(SendMailNavigation)

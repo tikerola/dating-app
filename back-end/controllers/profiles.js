@@ -61,12 +61,7 @@ profilesRouter.post('/searchOne', async (req, res, next) => {
   catch (error) {
     next(error)
   }
-
-
 })
-
-
-
 
 
 module.exports = profilesRouter

@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
   sent: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Message'
+  }],
+  favorites: [{
+    type: mongoose.Schema.Types.String,
+    ref: 'Profile'
   }]
 })
 

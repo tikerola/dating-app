@@ -63,3 +63,20 @@ export const addProfileImage = file => {
 
   }
 }
+
+export const addToFavorites = (username, operation) => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.addToFavorites(username, operation)
+
+    const type = response === 'add' ? 'ADD_TO_FAVORITES' : 'REMOVE_FROM_FAVORITES'
+
+    dispatch({
+      type,
+      username
+    })
+  }
+}

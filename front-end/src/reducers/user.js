@@ -35,6 +35,19 @@ export default (state = initialState, action) => {
         }
       }
 
+    case 'ADD_TO_FAVORITES':
+      return {
+        ...state,
+        favorites: state.favorites.concat(action.username)
+      }
+
+    case 'REMOVE_FROM_FAVORITES': {
+      return {
+        ...state,
+        favorites: state.favorites.filter(favUsername => favUsername !== action.username)
+      }
+    }
+
     default:
       return state
   }

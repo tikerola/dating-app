@@ -45,5 +45,16 @@ const addProfileImage = async file => {
   return response.data
 }
 
+const addToFavorites = async (username, operation) => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { signup, login, edit, addProfileImage, saveToken }
+  const response = await axios.post(`${baseUrl}/addToFavorites`, { username, operation }, config)
+  return response.data
+}
+
+
+export default { signup, login, edit, addProfileImage, addToFavorites, saveToken }

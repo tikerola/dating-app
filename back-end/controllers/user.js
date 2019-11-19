@@ -69,7 +69,8 @@ userRouter.post('/login', async (req, res, next) => {
     profile: user.profile.toJSON(),
     inbox: user.inbox,
     sent: user.sent,
-    token
+    token,
+    favorites: user.favorites
   })
 })
 
@@ -117,6 +118,34 @@ userRouter.post('/image', parser.single("file"), async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+userRouter.post('/addToFavorites', async (req, res, next) => {
+  const { username, operation } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+    
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const userWithFavorites = await User.findById(user.id)
+
+    if (operation === 'add') {
+      userWithFavorites.favorites = userWithFavorites.favorites.concat(username)
+    }
+
+    else {
+      userWithFavorites.favorites = userWithFavorites.favorites.filter(favUsername => favUsername !== username)
+    }
+
+    await userWithFavorites.save()
+    return res.status(201).send(operation)
+
+  } catch (error) {
+    next(error)
+  }
+
 })
 
 
