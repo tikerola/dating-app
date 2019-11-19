@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     ref: 'Message'
   }],
   favorites: [{
-    type: mongoose.Schema.Types.String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Profile'
   }]
 })

@@ -32,5 +32,16 @@ const searchProfile = async username => {
   return response.data
 }
 
+const fetchFavorites = async () => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { searchProfiles, searchProfile, saveToken }
+  const response = await axios.get(`${baseUrl}/favorites`, config)
+  return response.data
+}
+
+
+export default { searchProfiles, searchProfile, fetchFavorites, saveToken }

@@ -72,11 +72,11 @@ export const addToFavorites = (username, operation) => {
 
     const response = await userService.addToFavorites(username, operation)
 
-    const type = response === 'add' ? 'ADD_TO_FAVORITES' : 'REMOVE_FROM_FAVORITES'
+    const type = response.operation === 'add' ? 'ADD_TO_FAVORITES' : 'REMOVE_FROM_FAVORITES'
 
     dispatch({
       type,
-      username
+      profile: response.profile
     })
   }
 }

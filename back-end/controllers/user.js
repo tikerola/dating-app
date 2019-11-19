@@ -45,7 +45,7 @@ userRouter.post('/signup', async (req, res, next) => {
 userRouter.post('/login', async (req, res, next) => {
   const { username, password } = req.body
 
-  const user = await User.findOne({ username }).populate('profile')
+  const user = await User.findOne({ username }).populate('profile').populate('favorites')
   const match = await bcrypt.compare(password, user.passwordHash)
 
 
@@ -130,17 +130,18 @@ userRouter.post('/addToFavorites', async (req, res, next) => {
       throw new Error('Unauthorized')
 
     const userWithFavorites = await User.findById(user.id)
+    const profileToAdd = await Profile.findOne({ username })
 
     if (operation === 'add') {
-      userWithFavorites.favorites = userWithFavorites.favorites.concat(username)
+      userWithFavorites.favorites = userWithFavorites.favorites.concat(profileToAdd._id)
     }
 
     else {
-      userWithFavorites.favorites = userWithFavorites.favorites.filter(favUsername => favUsername !== username)
+      userWithFavorites.favorites = userWithFavorites.favorites.filter(favProfile => favProfile.username !== username)
     }
 
-    await userWithFavorites.save()
-    return res.status(201).send(operation)
+    const savedUser = await userWithFavorites.save()
+    return res.status(201).send({ operation, profile: profileToAdd })
 
   } catch (error) {
     next(error)

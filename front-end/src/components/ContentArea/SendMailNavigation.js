@@ -65,12 +65,12 @@ const SendMailNavigation = props => {
         ? 
         <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'remove')}>
           <StarIcon className={classes.icon} /> 
-          Remove from favorites
+          Favorited
           </span>
         :
         <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'add')}>
           <StarBorderIcon className={classes.icon} /> 
-          Add to favorites
+          Favorite
           </span>
       }
       </p>
@@ -82,7 +82,7 @@ const SendMailNavigation = props => {
 const mapStateToProps = (state, ownProps) => ({
   username: state.user.username,
   session: state.chat.sessions[ownProps.match.params.username],
-  isFavorite: state.user.favorites.includes(ownProps.match.params.username)
+  isFavorite: state.user.favorites.find(profile => profile.username === ownProps.match.params.username)
 })
 
 export default connect(mapStateToProps, { createChatSession, openChat, addToFavorites })(SendMailNavigation)

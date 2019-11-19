@@ -38,13 +38,13 @@ export default (state = initialState, action) => {
     case 'ADD_TO_FAVORITES':
       return {
         ...state,
-        favorites: state.favorites.concat(action.username)
+        favorites: state.favorites.concat(action.profile)
       }
 
     case 'REMOVE_FROM_FAVORITES': {
       return {
         ...state,
-        favorites: state.favorites.filter(favUsername => favUsername !== action.username)
+        favorites: state.favorites.filter(favProfile => favProfile.username !== action.profile.username)
       }
     }
 
