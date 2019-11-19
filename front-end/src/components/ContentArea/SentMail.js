@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import { deleteMail } from '../../actions/mail'
 
 const StyledTableCell = withStyles({
   head: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles({
   },
 })
 
-const SentMail = ({ sent }) => {
+const SentMail = ({ sent, deleteMail }) => {
 
   const classes = useStyles()
 
@@ -65,6 +67,7 @@ const SentMail = ({ sent }) => {
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell align="left">Author</StyledTableCell>
             <StyledTableCell align="left">Date</StyledTableCell>
+            <StyledTableCell align="left">Delete</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -75,6 +78,9 @@ const SentMail = ({ sent }) => {
               </StyledTableCell>
               <StyledTableCell align="left">{mail.author}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
+              <StyledTableCell align="left">
+                <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'sent')} />
+                </StyledTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -88,4 +94,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(SentMail)
+export default connect(mapStateToProps, { deleteMail })(SentMail)

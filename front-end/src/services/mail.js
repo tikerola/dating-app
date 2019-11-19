@@ -56,5 +56,17 @@ const sendMail = async data => {
 
 }
 
+const deleteMail = async (id, source)=> {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { fetchInbox, fetchSent, reply, sendMail, saveToken }
+
+  const response = await axios.post(`${baseUrl}/delete`, { id, source }, config)
+  return response.data
+}
+
+
+export default { fetchInbox, fetchSent, reply, sendMail, deleteMail, saveToken }

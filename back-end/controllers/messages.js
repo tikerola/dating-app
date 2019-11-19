@@ -60,9 +60,9 @@ messagesRouter.post('/reply', async (req, res, next) => {
     })
 
     const savedMessage = await newMessage.save()
-    
+
     const newAuthor = await User.findOne({ username: savedMessage.author })
-    
+
     newAuthor.sent = newAuthor.sent.concat(savedMessage)
     await newAuthor.save()
 
@@ -83,7 +83,6 @@ messagesRouter.post('/reply', async (req, res, next) => {
 messagesRouter.post('/send', async (req, res, next) => {
   const { username, title, content } = req.body
 
-  
   try {
 
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
@@ -100,14 +99,14 @@ messagesRouter.post('/send', async (req, res, next) => {
     })
 
     const savedMessage = await newMessage.save()
-    
+
     const author = await User.findById(user.id)
-    
+
     author.sent = author.sent.concat(savedMessage)
     await author.save()
 
     const receiver = await User.findOne({ username })
-    
+
     receiver.inbox = receiver.inbox.concat(savedMessage)
     await receiver.save()
 
@@ -126,8 +125,11 @@ messagesRouter.get('/inbox', async (req, res, next) => {
   try {
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
+    if (!user)
+      throw new Error('Unauthorized')
+
     const userWithInbox = await User.findById(user.id).populate('inbox')
-    
+
     return res.send(userWithInbox.inbox.sort((a, b) => b.createdAt - a.createdAt))
   }
   catch (error) {
@@ -139,9 +141,48 @@ messagesRouter.get('/sent', async (req, res, next) => {
   try {
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
+    if (!user)
+      throw new Error('Unauthorized')
+
     const userWithSent = await User.findById(user.id).populate('sent')
-    
+
     return res.send(userWithSent.sent.sort((a, b) => b.createdAt - a.createdAt))
+  }
+  catch (error) {
+    next(error)
+  }
+})
+
+messagesRouter.post('/delete', async (req, res, next) => {
+  const { id, source } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const messageToDelete = await Message.findById(id)
+    const sentUser = await User.findOne({ username: messageToDelete.author })
+    const reveiverUser = await User.findOne({ username: messageToDelete.receiver })
+
+    if (source === 'inbox') {
+      reveiverUser.inbox = reveiverUser.inbox.filter(mailId => mailId.toString() !== id)
+      await reveiverUser.save()
+
+      if (!sentUser.sent.find(mailId => mailId.toString() === id))
+        await Message.findByIdAndDelete(id)
+    }
+
+    else {
+      sentUser.sent = sentUser.sent.filter(mailId => mailId.toString() !== id)
+      await sentUser.save()
+
+      if (!reveiverUser.inbox.find(mailId => mailId.toString() === id))
+        await Message.findByIdAndDelete(id)
+    }
+
+    return res.status(204).send('Deletion Successful')
   }
   catch (error) {
     next(error)

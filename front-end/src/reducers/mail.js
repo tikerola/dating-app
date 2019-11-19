@@ -28,6 +28,12 @@ export default (state = initialState, action) => {
     case 'RESET':
       return initialState
 
+      case 'DELETE_MAIL':
+        return {
+          ...state,
+          [action.source]: state[action.source].filter(mail => mail.id !== action.id)
+        }
+
     default:
       return state
   }

@@ -2,13 +2,15 @@ import React from 'react'
 import { makeStyles, withStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+import { deleteMail } from '../../actions/mail'
 
 const StyledTableCell = withStyles({
   head: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Inbox = ({ inbox }) => {
+const Inbox = ({ inbox, deleteMail }) => {
   
   const classes = useStyles()
 
@@ -65,6 +67,7 @@ const Inbox = ({ inbox }) => {
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell align="left">Author</StyledTableCell>
             <StyledTableCell align="left">Date</StyledTableCell>
+            <StyledTableCell align="left">Delete</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -75,6 +78,9 @@ const Inbox = ({ inbox }) => {
               </StyledTableCell>
               <StyledTableCell align="left">{mail.author}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
+              <StyledTableCell align="left">
+                <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'inbox')} />
+                </StyledTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -88,4 +94,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps)(Inbox)
+export default connect(mapStateToProps, { deleteMail })(Inbox)

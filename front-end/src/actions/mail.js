@@ -8,7 +8,7 @@ export const fetchInbox = () => {
 
     mailService.saveToken(token)
     const response = await mailService.fetchInbox()
-    
+
     dispatch({
       type: 'FETCH_INBOX',
       inbox: response
@@ -24,7 +24,7 @@ export const fetchSent = () => {
 
     mailService.saveToken(token)
     const response = await mailService.fetchSent()
-    
+
     dispatch({
       type: 'FETCH_SENT',
       sent: response
@@ -59,5 +59,27 @@ export const sendMail = (username, title, content) => {
       type: 'SEND_MAIL',
       mail: response
     })
+  }
+}
+
+export const deleteMail = (id, source) => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    mailService.saveToken(token)
+
+    try {
+      await mailService.deleteMail(id, source)
+
+      dispatch({
+        type: 'DELETE_MAIL',
+        source,
+        id
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 }
