@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { deleteMail } from '../../actions/mail'
+import { deleteMail, mailRead } from '../../actions/mail'
 
 const StyledTableCell = withStyles({
   head: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Inbox = ({ inbox, deleteMail }) => {
+const Inbox = ({ inbox, deleteMail, mailRead }) => {
   
   const classes = useStyles()
 
@@ -74,7 +74,7 @@ const Inbox = ({ inbox, deleteMail }) => {
           {inbox && inbox.map(mail => (
             <TableRow key={mail.id}>
               <StyledTableCell component="th" scope="row">
-                <Link to={`/profile/inbox/${mail.id}`}>{mail.title}</Link>
+                <Link to={`/profile/inbox/${mail.id}`} onClick={() => mailRead(mail.id)}>{mail.title}</Link>
               </StyledTableCell>
               <StyledTableCell align="left">{mail.author}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
@@ -94,4 +94,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { deleteMail })(Inbox)
+export default connect(mapStateToProps, { deleteMail, mailRead })(Inbox)

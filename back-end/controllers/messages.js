@@ -206,12 +206,32 @@ messagesRouter.get('/unread', async (req, res, next) => {
     })
 
     return res.send({count})
+  }
+  catch (error) {
+    next(error)
+  }
+})
+
+messagesRouter.post('/read', async (req, res, next) => {
+  const { id } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const mail = await Message.findById(id)
+    mail.read = true
+    
+    const savedMail = await mail.save()
+
+    res.status(201).send(savedMail)
 
   }
   catch (error) {
     next(error)
   }
-
 })
 
 

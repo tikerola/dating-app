@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom'
 import { receiveChatMessage } from '../../actions/chat'
 import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
+import { mailUnread } from '../../actions/mail'
 import Chat from '../ContentArea/chat/Chat'
 import PersonIcon from '@material-ui/icons/Person'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
 
 const Navigation = props => {
 
-  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen } = props
+  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen, mailUnread } = props
 
   const classes = useStyles()
 
@@ -57,35 +58,31 @@ const Navigation = props => {
     socket.on('mail', data => {
       if (data.receiver === username) {
         setNotification(`${data.mail.author} sent you mail`)
+        mailUnread()
       }
       else if (data.author === username) {
         setNotification(`You sent mail to ${data.mail.receiver}`)
+
       }
-      console.log('paskaa')
     })
-  }, [setNotification, username])
+  }, [setNotification, username, mailUnread])
 
   useEffect(() => {
 
     if (username)
       socket.emit('newUser', username)
 
-
     socket.on('chat', data => {
       if (data.to === username) {
-        console.log(data, '***********')
         receiveChatMessage(data.from, data.message)
       }
     })
 
     socket.on('disconnect', (reason) => {
       if (reason === 'io server disconnect') {
-
         socket.connect();
       }
-
     })
-
   }, [username, receiveChatMessage])
 
 
@@ -131,7 +128,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = ({
   logout,
   setNotification,
-  receiveChatMessage
+  receiveChatMessage,
+  mailUnread
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

@@ -80,5 +80,17 @@ const setUnreadMailCount = async () => {
   return response.data
 }
 
+const setMailRead = async id => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { fetchInbox, fetchSent, reply, sendMail, deleteMail, setUnreadMailCount, saveToken }
+
+  const response = await axios.post(`${baseUrl}/read`, { id }, config)
+  return response.data
+}
+
+
+export default { fetchInbox, fetchSent, reply, sendMail, deleteMail, setUnreadMailCount, setMailRead, saveToken }
