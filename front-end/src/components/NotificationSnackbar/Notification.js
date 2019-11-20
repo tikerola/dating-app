@@ -47,9 +47,7 @@ const Notification = ({ message, setNotification }) => {
         }}
       message={<span id="message-id">{message}</span>}
         action={[
-          <Button key="undo" color="primary" size="medium" onClick={handleClose}>
-            UNDO
-          </Button>,
+          
           <IconButton
             key="close"
             aria-label="close"
