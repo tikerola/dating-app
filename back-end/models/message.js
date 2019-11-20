@@ -4,6 +4,10 @@ const messageSchema = new mongoose.Schema({
   title: String,
   content: String,
   createdAt: Date,
+  read: {
+    type: Boolean,
+    default: false
+  },
   author: {
     type: mongoose.Schema.Types.String,
     ref: 'User'

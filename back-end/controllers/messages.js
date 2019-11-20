@@ -189,5 +189,30 @@ messagesRouter.post('/delete', async (req, res, next) => {
   }
 })
 
+messagesRouter.get('/unread', async (req, res, next) => {
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const userWithMail = await User.findById(user.id).populate('inbox')
+
+    let count = 0
+
+    userWithMail.inbox.forEach(mail => {
+      if (!mail.read)
+        count++
+    })
+
+    return res.send({count})
+
+  }
+  catch (error) {
+    next(error)
+  }
+
+})
+
 
 module.exports = messagesRouter

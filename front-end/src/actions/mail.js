@@ -83,3 +83,27 @@ export const deleteMail = (id, source) => {
 
   }
 }
+
+export const setUnreadMailCount = () => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    mailService.saveToken(token)
+
+    const result = await mailService.setUnreadMailCount()
+
+    dispatch({
+      type: 'SET_UNREAD_MAIL_COUNT',
+      count: result.count
+    })
+
+  }
+}
+
+export const mailRead = () => ({
+  type: 'MAIL_READ'
+})
+
+export const mailUnread = () => ({
+  type: 'MAIL_UNREAD'
+})

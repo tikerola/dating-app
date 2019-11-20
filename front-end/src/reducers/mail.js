@@ -1,7 +1,8 @@
 
 const initialState = {
   inbox: [],
-  sent: []
+  sent: [],
+  countOfUnread: 0
 }
 
 export default (state = initialState, action) => {
@@ -28,11 +29,28 @@ export default (state = initialState, action) => {
     case 'RESET':
       return initialState
 
-      case 'DELETE_MAIL':
-        return {
-          ...state,
-          [action.source]: state[action.source].filter(mail => mail.id !== action.id)
-        }
+    case 'DELETE_MAIL':
+      return {
+        ...state,
+        [action.source]: state[action.source].filter(mail => mail.id !== action.id)
+      }
+
+    case 'SET_UNREAD_MAIL_COUNT':
+      return {
+        ...state,
+        countOfUnread: action.count
+      }
+    case 'MAIL_READ':
+      return {
+        ...state,
+        countOfUnread: state.countOfUnread - 1
+      }
+
+    case 'MAIL_UNREAD':
+      return {
+        ...state,
+        countOfUnread: state.countOfUnread + 1
+      }
 
     default:
       return state

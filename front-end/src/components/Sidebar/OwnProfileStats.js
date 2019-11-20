@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start',
     marginTop: '12%',
     alignItems: 'center',
-    
+
   },
   statsContainer: {
     width: '80%',
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   postsContainer: {
     width: '80%',
     marginTop: '40px',
-    
+
   },
   link: {
     color: '#bbb',
@@ -48,35 +48,36 @@ const useStyles = makeStyles({
   }
 })
 
-const OwnProfileStats = ({ user, fetchInbox, fetchSent }) => {
+const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread }) => {
 
   const classes = useStyles()
 
   return <div className={classes.root}>
     <div className={classes.statsContainer}>
       <Paper elevation={10} className={classes.paper}>
-      <h2>Personal info</h2>
-      <p>Username: {user.username}</p>
-      <p>Gender: {user.gender}</p>
-      <p>Age: {user.age}</p>
+        <h2>Personal info</h2>
+        <p>Username: {user.username}</p>
+        <p>Gender: {user.gender}</p>
+        <p>Age: {user.age}</p>
       </Paper>
     </div>
     <div className={classes.postsContainer}>
       <Paper elevation={10} className={classes.paper}>
-      <h2>Posts</h2>
-      <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
-        <EmailIcon className={classes.icon} />
-        Inbox</Link></p>
-      <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >
-        <MailOutlineIcon className={classes.icon} />
-        Sent mail</Link></p>
+        <h2>Posts</h2>
+        <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
+          <EmailIcon className={classes.icon} />
+          Inbox <span style={{ paddingLeft: '5px'}}>{countOfUnread ? `(${countOfUnread})` : ''}</span></Link></p>
+        <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >
+          <MailOutlineIcon className={classes.icon} />
+          Sent mail</Link></p>
       </Paper>
     </div>
   </div>
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  countOfUnread: state.mail.countOfUnread
 })
 
 const mapDispatchToProps = {

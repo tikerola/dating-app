@@ -1,6 +1,7 @@
 
 import userService from '../services/user'
 import { socket } from '../index'
+import { setUnreadMailCount } from './mail'
 
 export const signup = userData => {
   return {
@@ -15,10 +16,14 @@ export const login = credentials => {
     const response = await userService.login(credentials)
     localStorage.setItem('userData', JSON.stringify(response))
 
-    dispatch({
+
+
+    await dispatch({
       type: 'LOGIN',
       userData: response
     })
+
+    dispatch(setUnreadMailCount())
   }
 }
 
@@ -39,7 +44,7 @@ export const editProfileText = profileText => {
     userService.saveToken(token)
 
     const response = await userService.edit({ profileText })
-    
+
 
     dispatch({
       type: 'EDIT_PROFILE_TEXT',
