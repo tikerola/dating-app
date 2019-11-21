@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchInbox, fetchSent } from '../../actions/mail'
-import { Paper } from '@material-ui/core'
+import { Paper, Badge } from '@material-ui/core'
 import { theme } from '../../theme/theme'
 import EmailIcon from '@material-ui/icons/Email'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
@@ -65,8 +65,13 @@ const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread }) => {
       <Paper elevation={10} className={classes.paper}>
         <h2>Posts</h2>
         <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
-          <EmailIcon className={classes.icon} />
-          Inbox <span style={{ paddingLeft: '5px'}}>{countOfUnread ? `(${countOfUnread})` : ''}</span></Link></p>
+          <Badge badgeContent={countOfUnread} color="primary" anchorOrigin={{
+            horizontal: "left",
+            vertical: "top"
+          }}>
+            <EmailIcon className={classes.icon} />
+          </Badge>
+          Inbox</Link></p>
         <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >
           <MailOutlineIcon className={classes.icon} />
           Sent mail</Link></p>

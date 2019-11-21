@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     width: '70%',
     overflowX: 'auto',
     background: 'rgba(0, 0, 0, 0.2)'
-    
+
   },
   table: {
     width: '100%',
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
 })
 
 const Inbox = ({ inbox, deleteMail, mailRead }) => {
-  
+
   const classes = useStyles()
 
   if (inbox.length === 0)
@@ -74,13 +74,16 @@ const Inbox = ({ inbox, deleteMail, mailRead }) => {
           {inbox && inbox.map(mail => (
             <TableRow key={mail.id}>
               <StyledTableCell component="th" scope="row">
-                <Link to={`/profile/inbox/${mail.id}`} onClick={() => mailRead(mail.id)}>{mail.title}</Link>
+                <Link to={`/profile/inbox/${mail.id}`} onClick={() => {
+                  if (!mail.read)
+                    mailRead(mail.id)
+                }}>{mail.title}</Link>
               </StyledTableCell>
               <StyledTableCell align="left">{mail.author}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
               <StyledTableCell align="left">
                 <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'inbox')} />
-                </StyledTableCell>
+              </StyledTableCell>
             </TableRow>
           ))}
         </TableBody>

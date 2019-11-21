@@ -19,7 +19,8 @@ const useStyles = makeStyles({
     backgroundImage: "url('/assets/images/33.jpg')",
     margin: 0,
     padding: 0,
-    color: theme.signupHeaderColor
+    color: theme.signupHeaderColor,
+    fontFamily: 'Forum, cursive'
   },
   container: {
     width: '95%',

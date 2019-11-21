@@ -62,7 +62,7 @@ const Navigation = props => {
       }
       else if (data.author === username) {
         setNotification(`You sent mail to ${data.mail.receiver}`)
-        mailUnread()
+        
       }
     })
   }, [setNotification, username, mailUnread])
