@@ -2,6 +2,7 @@
 import userService from '../services/user'
 import { socket } from '../index'
 import { setUnreadMailCount } from './mail'
+import { setNotification } from './notification'
 
 export const signup = userData => {
   return {
@@ -13,17 +14,20 @@ export const signup = userData => {
 export const login = credentials => {
   return async dispatch => {
 
-    const response = await userService.login(credentials)
-    localStorage.setItem('userData', JSON.stringify(response))
+    try {
+      const response = await userService.login(credentials)
+      //localStorage.setItem('userData', JSON.stringify(response))
 
+      await dispatch({
+        type: 'LOGIN',
+        userData: response
+      })
 
+      dispatch(setUnreadMailCount())
 
-    await dispatch({
-      type: 'LOGIN',
-      userData: response
-    })
-
-    dispatch(setUnreadMailCount())
+    } catch (error) {
+      dispatch(setNotification('Wrong username or password'))
+    }
   }
 }
 

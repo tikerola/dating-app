@@ -6,6 +6,7 @@ import { theme } from '../../theme/theme'
 import useField from '../../hooks/useField'
 import { login } from '../../actions/user'
 import { connect } from 'react-redux'
+import { setNotification } from '../../actions/notification'
 
 
 const useStyles = makeStyles({
@@ -84,8 +85,13 @@ const Login = props => {
   const handleSubmit = async e => {
     e.preventDefault()
 
+    if (!username.value || !password.value) {
+      props.setNotification('You need to provide both values')
+      return
+    }
+    
     props.login({ username: username.value, password: password.value })
-
+   
     resetUsername()
     resetPassword()
   }
@@ -105,6 +111,7 @@ const Login = props => {
           label="Username"
           margin="normal"
           fullWidth
+          required
           variant="outlined"
           InputLabelProps={{
             classes: {
@@ -127,6 +134,7 @@ const Login = props => {
           label="Password"
           margin="normal"
           fullWidth
+          required
           variant="outlined"
           InputLabelProps={{
             classes: {
@@ -156,7 +164,8 @@ const Login = props => {
 }
 
 const mapDispatchToProps = {
-  login
+  login,
+  setNotification
 }
 
 export default connect(null, mapDispatchToProps)(Login)

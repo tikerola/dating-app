@@ -45,33 +45,36 @@ userRouter.post('/signup', async (req, res, next) => {
 userRouter.post('/login', async (req, res, next) => {
   const { username, password } = req.body
 
-  const user = await User.findOne({ username }).populate('profile').populate('favorites')
-  const match = await bcrypt.compare(password, user.passwordHash)
+  try {
+    const user = await User.findOne({ username }).populate('profile').populate('favorites')
+    const match = await bcrypt.compare(password, user.passwordHash)
+
+    if (!user || !match) {
+      return res.status(401).send('Unauthorized user')
+    }
+
+    const userForToken = {
+      username,
+      id: user._id
+    }
+
+    const token = jwt.sign(userForToken, process.env.JWT_SECRET)
 
 
-  if (!user || !match) {
-    return res.status(401).send('Unauthorized user')
+    res.status(200).send({
+      id: user._id,
+      username: user.username,
+      gender: user.gender,
+      age: user.age,
+      profile: user.profile.toJSON(),
+      inbox: user.inbox,
+      sent: user.sent,
+      token,
+      favorites: user.favorites
+    })
+  } catch (error) {
+    next(error)
   }
-
-  const userForToken = {
-    username,
-    id: user._id
-  }
-
-  const token = jwt.sign(userForToken, process.env.JWT_SECRET)
-
-
-  res.status(200).send({
-    id: user._id,
-    username: user.username,
-    gender: user.gender,
-    age: user.age,
-    profile: user.profile.toJSON(),
-    inbox: user.inbox,
-    sent: user.sent,
-    token,
-    favorites: user.favorites
-  })
 })
 
 userRouter.post('/edit', async (req, res, next) => {
@@ -125,7 +128,7 @@ userRouter.post('/addToFavorites', async (req, res, next) => {
 
   try {
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
-    
+
     if (!user)
       throw new Error('Unauthorized')
 

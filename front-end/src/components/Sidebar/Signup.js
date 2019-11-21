@@ -7,6 +7,7 @@ import { theme } from '../../theme/theme'
 import useField from '../../hooks/useField'
 import signupService from '../../services/user'
 import { signup } from '../../actions/user'
+import { setNotification } from '../../actions/notification'
 import { connect } from 'react-redux'
 
 const genders = [
@@ -35,7 +36,6 @@ const useStyles = makeStyles({
   container: {
     width: '90%',
     height: '95%',
-    margin: '10px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   textField: {
     color: theme.inputTextColor,
     background: theme.textFieldBackgroundColor,
-    marginBottom: '10px'
+    
   },
   cssLabel: {
     color: theme.inputLabelColor
@@ -102,8 +102,10 @@ const Signup = props => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    
 
+    if (!inputValid())
+      return
+    
     const response = await signupService.signup({
       username: username.value,
       password: password.value,
@@ -121,6 +123,35 @@ const Signup = props => {
     props.toggleRegister()
   }
 
+  const inputValid = () => {
+    if (!username.value || !age.value || !gender.value || !password.value || !confirmPassword.value) {
+      props.setNotification('All fields must be filled')
+      return false
+    }
+
+    if (password.value !== confirmPassword.value ) {
+      props.setNotification('Passwords wont match')
+      return false
+    }
+
+    if (password.value.length < 6) {
+      props.setNotification('Password must be at least 6 characters')
+      return false
+    }
+
+    if (username.value.length < 4) {
+      props.setNotification('Username must be at least 4 characters')
+      return false
+    }
+
+    if (age.value < 18 || age.value > 99) {
+      props.setNotification('Age must be between 18 and 99')
+      return false
+    }
+
+    return true
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -133,6 +164,7 @@ const Signup = props => {
         <TextField
           {...username}
           margin="dense"
+          required
           className={classes.textField}
           label="Username"
           fullWidth
@@ -155,6 +187,7 @@ const Signup = props => {
         <TextField
           select
           margin="dense"
+          required
           className={classes.textField}
           label="Gender"
           {...gender}
@@ -185,6 +218,7 @@ const Signup = props => {
           className={classes.textField}
           {...age}
           margin="dense"
+          required
           label="Age"
           variant="outlined"
           InputLabelProps={{ 
@@ -207,6 +241,7 @@ const Signup = props => {
           className={classes.textField}
           {...password}
           margin="dense"
+          required
           label="Password"
           variant="outlined"
           InputLabelProps={{
@@ -229,6 +264,7 @@ const Signup = props => {
           className={classes.textField}
           {...confirmPassword}
           margin="dense"
+          required
           label="Confirm password"
           variant="outlined"
           InputLabelProps={{
@@ -262,7 +298,8 @@ const Signup = props => {
 }
 
 const mapDispatchToProps = {
-  signup
+  signup,
+  setNotification
 }
 
 export default connect(null, mapDispatchToProps)(Signup)

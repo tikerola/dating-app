@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import { connect } from 'react-redux'
 import { setNotification } from '../../actions/notification'
 
 const useStyles = makeStyles({
@@ -15,7 +14,7 @@ const useStyles = makeStyles({
 
 const Notification = ({ message, setNotification }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   useEffect(() => {
     if (message)
@@ -40,7 +39,7 @@ const Notification = ({ message, setNotification }) => {
           horizontal: 'left',
         }}
         open={open}
-        autoHideDuration={null}
+        autoHideDuration={6000}
         onClose={handleClose}
         ContentProps={{
           'aria-describedby': 'message-id',
