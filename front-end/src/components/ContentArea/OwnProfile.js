@@ -24,7 +24,8 @@ const useStyles = makeStyles({
   },
   image: {
     borderRadius: '5px',
-    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
+    cursor: 'pointer'
   },
   text: {
     width: '90%',

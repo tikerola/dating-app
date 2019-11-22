@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
+import ProfilePicture from './ProfilePicture'
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles({
   },
   image: {
     borderRadius: '5px',
-    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
+    cursor: 'pointer'
   },
   text: {
     marginLeft: '20px',
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
 
 
 const Profile = ({ match, profile }) => {
-
+  const [showBigPicture, setShowBigPicture] = React.useState(false)
   const classes = useStyles()
 
   if (!profile)
@@ -37,9 +39,16 @@ const Profile = ({ match, profile }) => {
     <div className={classes.root}>
       <h1>{profile.username}</h1>
       <div className={classes.container}>
-        <img src={profile.image.imageUrl} alt={`${profile.username}`} width="150" className={classes.image} />
+        <img
+          src={profile.image.imageUrl}
+          alt={`${profile.username}`}
+          width="150"
+          className={classes.image}
+          onClick={() => setShowBigPicture(true)}
+        />
         <p className={classes.text}>{profile.profileText}</p>
       </div>
+      {showBigPicture && <ProfilePicture imageUrl={profile.image.imageUrl} showImage={setShowBigPicture} />}
     </div>
   )
 }
