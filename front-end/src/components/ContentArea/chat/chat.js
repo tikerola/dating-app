@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { styled, makeStyles } from '@material-ui/styles'
-import { TextField, MenuItem } from '@material-ui/core'
+import { TextField, MenuItem, Tooltip } from '@material-ui/core'
 import useField from '../../../hooks/useField'
 import { Button } from '@material-ui/core'
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
   root: {
     height: '100%',
     width: '100%',
-    
+
   },
   navigation: {
     height: '20%',
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: '25px',
-    
+
 
   },
   body: {
@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     background: 'rgba(25, 25, 250, 0.8)',
-    
+
   },
   text: {
     paddingTop: '30px',
@@ -93,7 +93,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    
+
   },
   input: {
     width: '100%',
@@ -109,8 +109,8 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    textAlign: 'left'
-
+    textAlign: 'left',
+    color: 'white'
   },
   right: {
     width: '90%',
@@ -120,6 +120,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'flex-end',
     textAlign: 'right',
+    color: 'white'
   },
   li: {
     maxWidth: '70%',
@@ -129,12 +130,13 @@ const useStyles = makeStyles({
     borderRadius: '5px'
   },
   button: {
-    fontSize: '0.5em',
-    color: '#aaa'
+    fontSize: '0.6em',
+    color: '#aaa',
+    padding: 0
   },
   textField: {
     width: '180px',
-    
+
   },
   cssLabel: {
     color: theme.inputLabelColor,
@@ -194,16 +196,32 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   if (!maximized)
     return <ChatWindowMin>
-      <Button
-        size="small"
-        className={classes.button}
-        onClick={() => setMaximized(true)}
-        disabled={!selectedPerson.value}
-      >
-        Open
-        </Button>
+      {
+        !selectedPerson.value ?
+          <Tooltip className={classes.link} title={<>
+          <p>You need to have a person selected to be able to chat</p>
+          <p>Add people from their profile page</p>
+          </>} placement="top">
+            <Button
+              size="small"
+              className={classes.button}
+            >
+              Open
+            </Button>
+          </Tooltip>
+          :
+          <Button
+            size="small"
+            className={classes.button}
+            onClick={() => setMaximized(true)}
+          >
+            Open
+      </Button>
+      }
+
       <TextField
         select
+        disabled={chatWith.length === 0}
         variant="outlined"
         margin="dense"
         InputLabelProps={{
@@ -246,12 +264,13 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
           <div className={classes.icons}>
             <ArrowDropDown
               fontSize="small"
-              style={{ paddingRight: '10px' }}
+              style={{ paddingRight: '10px', cursor: 'pointer' }}
               onClick={() => setMaximized(false)}
             />
             <ClearIcon
               fontSize="small"
               onClick={() => closeChat()}
+              style={{ cursor: 'pointer' }}
             />
           </div>
 
@@ -261,7 +280,8 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
             <ul style={{ listStyleType: 'none', margin: 0, padding: 0, width: '100%' }} >
               {selectedPerson.value && sessions[selectedPerson.value].messages.map((message, index) =>
                 <div key={index} className={message.includes('You: ') ? classes.right : classes.left}>
-                  <li className={classes.li} style={{ background: message.includes('You: ') ? 'light-blue' : 'purple' }} >{message}</li>
+                  <li className={classes.li} 
+                  style={{ background: message.includes('You: ') ? 'light-blue' : 'purple' }} >{message}</li>
                 </div>)
               }
               {chatWith && <div ref={messagesRef}></div>}

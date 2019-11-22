@@ -7,6 +7,8 @@ import { Paper, Badge } from '@material-ui/core'
 import { theme } from '../../theme/theme'
 import EmailIcon from '@material-ui/icons/Email'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
+import ChatIcon from '@material-ui/icons/Chat'
+import { openChat } from '../../actions/chat'
 
 const useStyles = makeStyles({
   root: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles({
   }
 })
 
-const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread }) => {
+const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread, openChat }) => {
 
   const classes = useStyles()
 
@@ -63,7 +65,6 @@ const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread }) => {
     </div>
     <div className={classes.postsContainer}>
       <Paper elevation={10} className={classes.paper}>
-        <h2>Posts</h2>
         <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
           <Badge badgeContent={countOfUnread} color="primary" anchorOrigin={{
             horizontal: "left",
@@ -75,6 +76,10 @@ const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread }) => {
         <p><Link to="/profile/sent" className={classes.link} onClick={() => fetchSent()} >
           <MailOutlineIcon className={classes.icon} />
           Sent mail</Link></p>
+        <p className={classes.link} onClick={openChat} style={{ cursor: 'pointer' }}>
+          <ChatIcon className={classes.icon} />Chat
+        </p>
+
       </Paper>
     </div>
   </div>
@@ -87,7 +92,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchInbox,
-  fetchSent
+  fetchSent,
+  openChat
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OwnProfileStats)
