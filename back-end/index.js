@@ -18,7 +18,7 @@ io.on('connection', socket => {
   socket.on('chat', data => {
     
     const id = clients[data.to]
-    
+    console.log(data.to)
     io.to(`${id}`).emit('chat', data)
   })
   

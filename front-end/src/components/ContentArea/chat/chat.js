@@ -3,7 +3,7 @@ import { styled, makeStyles } from '@material-ui/styles'
 import { TextField, MenuItem, Tooltip } from '@material-ui/core'
 import useField from '../../../hooks/useField'
 import { Button } from '@material-ui/core'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
+import MinimizeIcon from '@material-ui/icons/Minimize';
 import ClearIcon from '@material-ui/icons/Clear'
 import { connect } from 'react-redux'
 import { sendChatMessage } from '../../../actions/chat'
@@ -262,7 +262,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
           {selectedPerson.value}
 
           <div className={classes.icons}>
-            <ArrowDropDown
+            <MinimizeIcon
               fontSize="small"
               style={{ paddingRight: '10px', cursor: 'pointer' }}
               onClick={() => setMaximized(false)}
