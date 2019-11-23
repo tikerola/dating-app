@@ -47,12 +47,17 @@ export const receiveChatMessage = (from, message) => {
 
     const sessions = getState().chat.sessions
     const chatWith = getState().chat.chatWith
+    const maxWindow = getState().chat.maxWindow
 
     if (!sessions[from]) {
       await dispatch(createChatSession(from, false))
     }
 
     if(chatWith !== from) {
+      dispatch(setNotification(`${from}: ${message.substring(0, 20)}...`))
+      dispatch(setDot(from, 1))
+    }
+    else if (!maxWindow) {
       dispatch(setNotification(`${from}: ${message.substring(0, 20)}...`))
       dispatch(setDot(from, 1))
     }
@@ -72,5 +77,10 @@ export const setChatWith = chatWith => ({
 export const setDot = (id, onOff) => ({
   type: 'SET_DOT',
   id,
+  onOff
+})
+
+export const setMaxWindow = onOff => ({
+  type: 'SET_MAX_WINDOW',
   onOff
 })

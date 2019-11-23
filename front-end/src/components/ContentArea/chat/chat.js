@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import ClearIcon from '@material-ui/icons/Clear'
 import { connect } from 'react-redux'
-import { sendChatMessage, setChatWith, setDot } from '../../../actions/chat'
+import { sendChatMessage, setChatWith, setDot, setMaxWindow } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
 import { closeChat } from '../../../actions/chat'
 import { theme } from '../../../theme/theme'
@@ -168,7 +168,7 @@ const useStyles = makeStyles({
 
 })
 
-const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chatWith, setDot }) => {
+const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chatWith, setDot, setMaxWindow }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
@@ -215,6 +215,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
             onClick={() => {
               setMaximized(true)
               setDot(chatWith, 0)
+              setMaxWindow(true)
             }}
           >
             Open
@@ -271,11 +272,17 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
             <MinimizeIcon
               fontSize="small"
               style={{ paddingRight: '10px', cursor: 'pointer' }}
-              onClick={() => setMaximized(false)}
+              onClick={() => {
+                setMaximized(false)
+                setMaxWindow(false)
+              }}
             />
             <ClearIcon
               fontSize="small"
-              onClick={() => closeChat()}
+              onClick={() => {
+                closeChat()
+                setMaxWindow(false)
+              }}
               style={{ cursor: 'pointer' }}
             />
           </div>
@@ -313,4 +320,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { sendChatMessage, closeChat, setChatWith, setDot })(withRouter(Chat))
+export default connect(mapStateToProps, { sendChatMessage, closeChat, setChatWith, setDot, setMaxWindow })(withRouter(Chat))

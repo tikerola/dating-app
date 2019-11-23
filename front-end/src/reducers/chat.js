@@ -2,7 +2,8 @@
 const initialState = {
   sessions: {},
   chatWith: '',
-  chatOpen: false
+  chatOpen: false,
+  maxWindow: false
 }
 
 export default (state = initialState, action) => {
@@ -66,6 +67,13 @@ export default (state = initialState, action) => {
       ...state,
       chatWith: action.chatWith
     }
+
+    case 'SET_MAX_WINDOW': 
+      return {
+        ...state,
+        maxWindow: action.onOff
+      }
+    
 
     case 'SET_DOT':
       return {
