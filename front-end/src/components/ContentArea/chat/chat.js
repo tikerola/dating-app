@@ -287,7 +287,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setC
               {chatWith && sessions[chatWith].messages.map((message, index) =>
                 <div key={index} className={message.includes('You: ') ? classes.right : classes.left}>
                   <li className={classes.li} 
-                  style={{ background: message.includes('You: ') ? 'light-blue' : 'purple' }} >{message}</li>
+                  style={{ background: message.includes('You: ') ? 'blue' : 'purple' }} >{message}</li>
                 </div>)
               }
               {candidates && <div ref={messagesRef}></div>}

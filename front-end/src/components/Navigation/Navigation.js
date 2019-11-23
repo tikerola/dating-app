@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { Paper, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
@@ -12,6 +13,7 @@ import { mailUnread } from '../../actions/mail'
 import Chat from '../ContentArea/chat/Chat'
 import PersonIcon from '@material-ui/icons/Person'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import ChatButtons from '../ContentArea/chat/ChatButtons'
 
 const useStyles = makeStyles({
   root: {
@@ -75,15 +77,16 @@ const Navigation = props => {
     socket.on('chat', data => {
       if (data.to === username) {
         receiveChatMessage(data.from, data.message)
+        
       }
     })
 
     socket.on('disconnect', (reason) => {
       if (reason === 'io server disconnect') {
-        socket.connect();
+        socket.connect()
       }
     })
-  }, [username, receiveChatMessage])
+  }, [])
 
 
 
@@ -114,6 +117,7 @@ const Navigation = props => {
       }
 
       {chatOpen && <Chat />}
+      {chatOpen && <ChatButtons /> }
     </div>
 
   </Paper>

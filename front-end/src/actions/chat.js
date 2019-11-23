@@ -1,7 +1,7 @@
 
-
-import { socket } from '../index'
 import { setNotification } from './notification'
+import { socket } from '../index'
+
 
 export const openChat = () => ({
   type: 'OPEN_CHAT'
@@ -44,10 +44,14 @@ export const receiveChatMessage = (from, message) => {
   return async (dispatch, getState) => {
 
     const sessions = getState().chat.sessions
+    const chatWith = getState().chat.chatWith
 
     if (!sessions[from]) {
       await dispatch(createChatSession(from))
-      dispatch(setNotification(`${from} wants to chat with you!`))
+    }
+
+    if(chatWith !== from) {
+      dispatch(setNotification(`${from}: ${message.substring(0, 20)}...`))
     }
 
     dispatch({type: 'RECEIVE_CHAT_MESSAGE',
