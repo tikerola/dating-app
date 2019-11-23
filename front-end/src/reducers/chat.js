@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         sessions: {
           ...state.sessions,
           [action.id]: {
-            ...[action.id],
+            ...state.sessions[action.id],
             messages: state.sessions[action.id].messages.concat(action.message)
           }
         }
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
         sessions: {
           ...state.sessions,
           [action.id]: {
-            ...[action.id],
+            ...state.sessions[action.id],
             messages: state.sessions[action.id].messages.concat(action.message)
           }
         }
@@ -54,6 +54,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       chatOpen: true,
+      chatWith: (action.setChatWith || Object.keys(state.sessions).length === 0) ? action.id : state.chatWith ,
       sessions: {
         ...state.sessions,
         [action.id]: action.session
@@ -65,6 +66,18 @@ export default (state = initialState, action) => {
       ...state,
       chatWith: action.chatWith
     }
+
+    case 'SET_DOT':
+      return {
+        ...state,
+        sessions: {
+          ...state.sessions,
+          [action.id]: {
+            ...state.sessions[action.id],
+            dot: action.onOff
+          }
+        }
+      }
 
     case 'RESET':
       return initialState

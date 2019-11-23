@@ -28,15 +28,17 @@ export const sendChatMessage = (from, to, message) => {
   }
 }
 
-export const createChatSession = (to) => {
+export const createChatSession = (to, setChatWith) => {
   const session = {
-    messages: []
+    messages: [],
+    dot: 0
   }
 
   return {
     type: 'CREATE_CHAT_SESSION',
     id: to,
-    session
+    session,
+    setChatWith
   }
 }
 
@@ -47,11 +49,12 @@ export const receiveChatMessage = (from, message) => {
     const chatWith = getState().chat.chatWith
 
     if (!sessions[from]) {
-      await dispatch(createChatSession(from))
+      await dispatch(createChatSession(from, false))
     }
 
     if(chatWith !== from) {
       dispatch(setNotification(`${from}: ${message.substring(0, 20)}...`))
+      dispatch(setDot(from, 1))
     }
 
     dispatch({type: 'RECEIVE_CHAT_MESSAGE',
@@ -64,4 +67,10 @@ export const receiveChatMessage = (from, message) => {
 export const setChatWith = chatWith => ({
   type: 'SET_CHAT_WITH',
   chatWith
+})
+
+export const setDot = (id, onOff) => ({
+  type: 'SET_DOT',
+  id,
+  onOff
 })

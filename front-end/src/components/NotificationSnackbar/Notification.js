@@ -35,7 +35,7 @@ const Notification = ({ message, setNotification }) => {
     <div>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'left',
         }}
         open={open}

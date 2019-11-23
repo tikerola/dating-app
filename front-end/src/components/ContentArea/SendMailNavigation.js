@@ -52,7 +52,7 @@ const SendMailNavigation = props => {
 
       <p className={classes.navLink} onClick={() => {
         if (!props.session)
-          props.createChatSession(props.match.params.username, props.username)
+          props.createChatSession(props.match.params.username, true)
 
         else
           props.openChat()

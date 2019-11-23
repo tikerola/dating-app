@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { styled, makeStyles } from '@material-ui/styles'
-import { TextField, MenuItem, Tooltip } from '@material-ui/core'
+import { Tooltip } from '@material-ui/core'
 import useField from '../../../hooks/useField'
 import { Button } from '@material-ui/core'
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import ClearIcon from '@material-ui/icons/Clear'
 import { connect } from 'react-redux'
-import { sendChatMessage, setChatWith } from '../../../actions/chat'
+import { sendChatMessage, setChatWith, setDot } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
 import { closeChat } from '../../../actions/chat'
 import { theme } from '../../../theme/theme'
@@ -168,11 +168,10 @@ const useStyles = makeStyles({
 
 })
 
-const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setChatWith, chatWith }) => {
+const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chatWith, setDot }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
-  const [selectedPerson, setSelectedPerson] = useState('')
 
   const messagesRef = useRef()
 
@@ -194,11 +193,6 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setC
     }
   }
 
-  const handleOnChange = e => {
-    setSelectedPerson(e.target.value)
-    setChatWith(e.target.value)
-  }
-
   if (!maximized)
     return <ChatWindowMin>
       {
@@ -218,13 +212,16 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setC
           <Button
             size="small"
             className={classes.button}
-            onClick={() => setMaximized(true)}
+            onClick={() => {
+              setMaximized(true)
+              setDot(chatWith, 0)
+            }}
           >
             Open
       </Button>
       }
 
-      <TextField
+      {/* <TextField
         select
         disabled={candidates.length === 0}
         variant="outlined"
@@ -251,7 +248,10 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setC
             {name}
           </MenuItem>))}
 
-      </TextField>
+      </TextField> */}
+
+      CHAT
+
       <Button
         size="small"
         className={classes.button}
@@ -313,4 +313,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { sendChatMessage, closeChat, setChatWith })(withRouter(Chat))
+export default connect(mapStateToProps, { sendChatMessage, closeChat, setChatWith, setDot })(withRouter(Chat))

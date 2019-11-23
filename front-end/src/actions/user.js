@@ -1,6 +1,6 @@
 
 import userService from '../services/user'
-import { socket } from '../index'
+//import { socket } from '../index'
 import { setUnreadMailCount } from './mail'
 import { setNotification } from './notification'
 
@@ -33,8 +33,8 @@ export const login = credentials => {
 
 export const logout = () => {
   localStorage.clear()
-  socket.disconnect()
-  window.location.reload(true)
+  //socket.disconnect()
+  //window.location.reload(true)
 
   return {
     type: 'RESET'

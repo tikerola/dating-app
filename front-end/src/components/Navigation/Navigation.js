@@ -82,6 +82,7 @@ const Navigation = props => {
     })
 
     socket.on('disconnect', (reason) => {
+      console.log(reason, 'socket disconnect reason *********************')
       if (reason === 'io server disconnect') {
         socket.connect()
       }

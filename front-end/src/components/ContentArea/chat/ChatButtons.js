@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
 import { connect } from 'react-redux'
-import { setChatWith } from '../../../actions/chat'
+import { setChatWith, setDot } from '../../../actions/chat'
 import { Badge } from '@material-ui/core'
 
 const CustomButton = styled('div')({
@@ -9,6 +9,8 @@ const CustomButton = styled('div')({
   height: '30px',
   background: 'rgba(0,0,0,0.9)',
   color: '#bbb',
+  borderTopRightRadius: '10px',
+  borderBottomLeftRadius: '10px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   position: 'fixed',
   bottom: '30px',
@@ -18,12 +20,16 @@ const CustomButton = styled('div')({
   alignItems: 'center',
   justifyContent: 'center',
   border: '1px solid blue',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  transition: 'all .2s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.1)',
+  }
 })
 
 
 
-const ChatButtons = ({ candidates, chatWith, setChatWith }) => {
+const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot }) => {
 
   const styles = (index, name) => {
     return {
@@ -37,9 +43,12 @@ const ChatButtons = ({ candidates, chatWith, setChatWith }) => {
       <CustomButton
         key={index}
         style={styles(index, name)}
-        onClick={() => setChatWith(name)}
+        onClick={() => {
+          setChatWith(name)
+          setDot(name, 0)
+        }}
       >
-        <Badge badgeContent={chatWith === name ? 0 : 1} color="primary" variant="dot" anchorOrigin={{
+        <Badge badgeContent={sessions[name].dot} color="primary" variant="dot" anchorOrigin={{
           horizontal: "right",
           vertical: "top"
         }}>
@@ -51,7 +60,8 @@ const ChatButtons = ({ candidates, chatWith, setChatWith }) => {
 
 const mapStateToProps = state => ({
   candidates: Object.keys(state.chat.sessions),
-  chatWith: state.chat.chatWith
+  chatWith: state.chat.chatWith,
+  sessions: state.chat.sessions
 })
 
-export default connect(mapStateToProps, { setChatWith })(ChatButtons)
+export default connect(mapStateToProps, { setChatWith, setDot })(ChatButtons)
