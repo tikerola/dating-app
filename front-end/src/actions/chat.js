@@ -56,3 +56,8 @@ export const receiveChatMessage = (from, message) => {
 
   }
 }
+
+export const setChatWith = chatWith => ({
+  type: 'SET_CHAT_WITH',
+  chatWith
+})

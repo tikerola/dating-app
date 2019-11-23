@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import ClearIcon from '@material-ui/icons/Clear'
 import { connect } from 'react-redux'
-import { sendChatMessage } from '../../../actions/chat'
+import { sendChatMessage, setChatWith } from '../../../actions/chat'
 import { withRouter } from 'react-router-dom'
 import { closeChat } from '../../../actions/chat'
 import { theme } from '../../../theme/theme'
@@ -168,11 +168,11 @@ const useStyles = makeStyles({
 
 })
 
-const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
+const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, setChatWith, chatWith }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
-  const [selectedPerson] = useField('text')
+  const [selectedPerson, setSelectedPerson] = useState('')
 
   const messagesRef = useRef()
 
@@ -189,15 +189,20 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
-      sendChatMessage(username, selectedPerson.value, message.value)
+      sendChatMessage(username, chatWith, message.value)
       clearMessage()
     }
+  }
+
+  const handleOnChange = e => {
+    setSelectedPerson(e.target.value)
+    setChatWith(e.target.value)
   }
 
   if (!maximized)
     return <ChatWindowMin>
       {
-        !selectedPerson.value ?
+        !chatWith ?
           <Tooltip className={classes.link} title={<>
           <p>You need to have a person selected to be able to chat</p>
           <p>Add people from their profile page</p>
@@ -221,7 +226,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
 
       <TextField
         select
-        disabled={chatWith.length === 0}
+        disabled={candidates.length === 0}
         variant="outlined"
         margin="dense"
         InputLabelProps={{
@@ -238,9 +243,10 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
         }}
         className={classes.textField}
         label="Chat with..."
-        {...selectedPerson}
+        onChange={handleOnChange}
+        value={selectedPerson}
       >
-        {chatWith.map(name => (
+        {candidates.map(name => (
           <MenuItem key={name} value={name}>
             {name}
           </MenuItem>))}
@@ -259,7 +265,7 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
     <ChatWindowMax>
       <div className={classes.root}>
         <div className={classes.navigation}>
-          {selectedPerson.value}
+          {chatWith}
 
           <div className={classes.icons}>
             <MinimizeIcon
@@ -278,13 +284,13 @@ const Chat = ({ sendChatMessage, username, closeChat, chatWith, sessions }) => {
         <div className={classes.body}>
           <div className={classes.text}>
             <ul style={{ listStyleType: 'none', margin: 0, padding: 0, width: '100%' }} >
-              {selectedPerson.value && sessions[selectedPerson.value].messages.map((message, index) =>
+              {chatWith && sessions[chatWith].messages.map((message, index) =>
                 <div key={index} className={message.includes('You: ') ? classes.right : classes.left}>
                   <li className={classes.li} 
                   style={{ background: message.includes('You: ') ? 'light-blue' : 'purple' }} >{message}</li>
                 </div>)
               }
-              {chatWith && <div ref={messagesRef}></div>}
+              {candidates && <div ref={messagesRef}></div>}
             </ul>
 
           </div>
@@ -301,9 +307,10 @@ const mapStateToProps = state => {
 
   return {
     username: state.user.username,
-    chatWith: Object.keys(state.chat.sessions),
-    sessions: state.chat.sessions
+    candidates: Object.keys(state.chat.sessions),
+    sessions: state.chat.sessions,
+    chatWith: state.chat.chatWith
   }
 }
 
-export default connect(mapStateToProps, { sendChatMessage, closeChat })(withRouter(Chat))
+export default connect(mapStateToProps, { sendChatMessage, closeChat, setChatWith })(withRouter(Chat))

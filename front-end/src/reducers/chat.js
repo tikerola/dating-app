@@ -1,6 +1,7 @@
 
 const initialState = {
   sessions: {},
+  chatWith: '',
   chatOpen: false
 }
 
@@ -57,6 +58,12 @@ export default (state = initialState, action) => {
         ...state.sessions,
         [action.id]: action.session
       }
+    }
+
+    case 'SET_CHAT_WITH': 
+    return {
+      ...state,
+      chatWith: action.chatWith
     }
 
     case 'RESET':
