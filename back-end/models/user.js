@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
   favorites: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Profile'
-  }]
+  }],
+  blockedBy: [String]
 })
 
 userSchema.set('toJSON', { 
