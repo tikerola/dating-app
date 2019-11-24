@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import FileUpload from './FileUpload'
 import PhotoIcon from '@material-ui/icons/Photo'
 import EditIcon from '@material-ui/icons/Edit'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 const useStyles = makeStyles({
   root: {
@@ -51,6 +52,11 @@ const MailNavigationContent = props => {
       <p className={classes.navLink} onClick={() => setShowFileUpload(!showFileUpload)}>
         <PhotoIcon className={classes.icon} />
         Add Image</p>
+
+      <p className={classes.navLink} onClick={() => {}}>
+        <SettingsIcon className={classes.icon} />
+        Settings</p>
+
       {showFileUpload && <FileUpload setShowFileUpload={setShowFileUpload} />}
     </div>
   )

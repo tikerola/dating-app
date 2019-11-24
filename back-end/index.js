@@ -21,6 +21,10 @@ io.on('connection', socket => {
     io.to(`${id}`).emit('chat', data)
   })
   
+  socket.on('block_user', data => {
+    const id = clients[data.to]
+    io.to(`${id}`).emit('block_user', data)
+  })
   
   
   socket.on('disconnect', function (data) {

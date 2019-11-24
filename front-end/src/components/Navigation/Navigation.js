@@ -64,10 +64,15 @@ const Navigation = props => {
       }
       else if (data.author === username) {
         setNotification(`You sent mail to ${data.mail.receiver}`)
-        
       }
     })
-  }, [setNotification, username, mailUnread])
+
+    socket.on('block_user', data => {
+      if (data.to === username) {
+        console.log('you are blocked by: ', data.from)
+      }
+    })
+  }, [])
 
   useEffect(() => {
 

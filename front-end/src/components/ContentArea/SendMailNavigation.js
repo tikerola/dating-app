@@ -8,6 +8,8 @@ import ChatIcon from '@material-ui/icons/Chat'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import StarIcon from '@material-ui/icons/Star'
+import BlockIcon from '@material-ui/icons/Block'
+import { socket } from '../../index'
 
 const useStyles = makeStyles({
   root: {
@@ -59,20 +61,32 @@ const SendMailNavigation = props => {
       }}>
         <ChatIcon className={classes.icon} /> Chat
       </p>
-        
+
       <p  >
-        { props.isFavorite 
-        ? 
-        <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'remove')}>
-          <StarIcon className={classes.icon} /> 
-          Favorited
+        {props.isFavorite
+          ?
+          <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'remove')}>
+            <StarIcon className={classes.icon} />
+            Favorited
           </span>
-        :
-        <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'add')}>
-          <StarBorderIcon className={classes.icon} /> 
-          Favorite
+          :
+          <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'add')}>
+            <StarBorderIcon className={classes.icon} />
+            Favorite
           </span>
-      }
+        }
+      </p>
+
+      <p  >
+        <span className={classes.navLink} onClick={() => {
+          socket.emit('block_user', {
+            from: props.username, to: props.match.params.username
+          }
+          )
+        }}>
+          <BlockIcon className={classes.icon} />
+          Block
+          </span>
       </p>
 
     </div>

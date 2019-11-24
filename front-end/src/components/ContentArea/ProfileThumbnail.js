@@ -12,8 +12,10 @@ const useStyles = makeStyles({
     height: '100%',
     background: 'black',
     marginLeft: '10px',
-    marginBottom: '10px',
-    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)'
+    boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
   cardContent: {
     padding: 0
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
   button: {
     margin: '0 auto',
     fontSize: '0.5em'
-  },
+  }
 });
 
 const ProfileThumbnail = props => {
