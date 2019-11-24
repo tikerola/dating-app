@@ -51,29 +51,43 @@ export default (state = initialState, action) => {
         }
       }
 
-    case 'CREATE_CHAT_SESSION': 
-    return {
-      ...state,
-      chatOpen: true,
-      chatWith: (action.setChatWith || Object.keys(state.sessions).length === 0) ? action.id : state.chatWith ,
-      sessions: {
-        ...state.sessions,
-        [action.id]: action.session
+    case 'CREATE_CHAT_SESSION':
+      return {
+        ...state,
+        chatOpen: true,
+        chatWith: (action.setChatWith || Object.keys(state.sessions).length === 0) ? action.id : state.chatWith,
+        sessions: {
+          ...state.sessions,
+          [action.id]: action.session
+        }
       }
-    }
 
-    case 'SET_CHAT_WITH': 
-    return {
-      ...state,
-      chatWith: action.chatWith
-    }
+    case 'DESTROY_SESSION':
+      const { [action.sessionId]: _, ...otherSessions } = state.sessions
+      const keys = Object.keys(otherSessions)
 
-    case 'SET_MAX_WINDOW': 
+      if (keys.length === 0)
+        return initialState
+
+      return {
+        ...state,
+        chatWith: keys[0],
+        sessions: otherSessions
+      }
+
+    case 'SET_CHAT_WITH':
+      return {
+        ...state,
+        maxWindow: true,
+        chatWith: action.chatWith
+      }
+
+    case 'SET_MAX_WINDOW':
       return {
         ...state,
         maxWindow: action.onOff
       }
-    
+
 
     case 'SET_DOT':
       return {
@@ -87,6 +101,7 @@ export default (state = initialState, action) => {
         }
       }
 
+    case 'RESET_CHAT':
     case 'RESET':
       return initialState
 

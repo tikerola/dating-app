@@ -168,7 +168,7 @@ const useStyles = makeStyles({
 
 })
 
-const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chatWith, setDot, setMaxWindow }) => {
+const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chatWith, setDot, setMaxWindow, maxWindow }) => {
 
   const [maximized, setMaximized] = useState(false)
   const [message, clearMessage] = useField('text')
@@ -193,7 +193,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
     }
   }
 
-  if (!maximized)
+  if (!maximized && !maxWindow)
     return <ChatWindowMin>
       {
         !chatWith ?
@@ -221,35 +221,6 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
             Open
       </Button>
       }
-
-      {/* <TextField
-        select
-        disabled={candidates.length === 0}
-        variant="outlined"
-        margin="dense"
-        InputLabelProps={{
-          classes: {
-            root: classes.cssLabel,
-            focused: classes.cssFocused,
-          },
-        }}
-        InputProps={{
-          classes: {
-            root: classes.cssOutlinedInput,
-            focused: classes.cssFocused
-          }
-        }}
-        className={classes.textField}
-        label="Chat with..."
-        onChange={handleOnChange}
-        value={selectedPerson}
-      >
-        {candidates.map(name => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>))}
-
-      </TextField> */}
 
       CHAT
 
@@ -316,7 +287,8 @@ const mapStateToProps = state => {
     username: state.user.username,
     candidates: Object.keys(state.chat.sessions),
     sessions: state.chat.sessions,
-    chatWith: state.chat.chatWith
+    chatWith: state.chat.chatWith,
+    maxWindow: state.chat.maxWindow
   }
 }
 

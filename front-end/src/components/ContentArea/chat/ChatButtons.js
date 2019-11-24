@@ -1,8 +1,9 @@
 import React from 'react'
-import { styled } from '@material-ui/styles'
+import { styled, makeStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
-import { setChatWith, setDot } from '../../../actions/chat'
+import { setChatWith, setDot, destroySession } from '../../../actions/chat'
 import { Badge } from '@material-ui/core'
+import ClearIcon from '@material-ui/icons/Clear'
 
 const CustomButton = styled('div')({
   width: '100px',
@@ -20,20 +21,37 @@ const CustomButton = styled('div')({
   alignItems: 'center',
   justifyContent: 'center',
   border: '1px solid blue',
-  cursor: 'pointer',
   transition: 'all .2s ease-in-out',
   '&:hover': {
-    transform: 'scale(1.1)',
+    boxShadow: '0px 2px 10px 5px rgba(0,0,0,0.75)'
+  }
+})
+
+const styles = makeStyles({
+  buttonContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+
+  },
+  icon: {
+    fontSize: '0.7em',
+    marginLeft: 'auto',
+    cursor: 'pointer'
+  },
+  name: {
+    cursor: 'pointer'
   }
 })
 
 
+const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot, destroySession }) => {
 
-const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot }) => {
+  const classes = styles()
 
-  const styles = (index, name) => {
+  const buttonStyles = (index, name) => {
     return {
-      left: 150 + index * 130 ,
+      left: 150 + index * 130,
       color: chatWith === name ? 'white' : '#999'
     }
   }
@@ -42,17 +60,19 @@ const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot }) =>
     {candidates && candidates.map((name, index) =>
       <CustomButton
         key={index}
-        style={styles(index, name)}
-        onClick={() => {
-          setChatWith(name)
-          setDot(name, 0)
-        }}
+        style={buttonStyles(index, name)}
       >
-        <Badge badgeContent={sessions[name].dot} color="primary" variant="dot" anchorOrigin={{
-          horizontal: "right",
+        <Badge badgeContent={sessions[name].dot} className={classes.buttonContainer} color="primary" variant="dot" anchorOrigin={{
+          horizontal: "left",
           vertical: "top"
         }}>
-          {name.length > 5 ? `${name.substring(0, 5)}...` : name}
+
+          <ClearIcon className={classes.icon} onClick={() => destroySession(name)} />
+          <span className={classes.name} onClick={() => {
+            setChatWith(name)
+            setDot(name, 0)
+          }}>{name.length > 5 ? `${name.substring(0, 8)}...` : name}</span>
+
         </Badge>
       </CustomButton>)}
   </div>
@@ -64,4 +84,4 @@ const mapStateToProps = state => ({
   sessions: state.chat.sessions
 })
 
-export default connect(mapStateToProps, { setChatWith, setDot })(ChatButtons)
+export default connect(mapStateToProps, { setChatWith, setDot, destroySession })(ChatButtons)

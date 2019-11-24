@@ -16,7 +16,7 @@ export const toggleChat = () => ({
 })
 
 export const sendChatMessage = (from, to, message) => {
-  
+
   return async (dispatch, getState) => {
     socket.emit('chat', { from, to, message })
 
@@ -42,6 +42,11 @@ export const createChatSession = (to, setChatWith) => {
   }
 }
 
+export const destroySession = sessionId => ({
+  type: 'DESTROY_SESSION',
+  sessionId
+})
+
 export const receiveChatMessage = (from, message) => {
   return async (dispatch, getState) => {
 
@@ -53,7 +58,7 @@ export const receiveChatMessage = (from, message) => {
       await dispatch(createChatSession(from, false))
     }
 
-    if(chatWith !== from) {
+    if (chatWith !== from) {
       dispatch(setNotification(`${from}: ${message.substring(0, 20)}...`))
       dispatch(setDot(from, 1))
     }
@@ -62,9 +67,11 @@ export const receiveChatMessage = (from, message) => {
       dispatch(setDot(from, 1))
     }
 
-    dispatch({type: 'RECEIVE_CHAT_MESSAGE',
-    id: from,
-    message: `${from}: ${message}`})
+    dispatch({
+      type: 'RECEIVE_CHAT_MESSAGE',
+      id: from,
+      message: `${from}: ${message}`
+    })
 
   }
 }
