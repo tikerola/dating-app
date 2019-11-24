@@ -19,7 +19,7 @@ import Favorites from './Favorites'
 const useStyles = makeStyles({
   root: {
     width: '74%',
-    height: '80%',
+    height: '90%',
     marginRight: '1%',
     background: theme.contentAreaBackground,
     border: '2px solid #bbb',
@@ -50,6 +50,7 @@ const ContentArea = ({ location }) => {
     <Route exact path="/search/profiles/:username" component={Profile} />
     <Route exact path="/search/profiles" render={() => <Profiles />} />
     <Route exact path="/search" component={Favorites} />
+    
     <Route exact path="/profile/inbox/:id/reply" component={ReplyMailForm} />
     <Route exact path="/profile/inbox/:id" component={MailContent} />
     <Route exact path="/profile/inbox" component={Inbox} />

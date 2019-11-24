@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   root: {
     background: theme.searchbarBackground,
     width: '25%',
-    height: '80%',
+    height: '90%',
     marginLeft: '1%',
     marginRight: '1%',
     border: '2px solid #bbb'
@@ -30,7 +30,8 @@ const Sidebar = props => {
   return <Paper className={classes.root} elevation={10}>
     { props.loggedIn && <Navigation /> }
     <Route path="/search/profiles/:username" component={ProfileStats} />
-    <Route path="/search" component={Search} />
+    <Route exact path="/search/profiles/" component={Search} />
+    <Route exact path="/search" component={Search} />
     <Route path="/profile" component={OwnProfileStats} />
     <Route path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Redirect to="/profile" /> } />
   </Paper>

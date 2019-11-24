@@ -14,11 +14,11 @@ const useStyles = makeStyles({
   root: {
     height: '90%',
     width: '100%',
+    paddingTop: '20px',
     color: '#bbb',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    marginTop: '12%',
+    justifyContent: 'space-around',
     alignItems: 'center',
 
   },
@@ -28,8 +28,7 @@ const useStyles = makeStyles({
   },
   postsContainer: {
     width: '80%',
-    marginTop: '40px',
-
+    paddingBottom: '20px'
   },
   link: {
     color: '#bbb',

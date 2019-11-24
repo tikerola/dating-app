@@ -32,7 +32,7 @@ export const login = credentials => {
 }
 
 export const logout = () => {
-  localStorage.clear()
+  //localStorage.clear()
   //socket.disconnect()
   //window.location.reload(true)
 

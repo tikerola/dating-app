@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     width: '96.4%',
     height: '10%',
     padding: '10px',
-    margin: '15px auto',
+    margin: '1% auto',
     backgroundColor: theme.navigationBackgound,
     display: 'flex',
     flexDirection: 'row',
@@ -96,10 +96,10 @@ const Navigation = props => {
 
 
 
-  const handleLogout = () => {
-    history.push('/')
+  const handleLogout = async () => {
+    window.history.replaceState(null, null, "/")
+    await history.push('/')
     logout()
-
   }
 
   return <Paper className={classes.root} elevation={5}>

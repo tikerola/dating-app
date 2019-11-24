@@ -6,7 +6,7 @@ import ContentArea from './ContentArea/ContentArea'
 const useStyles = makeStyles({
   contentContainer: {
     width: '100%',
-    height: '100%',
+    height: '88%',
     display: 'flex',
     alignItems: 'flex-start'
   }
