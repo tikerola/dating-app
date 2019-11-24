@@ -89,3 +89,20 @@ export const addToFavorites = (username, operation) => {
     })
   }
 }
+
+export const blockUser = (userToBlock, block) => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.blockUser(userToBlock, block)
+    const type = block ? 'BLOCK_USER' : 'UNBLOCK_USER'
+
+    dispatch({
+      type,
+      userToBlock: response
+    })
+
+  }
+}

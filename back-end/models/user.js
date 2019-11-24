@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Profile'
   }],
-  blockedBy: [String]
+  blockedBy: [String],
+  blocked: [String]
 })
 
 userSchema.set('toJSON', { 

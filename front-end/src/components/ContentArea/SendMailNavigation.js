@@ -3,13 +3,12 @@ import { makeStyles } from '@material-ui/styles'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createChatSession, openChat } from '../../actions/chat'
-import { addToFavorites } from '../../actions/user'
+import { addToFavorites, blockUser } from '../../actions/user'
 import ChatIcon from '@material-ui/icons/Chat'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import StarIcon from '@material-ui/icons/Star'
 import BlockIcon from '@material-ui/icons/Block'
-import { socket } from '../../index'
 
 const useStyles = makeStyles({
   root: {
@@ -78,12 +77,7 @@ const SendMailNavigation = props => {
       </p>
 
       <p  >
-        <span className={classes.navLink} onClick={() => {
-          socket.emit('block_user', {
-            from: props.username, to: props.match.params.username
-          }
-          )
-        }}>
+        <span className={classes.navLink} onClick={() => props.blockUser(props.match.params.username, true)}>
           <BlockIcon className={classes.icon} />
           Block
           </span>
@@ -99,4 +93,4 @@ const mapStateToProps = (state, ownProps) => ({
   isFavorite: state.user.favorites.find(profile => profile.username === ownProps.match.params.username)
 })
 
-export default connect(mapStateToProps, { createChatSession, openChat, addToFavorites })(SendMailNavigation)
+export default connect(mapStateToProps, { createChatSession, openChat, addToFavorites, blockUser })(SendMailNavigation)

@@ -11,6 +11,8 @@ const chatRouter = require('./controllers/chat')
 const tokenFromHeaders = require('./middlewares/tokenFromHeaders')
 const cors = require('cors')
 
+
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

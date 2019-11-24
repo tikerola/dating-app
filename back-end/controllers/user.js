@@ -5,6 +5,8 @@ const parser = require('../utils/cloudinary')()
 const Profile = require('../models/profile')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const io = require('../socket/socket')
+
 
 userRouter.post('/signup', async (req, res, next) => {
   const { username, password, gender, age } = req.body
@@ -70,7 +72,10 @@ userRouter.post('/login', async (req, res, next) => {
       inbox: user.inbox,
       sent: user.sent,
       token,
-      favorites: user.favorites
+      favorites: user.favorites,
+      blockedBy: user.blockedBy,
+      blocked: user.blocked
+
     })
   } catch (error) {
     next(error)
@@ -145,6 +150,46 @@ userRouter.post('/addToFavorites', async (req, res, next) => {
 
     const savedUser = await userWithFavorites.save()
     return res.status(201).send({ operation, profile: profileToAddOrRemove })
+
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+userRouter.post('/blockUser', async (req, res, next) => {
+  const { userToBlock, block = true } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const blockingUser = await User.findById(user.id)
+    const blockedUser = await User.findOne({ username: userToBlock })
+
+    if (block) {
+      blockingUser.blocked = blockingUser.blocked.concat(userToBlock)
+      await blockingUser.save()
+
+      blockedUser.blockedBy = blockedUser.blockedBy.concat(blockingUser.username)
+      await blockedUser.save()
+    }
+
+    else {
+      blockingUser.blocked = blockingUser.blocked.filter(user => user !== userToBlock)
+      await blockingUser.save()
+
+      blockedUser.blockedBy = blockedUser.blockedBy.filter(user => user !== blockingUser.username)
+      await blockedUser.save()
+    }
+
+   
+    io.getIo().emit('block_user', { to: userToBlock, from: blockingUser.username })
+    
+
+    return res.send(userToBlock)
 
   } catch (error) {
     next(error)

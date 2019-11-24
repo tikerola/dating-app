@@ -41,6 +41,18 @@ export default (state = initialState, action) => {
         favorites: state.favorites.concat(action.profile)
       }
 
+    case 'BLOCK_USER':
+      return {
+        ...state,
+        blocked: state.blocked.concat(action.userToBlock)
+      }
+
+    case 'UNBLOCK_USER':
+      return {
+        ...state,
+        blocked: state.blocked.filter(user => user !== action.userToBlock)
+      }
+
     case 'REMOVE_FROM_FAVORITES': {
       return {
         ...state,
