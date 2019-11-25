@@ -6,7 +6,7 @@ const Profile = require('../models/profile')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const io = require('../socket/socket')
-
+const clients = require('../utils/clients')
 
 userRouter.post('/signup', async (req, res, next) => {
   const { username, password, gender, age } = req.body
@@ -190,8 +190,8 @@ userRouter.post('/blockUser', async (req, res, next) => {
       await blockedUser.save()
     }
 
-
-    io.getIo().emit('block_user', { block, to: userToBlock, from: blockingUser.username })
+    const id = clients[userToBlock]
+    io.getIo().to(`${id}`).emit('block_user', { block, to: userToBlock, from: blockingUser.username })
 
 
     return res.send(userToBlock)
