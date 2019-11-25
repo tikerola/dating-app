@@ -39,11 +39,13 @@ const SendMailNavigation = props => {
 
   const classes = useStyles()
 
+  if (props.blockedBy)
+    return null
 
 
   return (
     <div className={classes.root}>
-
+      {console.log(props.blockedBy)}
       <p><NavLink
         to={`/search/profiles/${props.match.params.username}/send`}
         exact

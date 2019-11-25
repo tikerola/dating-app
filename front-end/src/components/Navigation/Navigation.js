@@ -6,7 +6,7 @@ import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { logout, addToFavorites, beingBlocked } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
-import { receiveChatMessage } from '../../actions/chat'
+import { receiveChatMessage, destroySession } from '../../actions/chat'
 import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
 import { mailUnread } from '../../actions/mail'
@@ -52,7 +52,18 @@ const useStyles = makeStyles({
 
 const Navigation = props => {
 
-  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen, mailUnread, addToFavorites, beingBlocked } = props
+  const { username,
+    loggedIn,
+    logout,
+    setNotification,
+    history,
+    receiveChatMessage,
+    chatOpen,
+    mailUnread,
+    addToFavorites,
+    beingBlocked,
+    destroySession
+  } = props
 
   const classes = useStyles()
 
@@ -74,6 +85,7 @@ const Navigation = props => {
         }
 
         beingBlocked(data.from, data.block)
+        destroySession(data.from)
       }
     })
   }, [])
@@ -145,7 +157,8 @@ const mapDispatchToProps = ({
   receiveChatMessage,
   mailUnread,
   addToFavorites,
-  beingBlocked
+  beingBlocked,
+  destroySession
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))
