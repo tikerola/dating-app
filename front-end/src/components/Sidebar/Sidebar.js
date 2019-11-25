@@ -9,6 +9,7 @@ import Navigation from './Navigation'
 import { Route, Redirect } from 'react-router-dom'
 import OwnProfileStats from './OwnProfileStats'
 import ProfileStats from './ProfileStats'
+import Settings from './Settings'
 
 
 const useStyles = makeStyles({
@@ -32,6 +33,7 @@ const Sidebar = props => {
     <Route path="/search/profiles/:username" component={ProfileStats} />
     <Route exact path="/search/profiles/" component={Search} />
     <Route exact path="/search" component={Search} />
+    <Route exact path="/settings" component={Settings} />
     <Route path="/profile" component={OwnProfileStats} />
     <Route path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Redirect to="/profile" /> } />
   </Paper>

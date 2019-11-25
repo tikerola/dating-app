@@ -31,6 +31,7 @@ const Navigation = props => {
     <Route exact path="/profile/inbox/:id" component={ReplyMailNavigation} />
     <Route exact path="/profile/edit" component={EditNavigationContent} />
     <Route exact path="/profile" component={EditNavigationContent} />
+    <Route exact path="/settings" component={EditNavigationContent} />
     <Route path="/search/profiles/:username" component={SendMailNavigation} />
   </div>
 }

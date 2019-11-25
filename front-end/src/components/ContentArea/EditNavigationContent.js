@@ -8,16 +8,16 @@ import SettingsIcon from '@material-ui/icons/Settings'
 
 const useStyles = makeStyles({
   root: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
     color: '#999'
   },
   navLink: {
     color: '#999',
     textDecoration: 'none',
-    marginLeft: '150px',
     cursor: 'pointer',
     display: 'flex',
     flexDirection: 'row',
@@ -53,9 +53,12 @@ const MailNavigationContent = props => {
         <PhotoIcon className={classes.icon} />
         Add Image</p>
 
-      <p className={classes.navLink} onClick={() => {}}>
-        <SettingsIcon className={classes.icon} />
-        Settings</p>
+      <p>
+        <NavLink className={classes.navLink} to="/settings">
+          <SettingsIcon className={classes.icon} />
+          Settings
+        </NavLink>
+      </p>
 
       {showFileUpload && <FileUpload setShowFileUpload={setShowFileUpload} />}
     </div>

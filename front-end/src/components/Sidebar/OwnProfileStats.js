@@ -14,21 +14,22 @@ const useStyles = makeStyles({
   root: {
     height: '90%',
     width: '100%',
-    paddingTop: '20px',
     color: '#bbb',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
+    
 
   },
   statsContainer: {
     width: '80%',
     height: '40%',
+    
   },
   postsContainer: {
     width: '80%',
-    paddingBottom: '20px'
+    
   },
   link: {
     color: '#bbb',
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
   },
   paper: {
     background: theme.sidebarBackground,
-    padding: '16px',
+    padding: '12px',
     paddingLeft: '40px',
     color: '#bbb',
     textAlign: 'left'

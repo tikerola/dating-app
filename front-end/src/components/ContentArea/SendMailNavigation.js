@@ -12,16 +12,16 @@ import BlockIcon from '@material-ui/icons/Block'
 
 const useStyles = makeStyles({
   root: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
     color: '#999'
   },
   navLink: {
     color: '#999',
     textDecoration: 'none',
-    marginLeft: '150px',
     cursor: 'pointer',
     display: 'flex',
     flexDirection: 'row',

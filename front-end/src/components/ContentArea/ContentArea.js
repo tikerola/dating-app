@@ -58,6 +58,7 @@ const ContentArea = ({ location }) => {
     <Route exact path="/profile/sent" component={SentMail} />
     <Route exact path="/profile/edit" component={EditProfile} />
     <Route exact path="/profile" component={OwnProfile} />
+    <Route exact path="/settings" component={OwnProfile} />
     <Route exact path="/" component={Welcome} />
   
   </Paper>

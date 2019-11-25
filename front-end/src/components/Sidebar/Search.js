@@ -64,7 +64,6 @@ const useStyles = makeStyles({
   },
   paper: {
     width: '90%',
-    marginTop: '5%',
     background: theme.sidebarBackground,
     padding: '15px',
     color: '#bbb',

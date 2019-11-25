@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { logout, addToFavorites, beingBlocked } from '../../actions/user'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { receiveChatMessage, destroySession } from '../../actions/chat'
 import { socket } from '../../index'
 import { setNotification } from '../../actions/notification'
@@ -113,10 +113,10 @@ const Navigation = props => {
 
 
   const handleLogout = async () => {
-    window.history.replaceState(null, null, "/")
     await history.push('/')
     logout()
   }
+  
 
   return <Paper className={classes.root} elevation={5}>
     <img src='/assets/images/title.png' alt='title' />
