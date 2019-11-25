@@ -53,6 +53,18 @@ export default (state = initialState, action) => {
         blocked: state.blocked.filter(user => user !== action.userToBlock)
       }
 
+    case 'BEING_BLOCKED': 
+    return {
+      ...state,
+      blockedBy: state.blockedBy.concat(action.userWhoBlocked)
+    }
+
+    case 'BEING_UNBLOCKED':
+      return {
+        ...state,
+        blockedBy: state.blockedBy.filter(user => user !== action.userWhoBlocked)
+      }
+
     case 'REMOVE_FROM_FAVORITES': {
       return {
         ...state,

@@ -174,6 +174,11 @@ userRouter.post('/blockUser', async (req, res, next) => {
       await blockingUser.save()
 
       blockedUser.blockedBy = blockedUser.blockedBy.concat(blockingUser.username)
+
+      blockedUser.favorites = blockedUser.favorites.filter(profile => {
+        return profile.toString() !== blockingUser.profile._id.toString()
+      })
+
       await blockedUser.save()
     }
 
@@ -185,9 +190,9 @@ userRouter.post('/blockUser', async (req, res, next) => {
       await blockedUser.save()
     }
 
-   
-    io.getIo().emit('block_user', { to: userToBlock, from: blockingUser.username })
-    
+
+    io.getIo().emit('block_user', { block, to: userToBlock, from: blockingUser.username })
+
 
     return res.send(userToBlock)
 

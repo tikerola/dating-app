@@ -4,7 +4,7 @@ import { Paper, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
-import { logout } from '../../actions/user'
+import { logout, addToFavorites, beingBlocked } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
 import { receiveChatMessage } from '../../actions/chat'
 import { socket } from '../../index'
@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 
 const Navigation = props => {
 
-  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen, mailUnread } = props
+  const { username, loggedIn, logout, setNotification, history, receiveChatMessage, chatOpen, mailUnread, addToFavorites, beingBlocked } = props
 
   const classes = useStyles()
 
@@ -69,7 +69,11 @@ const Navigation = props => {
 
     socket.on('block_user', data => {
       if (data.to === username) {
-        console.log('you are blocked by: ', data.from)
+        if (data.block) {
+          addToFavorites(data.from, 'remove')
+        }
+
+        beingBlocked(data.from, data.block)
       }
     })
   }, [])
@@ -82,7 +86,7 @@ const Navigation = props => {
     socket.on('chat', data => {
       if (data.to === username) {
         receiveChatMessage(data.from, data.message)
-        
+
       }
     })
 
@@ -123,7 +127,7 @@ const Navigation = props => {
       }
 
       {chatOpen && <Chat />}
-      {chatOpen && <ChatButtons /> }
+      {chatOpen && <ChatButtons />}
     </div>
 
   </Paper>
@@ -139,7 +143,9 @@ const mapDispatchToProps = ({
   logout,
   setNotification,
   receiveChatMessage,
-  mailUnread
+  mailUnread,
+  addToFavorites,
+  beingBlocked
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

@@ -51,17 +51,17 @@ const useStyles = makeStyles({
 
 })
 
-const ReplyMailForm = ({ match, history, reply, recipient }) => {
+const ReplyMailForm = ({ match, history, reply, mail, blockedBy }) => {
 
   const [text, clearText] = useField('text')
 
   const classes = useStyles()
 
-  if (!recipient)
+  if (!mail)
     return <div></div>
 
   return <div className={classes.root}>
-    <h1>Reply to: {recipient.author} </h1>
+    <h1>Reply to: {mail.author} </h1>
     <TextField
       id="outlined-multiline-static"
       label="Reply"
@@ -98,6 +98,7 @@ const ReplyMailForm = ({ match, history, reply, recipient }) => {
       </Button>
 
       <Button
+        disabled={blockedBy.includes(mail.author)}
         variant="contained"
         color="primary"
         onClick={() => {
@@ -115,7 +116,8 @@ const ReplyMailForm = ({ match, history, reply, recipient }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    recipient: state.mail.inbox.find(m => m.id === ownProps.match.params.id)
+    mail: state.mail.inbox.find(m => m.id === ownProps.match.params.id),
+    blockedBy: state.user.blockedBy
   }
 }
 

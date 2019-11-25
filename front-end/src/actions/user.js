@@ -106,3 +106,13 @@ export const blockUser = (userToBlock, block) => {
 
   }
 }
+
+export const beingBlocked = (userWhoBlocked, block) => {
+
+  const type = block ? 'BEING_BLOCKED' : 'BEING_UNBLOCKED'
+
+  return {
+    type,
+    userWhoBlocked
+  }
+}

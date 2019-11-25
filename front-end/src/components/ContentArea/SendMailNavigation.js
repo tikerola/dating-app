@@ -39,13 +39,17 @@ const SendMailNavigation = props => {
 
   const classes = useStyles()
 
+
+
   return (
     <div className={classes.root}>
+
       <p><NavLink
         to={`/search/profiles/${props.match.params.username}/send`}
         exact
         className={classes.navLink}
         activeClassName={classes.active}
+
       >
         <MailOutlineIcon className={classes.icon} />
         Send Mail
@@ -76,11 +80,19 @@ const SendMailNavigation = props => {
         }
       </p>
 
-      <p  >
-        <span className={classes.navLink} onClick={() => props.blockUser(props.match.params.username, true)}>
-          <BlockIcon className={classes.icon} />
-          Block
+      <p>
+        {props.blocked
+          ?
+          <span className={classes.navLink} onClick={() => props.blockUser(props.match.params.username, false)}>
+            <BlockIcon className={classes.icon} style={{ color: 'red' }} />
+            Blocked
           </span>
+          :
+          <span className={classes.navLink} onClick={() => props.blockUser(props.match.params.username, true)}>
+            <BlockIcon className={classes.icon} />
+            Block
+          </span>
+        }
       </p>
 
     </div>
@@ -89,6 +101,8 @@ const SendMailNavigation = props => {
 
 const mapStateToProps = (state, ownProps) => ({
   username: state.user.username,
+  blocked: state.user.blocked.includes(ownProps.match.params.username),
+  blockedBy: state.user.blockedBy.includes(ownProps.match.params.username),
   session: state.chat.sessions[ownProps.match.params.username],
   isFavorite: state.user.favorites.find(profile => profile.username === ownProps.match.params.username)
 })
