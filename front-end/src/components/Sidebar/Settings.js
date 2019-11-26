@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { theme } from '../../theme/theme'
 import { Paper } from '@material-ui/core'
 import { toggleChatEnabled, toggleProfileVisible } from '../../actions/user'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -20,14 +21,17 @@ const useStyles = makeStyles({
   },
   container: {
     width: '100%',
-    height: '50%',
+    height: '80%',
     textAlign: 'center'
   },
   typography: {
     marginRight: 'auto'
   },
   link: {
-    color: '#bbb'
+    color: 'red',
+    textDecoration: 'none',
+    border: '1px solid red',
+    padding: '5px'
   },
   paper: {
     background: theme.sidebarBackground,
@@ -47,10 +51,14 @@ const useStyles = makeStyles({
   },
   track: {},
   checked: {},
+  linkContainer: {
+    paddingTop: '20px',
+    
+  }
 })
 
 const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisible }) => {
-  
+
   const classes = useStyles()
 
   return <div className={classes.root}>
@@ -95,6 +103,12 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
           </Grid>
           <Grid item>Visible</Grid>
         </Grid>
+
+        <hr style={{ border: 'none', borderTop: '1px solid #bbb', marginTop: '15px' }} />
+
+        <div className={classes.linkContainer}>
+          <Link to="/erase" className={classes.link}>Erase Profile</Link>
+        </div>
 
       </Paper>
     </div>

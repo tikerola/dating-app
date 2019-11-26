@@ -34,6 +34,7 @@ const Sidebar = props => {
     <Route exact path="/search/profiles/" component={Search} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/settings" component={Settings} />
+    <Route exact path="/erase" component={Settings} />
     <Route path="/profile" component={OwnProfileStats} />
     <Route path="/" render={() => !props.loggedIn ? <LoginAndSignup /> : <Redirect to="/profile" /> } />
   </Paper>
