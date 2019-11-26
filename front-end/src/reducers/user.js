@@ -77,7 +77,16 @@ export default (state = initialState, action) => {
         ...state,
         profile: {
           ...state.profile,
-          chatEnabled: action.enable ? true : false
+          chatEnabled: action.enable
+        }
+      }
+
+    case 'TOGGLE_PROFILE_VISIBLE':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          visible: action.visible
         }
       }
 

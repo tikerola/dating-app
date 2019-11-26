@@ -132,3 +132,19 @@ export const toggleChatEnabled = enable => {
 
   }
 }
+
+export const toggleProfileVisible = visible => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.toggleProfileVisible(visible)
+
+    dispatch({
+      type: 'TOGGLE_PROFILE_VISIBLE',
+      visible: response
+    })
+
+  }
+}

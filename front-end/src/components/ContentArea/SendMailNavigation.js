@@ -45,7 +45,6 @@ const SendMailNavigation = props => {
 
   return (
     <div className={classes.root}>
-      {console.log(props.blockedBy)}
       <p><NavLink
         to={`/search/profiles/${props.match.params.username}/send`}
         exact

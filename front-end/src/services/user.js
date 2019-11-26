@@ -79,4 +79,16 @@ const toggleChatEnabled = async enable => {
 }
 
 
-export default { signup, login, edit, addProfileImage, addToFavorites, blockUser, toggleChatEnabled, saveToken }
+const toggleProfileVisible = async visible => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await axios.post(`${baseUrl}/setVisible`, { visible }, config)
+  return response.data
+}
+
+
+export default { signup, login, edit, addProfileImage, addToFavorites, blockUser, toggleChatEnabled, toggleProfileVisible, saveToken }

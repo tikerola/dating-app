@@ -4,7 +4,7 @@ import { Typography, Grid, Switch } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { theme } from '../../theme/theme'
 import { Paper } from '@material-ui/core'
-import { toggleChatEnabled } from '../../actions/user'
+import { toggleChatEnabled, toggleProfileVisible } from '../../actions/user'
 
 const useStyles = makeStyles({
   root: {
@@ -49,9 +49,8 @@ const useStyles = makeStyles({
   checked: {},
 })
 
-const Settings = ({ chatEnabled, toggleChatEnabled }) => {
+const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisible }) => {
   
-  const [hideProfile, setHideProfile] = React.useState(false)
   const classes = useStyles()
 
   return <div className={classes.root}>
@@ -70,7 +69,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled }) => {
                 switchBase: classes.switchBase
               }}
               checked={chatEnabled}
-              onChange={e => toggleChatEnabled(!chatEnabled)}
+              onChange={() => toggleChatEnabled(!chatEnabled)}
               value="male"
               color="primary"
             />
@@ -88,8 +87,8 @@ const Settings = ({ chatEnabled, toggleChatEnabled }) => {
               classes={{
                 switchBase: classes.switchBase
               }}
-              checked={hideProfile}
-              onChange={e => setHideProfile(!hideProfile)}
+              checked={visible}
+              onChange={() => toggleProfileVisible(!visible)}
               value="male"
               color="primary"
             />
@@ -103,8 +102,9 @@ const Settings = ({ chatEnabled, toggleChatEnabled }) => {
 }
 
 const mapStateToProps = state => ({
-  chatEnabled: state.user.profile.chatEnabled
+  chatEnabled: state.user.profile.chatEnabled,
+  visible: state.user.profile.visible
 })
 
 
-export default connect(mapStateToProps, { toggleChatEnabled })(Settings)
+export default connect(mapStateToProps, { toggleChatEnabled, toggleProfileVisible })(Settings)
