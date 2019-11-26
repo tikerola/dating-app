@@ -12,7 +12,7 @@ const signup = async (data) => {
   return response.data
 }
 
-const login =  async (data) => {
+const login = async (data) => {
   const response = await axios.post(`${baseUrl}/login`, data)
   return response.data
 }
@@ -90,5 +90,27 @@ const toggleProfileVisible = async visible => {
   return response.data
 }
 
+const eraseUser = async () => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { signup, login, edit, addProfileImage, addToFavorites, blockUser, toggleChatEnabled, toggleProfileVisible, saveToken }
+  const response = await axios.post(`${baseUrl}/eraseUser`, {reasonToLeave: ''}, config)
+  return response.data
+}
+
+
+export default {
+  signup,
+  login,
+  edit,
+  addProfileImage,
+  addToFavorites,
+  blockUser,
+  toggleChatEnabled,
+  toggleProfileVisible,
+  saveToken,
+  eraseUser
+}

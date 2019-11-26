@@ -6,6 +6,7 @@ import { theme } from '../../theme/theme'
 import { Paper } from '@material-ui/core'
 import { toggleChatEnabled, toggleProfileVisible } from '../../actions/user'
 import { Link } from 'react-router-dom'
+import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded'
 
 const useStyles = makeStyles({
   root: {
@@ -31,12 +32,14 @@ const useStyles = makeStyles({
     color: 'red',
     textDecoration: 'none',
     border: '1px solid red',
-    padding: '5px'
+    padding: '5px',
+    display: 'flex',
+    alignItems: 'center'
   },
   paper: {
     background: theme.sidebarBackground,
     padding: '16px',
-    paddingLeft: '40px',
+    paddingLeft: '30px',
     color: '#bbb',
     textAlign: 'left'
   },
@@ -53,7 +56,13 @@ const useStyles = makeStyles({
   checked: {},
   linkContainer: {
     paddingTop: '20px',
-    
+   
+  },
+  icon: { 
+    paddingRight: '5px', 
+    paddingLeft: '15px',
+    color: 'red',
+
   }
 })
 
@@ -107,7 +116,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
         <hr style={{ border: 'none', borderTop: '1px solid #bbb', marginTop: '15px' }} />
 
         <div className={classes.linkContainer}>
-          <Link to="/erase" className={classes.link}>Erase Profile</Link>
+          <Link to="/erase" className={classes.link}><MeetingRoomRoundedIcon className={classes.icon} />Erase Profile</Link>
         </div>
 
       </Paper>

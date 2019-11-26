@@ -1,6 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
+import userService from '../../services/user'
+import { logout } from '../../actions/user'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles({
   root: {
@@ -25,26 +28,37 @@ const useStyles = makeStyles({
   }
 })
 
-const EraseProfile = props => {
+const EraseProfile = ({ logout, history, token }) => {
 
   const classes = useStyles()
+
+  const handleErase = async () => {
+    userService.saveToken(token)
+    await userService.eraseUser()
+    history.push('/')
+    logout()
+  }
 
   return <div className={classes.root}>
     <div className={classes.headersAndImage}>
       <div className={classes.headerContainer}>
         <h1>Sad to see you go!</h1>
-        <h2>Are you certain that you want to leave us?</h2>
+        <h2>Are you certain you want to leave us?</h2>
       </div>
       <img src="./assets/images/tear1.png" width="120" alt="cry" />
     </div>
     <div className={classes.buttonContainer}>
-      <Button color="secondary" variant="contained">Erase Profile</Button>
-      <Button color="primary" variant="outlined" onClick={() => props.history.push("/profile")} >Cancel</Button>
+      <Button color="secondary" variant="contained" onClick={handleErase}>Erase Profile</Button>
+      <Button color="primary" variant="outlined" onClick={() => history.push("/profile")} >Cancel</Button>
     </div>
 
   </div>
 }
 
-export default EraseProfile
+const mapStateToProps = state => ({
+  token: state.user.token
+})
+
+export default connect(mapStateToProps, { logout })(EraseProfile)
 
 

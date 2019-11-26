@@ -243,6 +243,23 @@ userRouter.post('/setVisible', async (req, res, next) => {
   }
 })
 
+userRouter.post('/eraseUser', async (req, res, next) => {
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    await User.findByIdAndDelete(user.id)
+    await Profile.findOneAndDelete({ username: user.username })
+
+    return res.status(200).send(user.username)
+
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 
 module.exports = userRouter
