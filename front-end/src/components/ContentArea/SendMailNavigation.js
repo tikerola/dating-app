@@ -58,20 +58,22 @@ const SendMailNavigation = props => {
         </NavLink></p>
 
       <p className={classes.navLink} onClick={() => {
+        if (!props.profile.chatEnabled) return
+
         if (!props.session)
           props.createChatSession(props.match.params.username, true)
 
         else
           props.openChat()
       }}>
-        <ChatIcon className={classes.icon} /> Chat
+        <ChatIcon className={classes.icon} style={{ color: props.profile.chatEnabled ? 'green' : ''}} /> Chat
       </p>
 
       <p  >
         {props.isFavorite
           ?
           <span className={classes.navLink} onClick={() => props.addToFavorites(props.match.params.username, 'remove')}>
-            <StarIcon className={classes.icon} />
+            <StarIcon className={classes.icon} style={{ color: 'yellow'}} />
             Favorited
           </span>
           :
@@ -106,7 +108,8 @@ const mapStateToProps = (state, ownProps) => ({
   blocked: state.user.blocked.includes(ownProps.match.params.username),
   blockedBy: state.user.blockedBy.includes(ownProps.match.params.username),
   session: state.chat.sessions[ownProps.match.params.username],
-  isFavorite: state.user.favorites.find(profile => profile.username === ownProps.match.params.username)
+  isFavorite: state.user.favorites.find(profile => profile.username === ownProps.match.params.username),
+  profile: state.profiles.find(profile => profile.username === ownProps.match.params.username)
 })
 
 export default connect(mapStateToProps, { createChatSession, openChat, addToFavorites, blockUser })(SendMailNavigation)

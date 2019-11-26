@@ -116,3 +116,19 @@ export const beingBlocked = (userWhoBlocked, block) => {
     userWhoBlocked
   }
 }
+
+export const toggleChatEnabled = enable => {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.toggleChatEnabled(enable)
+
+    dispatch({
+      type: 'TOGGLE_CHAT_ENABLED',
+      enable: response
+    })
+
+  }
+}

@@ -67,5 +67,16 @@ const blockUser = async (userToBlock, block) => {
   return response.data
 }
 
+const toggleChatEnabled = async enable => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
 
-export default { signup, login, edit, addProfileImage, addToFavorites, blockUser, saveToken }
+  const response = await axios.post(`${baseUrl}/enableChat`, { enable }, config)
+  return response.data
+}
+
+
+export default { signup, login, edit, addProfileImage, addToFavorites, blockUser, toggleChatEnabled, saveToken }

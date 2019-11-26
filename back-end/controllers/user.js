@@ -74,8 +74,9 @@ userRouter.post('/login', async (req, res, next) => {
       token,
       favorites: user.favorites,
       blockedBy: user.blockedBy,
-      blocked: user.blocked
-
+      blocked: user.blocked,
+      chatEnabled: user.chatEnabled,
+      visible: user.visible
     })
   } catch (error) {
     next(error)
@@ -200,6 +201,26 @@ userRouter.post('/blockUser', async (req, res, next) => {
     next(error)
   }
 
+})
+
+userRouter.post('/enableChat', async (req, res, next) => {
+  const { enable } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const profile = await Profile.findOne({ username: user.username })
+    profile.chatEnabled = enable
+    await profile.save()
+
+    return res.status(200).send(enable)
+
+  } catch (error) {
+    next(error)
+  }
 })
 
 

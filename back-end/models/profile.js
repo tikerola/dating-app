@@ -21,6 +21,14 @@ const profileSchema = new mongoose.Schema({
   image: {
     imageUrl: String,
     id: String
+  },
+  chatEnabled: {
+    type: Boolean,
+    default: true
+  },
+  visible: {
+    type: Boolean,
+    default: true
   }
 })
 

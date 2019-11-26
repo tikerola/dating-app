@@ -65,12 +65,21 @@ export default (state = initialState, action) => {
         blockedBy: state.blockedBy.filter(user => user !== action.userWhoBlocked)
       }
 
-    case 'REMOVE_FROM_FAVORITES': {
+    case 'REMOVE_FROM_FAVORITES': 
       return {
         ...state,
         favorites: state.favorites.filter(favProfile => favProfile.username !== action.profile.username)
       }
-    }
+    
+
+    case 'TOGGLE_CHAT_ENABLED':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          chatEnabled: action.enable ? true : false
+        }
+      }
 
     default:
       return state
