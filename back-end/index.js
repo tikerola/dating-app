@@ -10,7 +10,7 @@ const io = require('./socket/socket').init(server)
 io.on('connection', socket => {
 
   socket.on('newUser', username => {
-    
+    console.log(socket.id)
     if (username !== null)
       clients[username] = socket.id
   })

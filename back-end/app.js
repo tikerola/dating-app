@@ -13,7 +13,7 @@ const cors = require('cors')
 const path = require('path')
 
 
-app.use(express.static('build'))
+//app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
