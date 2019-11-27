@@ -3,6 +3,7 @@ const userRouter = require('express').Router()
 const User = require('../models/user')
 const parser = require('../utils/cloudinary')()
 const Profile = require('../models/profile')
+const Message = require('../models/message')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const io = require('../socket/socket')
@@ -252,6 +253,9 @@ userRouter.post('/eraseUser', async (req, res, next) => {
 
     await User.findByIdAndDelete(user.id)
     await Profile.findOneAndDelete({ username: user.username })
+
+    await Message.deleteMany({ receiver: user.username })
+    await Message.updateMany({ author: user.username }, { $set: { author: `deleted_user (${user.username})`}})
 
     return res.status(200).send(user.username)
 

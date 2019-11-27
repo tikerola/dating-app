@@ -1,6 +1,5 @@
 
 import userService from '../services/user'
-//import { socket } from '../index'
 import { setUnreadMailCount } from './mail'
 import { setNotification } from './notification'
 
@@ -16,7 +15,6 @@ export const login = credentials => {
 
     try {
       const response = await userService.login(credentials)
-      //localStorage.setItem('userData', JSON.stringify(response))
 
       await dispatch({
         type: 'LOGIN',
@@ -32,10 +30,7 @@ export const login = credentials => {
 }
 
 export const logout = () => {
-  //localStorage.clear()
-  //socket.disconnect()
-  //window.location.reload(true)
-
+  
   return {
     type: 'RESET'
   }

@@ -1,4 +1,5 @@
 import mailService from '../services/mail'
+import { setNotification } from './notification'
 
 export const fetchInbox = () => {
 
@@ -38,12 +39,19 @@ export const reply = (messageId, content) => {
 
     const { token } = getState().user
     mailService.saveToken(token)
-    const response = await mailService.reply({ messageId, content })
 
-    dispatch({
-      type: 'REPLY',
-      mail: response
-    })
+    try {
+      const response = await mailService.reply({ messageId, content })
+      console.log('WTF')
+
+      dispatch({
+        type: 'REPLY',
+        mail: response
+      })
+
+    } catch (error) {
+      dispatch(setNotification('Unable to send mail'))
+    }
   }
 }
 
@@ -104,7 +112,7 @@ export const mailRead = id => {
 
   return async (dispatch, getState) => {
 
-    dispatch({type: 'MAIL_READ'})
+    dispatch({ type: 'MAIL_READ' })
 
     const { token } = getState().user
     mailService.saveToken(token)

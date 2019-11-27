@@ -51,6 +51,10 @@ messagesRouter.post('/reply', async (req, res, next) => {
 
     const message = await Message.findById(messageId)
 
+    if (message.author.includes('deleted_user')) {
+      throw new Error('User does not exist anymore')
+    }
+
     const newMessage = new Message({
       author: message.receiver,
       receiver: message.author,
@@ -163,12 +167,18 @@ messagesRouter.post('/delete', async (req, res, next) => {
       throw new Error('Unauthorized')
 
     const messageToDelete = await Message.findById(id)
+
+    if (messageToDelete.author.includes('deleted_user') || messageToDelete.receiver.includes('deleted_user')) {
+      await Message.findByIdAndDelete(id)
+      return res.status(204).send('Deletion Successful')
+    }
+
     const sentUser = await User.findOne({ username: messageToDelete.author })
-    const reveiverUser = await User.findOne({ username: messageToDelete.receiver })
+    const receiverUser = await User.findOne({ username: messageToDelete.receiver })
 
     if (source === 'inbox') {
-      reveiverUser.inbox = reveiverUser.inbox.filter(mailId => mailId.toString() !== id)
-      await reveiverUser.save()
+      receiverUser.inbox = receiverUser.inbox.filter(mailId => mailId.toString() !== id)
+      await receiverUser.save()
 
       if (!sentUser.sent.find(mailId => mailId.toString() === id))
         await Message.findByIdAndDelete(id)
@@ -178,7 +188,7 @@ messagesRouter.post('/delete', async (req, res, next) => {
       sentUser.sent = sentUser.sent.filter(mailId => mailId.toString() !== id)
       await sentUser.save()
 
-      if (!reveiverUser.inbox.find(mailId => mailId.toString() === id))
+      if (!receiverUser.inbox.find(mailId => mailId.toString() === id))
         await Message.findByIdAndDelete(id)
     }
 

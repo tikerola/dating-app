@@ -3,6 +3,9 @@ module.exports = (error, req, res, next) => {
 
   //console.log(error.message, '*******************')
 
+  if (error.message.includes('User does not exist anymore'))
+    return res.status(400).send('Error: user does not exist anymore')
+
   if (error.message.includes('Unauthorized'))
     return res.status(401).send('Error: unauthorized user!')
 
@@ -14,8 +17,6 @@ module.exports = (error, req, res, next) => {
 
   if (error.message.includes('No such username'))
     return res.status(400).send('Error: no such username')
-
-
 
   next(error)
 }
