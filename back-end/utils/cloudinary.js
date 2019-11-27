@@ -14,6 +14,7 @@ const setUpMulter = () => {
     cloudinary: cloudinary,
     folder: "demo",
     allowedFormats: ["jpg", "png"],
+    secure: true,
     transformation: [{ width: 500, height: 500, crop: "limit" }]
   })
   const parser = multer({ storage: storage })

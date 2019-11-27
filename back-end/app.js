@@ -10,6 +10,7 @@ const profilesRouter = require('./controllers/profiles')
 const chatRouter = require('./controllers/chat')
 const tokenFromHeaders = require('./middlewares/tokenFromHeaders')
 const cors = require('cors')
+const path = require('path')
 
 
 app.use(express.static('build'))
@@ -30,6 +31,10 @@ app.use('/api/chat', chatRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/profiles', profilesRouter)
 app.use('/developer', developerRouter)
+
+app.get('*', (req, res) => {                       
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));                               
+})
 
 
 app.use(handleError)

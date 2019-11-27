@@ -116,7 +116,7 @@ userRouter.post('/image', parser.single("file"), async (req, res, next) => {
     const profileToUpdate = await Profile.findOne({ username: user.username })
 
     const image = {
-      imageUrl: req.file.url,
+      imageUrl: req.file.secure_url,
       id: req.file.public_id
     }
 
