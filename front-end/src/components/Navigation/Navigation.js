@@ -68,46 +68,49 @@ const Navigation = props => {
   const classes = useStyles()
 
   useEffect(() => {
-    socket.on('mail', data => {
-      if (data.receiver === username) {
-        setNotification(`${data.mail.author} sent you mail`)
-        mailUnread()
-      }
-      else if (data.author === username) {
-        setNotification(`You sent mail to ${data.mail.receiver}`)
-      }
-    })
-
-    socket.on('block_user', data => {
-      if (data.to === username) {
-        if (data.block) {
-          addToFavorites(data.from, 'remove')
+    if (username) {
+      socket.on('mail', data => {
+        if (data.receiver === username) {
+          setNotification(`${data.mail.author} sent you mail`)
+          mailUnread()
         }
+        else if (data.author === username) {
+          setNotification(`You sent mail to ${data.mail.receiver}`)
+        }
+      })
 
-        beingBlocked(data.from, data.block)
-        destroySession(data.from)
-      }
-    })
-  }, [])
+      socket.on('block_user', data => {
+        if (data.to === username) {
+          if (data.block) {
+            addToFavorites(data.from, 'remove')
+          }
+
+          beingBlocked(data.from, data.block)
+          destroySession(data.from)
+        }
+      })
+    }
+  }, [username])
 
   useEffect(() => {
     if (username) {
       socket.emit('newUser', username)
+
+
+      socket.on('chat', data => {
+        if (data.to === username) {
+          receiveChatMessage(data.from, data.message)
+
+        }
+      })
+
+      socket.on('disconnect', (reason) => {
+        console.log(reason, 'socket disconnect reason *********************')
+        if (reason === 'io server disconnect') {
+          socket.connect()
+        }
+      })
     }
-
-    socket.on('chat', data => {
-      if (data.to === username) {
-        receiveChatMessage(data.from, data.message)
-
-      }
-    })
-
-    socket.on('disconnect', (reason) => {
-      console.log(reason, 'socket disconnect reason *********************')
-      if (reason === 'io server disconnect') {
-        socket.connect()
-      }
-    })
   }, [username])
 
 
@@ -116,7 +119,7 @@ const Navigation = props => {
     await history.push('/')
     logout()
   }
-  
+
 
   return <Paper className={classes.root} elevation={5}>
     <img src='/assets/images/title3.png' alt='title' />
