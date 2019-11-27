@@ -91,9 +91,9 @@ const Navigation = props => {
   }, [])
 
   useEffect(() => {
-
-    if (username)
+    if (username) {
       socket.emit('newUser', username)
+    }
 
     socket.on('chat', data => {
       if (data.to === username) {
@@ -108,7 +108,7 @@ const Navigation = props => {
         socket.connect()
       }
     })
-  }, [])
+  }, [username])
 
 
 
