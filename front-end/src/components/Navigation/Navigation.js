@@ -102,7 +102,6 @@ const Navigation = props => {
       socket.on('chat', data => {
         if (data.to === username) {
           receiveChatMessage(data.from, data.message)
-
         }
       })
 

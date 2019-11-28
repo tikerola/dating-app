@@ -67,10 +67,18 @@ export const receiveChatMessage = (from, message) => {
       dispatch(setDot(from, 1))
     }
 
+    let chatMessage 
+
+    if (message.substring(0, 9) === 'Chat Bot:')
+      chatMessage = message
+
+    else 
+      chatMessage = `${from}: ${message}`
+
     dispatch({
       type: 'RECEIVE_CHAT_MESSAGE',
       id: from,
-      message: `${from}: ${message}`
+      message: chatMessage
     })
 
   }

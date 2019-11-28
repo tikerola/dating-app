@@ -17,7 +17,12 @@ io.on('connection', socket => {
   socket.on('chat', data => {
     
     const id = clients[data.to]
-    io.to(`${id}`).emit('chat', data)
+    if (id === undefined) {
+      let returnId = clients[data.from]
+      io.to(`${returnId}`).emit('chat', { message: `Chat Bot: ${data.to} is currently offline and can't receive messages`, to: data.from, from: data.to })
+    }
+    else
+      io.to(`${id}`).emit('chat', data)
   })
 
   
