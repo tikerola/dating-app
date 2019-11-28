@@ -2,6 +2,7 @@
 import userService from '../services/user'
 import { setUnreadMailCount } from './mail'
 import { setNotification } from './notification'
+import { socket } from '../index'
 
 export const signup = userData => {
   return {
@@ -35,6 +36,7 @@ export const logout = () => {
     userService.saveToken(token)
 
     userService.toggleOnline(false)
+    socket.disconnect()
 
     dispatch({
       type: 'RESET'

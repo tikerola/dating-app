@@ -119,6 +119,7 @@ const Navigation = props => {
   const handleLogout = async () => {
     await history.push('/')
     logout()
+    window.location.reload()
   }
 
 
