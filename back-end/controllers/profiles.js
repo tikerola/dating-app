@@ -71,6 +71,23 @@ profilesRouter.post('/searchOne', async (req, res, next) => {
   }
 })
 
+profilesRouter.get('/favorites', async (req, res, next) => {
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const userWithFavorites = await User.findById(user.id).populate('favorites')
+
+    return res.status(200).send(userWithFavorites.favorites)
+
+  }
+  catch (error) {
+    next(error)
+  }
+})
+
 
 
 

@@ -45,7 +45,7 @@ const Navigation = ({ fetchFavorites, favorites })=> {
         <AccountCircleIcon className={classes.icon} />
         Profile</NavLink></p>
     <p>
-      <NavLink to="/search" activeClassName={classes.active} className={classes.navLink} onClick={() => fetchFavorites(favorites)} >
+      <NavLink to="/search" activeClassName={classes.active} className={classes.navLink} onClick={() => fetchFavorites()} >
       <SearchIcon className={classes.icon} />
       Search</NavLink></p>
   </div>

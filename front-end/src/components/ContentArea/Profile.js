@@ -37,7 +37,8 @@ const Profile = ({ match, profile }) => {
 
   return (
     <div className={classes.root}>
-      <h1>{profile.username}</h1>
+      <h1>{profile.username} <span style={{ fontSize: '0.5em', color: '#666'}}>
+        ({profile.online ? 'online' : 'offline'})</span></h1>
       <div className={classes.container}>
         <img
           src={profile.image.imageUrl}

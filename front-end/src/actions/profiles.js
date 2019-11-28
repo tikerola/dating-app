@@ -33,7 +33,7 @@ export const searchProfile = (username, history) => {
     try {
 
       const response = await profilesService.searchProfile(username)
-      
+
       await dispatch({
         type: 'SEARCH_PROFILES',
         profiles: [response]
@@ -43,15 +43,23 @@ export const searchProfile = (username, history) => {
     }
     catch (error) {
       dispatch(setNotification('No such username'))
-      
+
     }
   }
 }
 
 
-export const fetchFavorites = favorits => {
-  return {
-    type: 'FETCH_FAVORITES',
-    profiles: favorits
+export const fetchFavorites = () => {
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+
+    profilesService.saveToken(token)
+
+    const response = await profilesService.fetchFavorites()
+
+    dispatch({
+      type: 'FETCH_FAVORITES',
+      profiles: response
+    })
   }
 }

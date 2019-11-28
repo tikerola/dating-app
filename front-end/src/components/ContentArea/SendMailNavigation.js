@@ -57,7 +57,7 @@ const SendMailNavigation = props => {
         </NavLink></p>
 
       <p className={classes.navLink} onClick={() => {
-        if (!props.profile.chatEnabled) return
+        if (!props.profile.chatEnabled || !props.profile.online) return
 
         if (!props.session)
           props.createChatSession(props.match.params.username, true)
@@ -65,7 +65,7 @@ const SendMailNavigation = props => {
         else
           props.openChat()
       }}>
-        <ChatIcon className={classes.icon} style={{ color: props.profile.chatEnabled ? 'green' : ''}} /> Chat
+        <ChatIcon className={classes.icon} style={{ color: props.profile.chatEnabled && props.profile.online ? 'green' : ''}} /> Chat
       </p>
 
       <p  >
