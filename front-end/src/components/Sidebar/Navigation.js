@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Navigation = ({ fetchFavorites, favorites })=> {
+const Navigation = ({ fetchFavorites })=> {
 
   const classes = useStyles()
 
@@ -51,8 +51,5 @@ const Navigation = ({ fetchFavorites, favorites })=> {
   </div>
 }
 
-const mapStateToProps = state => ({
-  favorites: state.user.favorites
-})
 
-export default connect(mapStateToProps, { fetchFavorites })(Navigation)
+export default connect(null, { fetchFavorites })(Navigation)

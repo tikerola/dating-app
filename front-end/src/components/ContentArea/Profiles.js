@@ -67,6 +67,7 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
               <ProfileThumbnail
                 username={profile.username}
                 image={profile.image.imageUrl}
+                online={profile.online}
               />
               </Link>)
           }

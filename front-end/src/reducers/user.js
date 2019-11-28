@@ -99,6 +99,12 @@ export default (state = initialState, action) => {
         }
       }
 
+    case 'FETCH_FAVORITES': 
+    return {
+      ...state,
+      favorites: action.profiles
+    }
+
     default:
       return state
   }

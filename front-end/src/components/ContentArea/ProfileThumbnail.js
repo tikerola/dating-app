@@ -26,6 +26,14 @@ const useStyles = makeStyles({
   button: {
     margin: '0 auto',
     fontSize: '0.5em'
+  },
+  dot: {
+    width: '5px',
+    height: '5px',
+    backgroundColor: 'green', 
+    fontSize: '0.8em',
+    borderRadius: '50px',
+    marginLeft: '10px'
   }
 });
 
@@ -39,7 +47,9 @@ const ProfileThumbnail = props => {
         <img src={props.image} alt="profile" width="90" className={classes.image} />
       </CardContent>
       <CardActions>
-        <Button size="small" className={classes.button} color="primary">{props.username}</Button>
+        <Button size="small" className={classes.button} color="primary">
+          {props.username.length > 5 ? `${props.username.substring(0, 5)}...` : props.username } 
+        <div className={classes.dot} style={{ backgroundColor: props.online ? 'green' : '#333' }} /></Button>
       </CardActions>
     </Card>
   );

@@ -56,11 +56,12 @@ const Favorites = ({ profiles }) => {
       <h1>{profiles.length > 0 ? 'Your Favorites' : 'No favorites chosen yet'}</h1>
       <div className={classes.center}>
         <div className={classes.container}>
-          { 
+          {
             profiles.map(profile => <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
               <ProfileThumbnail
                 username={profile.username}
                 image={profile.image.imageUrl}
+                online={profile.online}
               />
               </Link>)
           }
