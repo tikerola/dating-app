@@ -63,7 +63,6 @@ userRouter.post('/login', async (req, res, next) => {
 
     const token = jwt.sign(userForToken, process.env.JWT_SECRET)
 
-
     res.status(200).send({
       id: user._id,
       username: user.username,
@@ -258,6 +257,27 @@ userRouter.post('/eraseUser', async (req, res, next) => {
     await Message.updateMany({ author: user.username }, { $set: { author: `deleted_user (${user.username})`}})
 
     return res.status(200).send(user.username)
+
+  } catch (error) {
+    next(error)
+  }
+})
+
+
+userRouter.post('/online', async (req, res, next) => {
+  const { online } = req.body
+
+  try {
+    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+
+    if (!user)
+      throw new Error('Unauthorized')
+
+    const profile = await Profile.findOne({ username: user.username })
+    profile.online = online
+    await profile.save()
+
+    return res.status(200).send(online)
 
   } catch (error) {
     next(error)

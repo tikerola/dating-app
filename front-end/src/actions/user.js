@@ -30,9 +30,15 @@ export const login = credentials => {
 }
 
 export const logout = () => {
-  
-  return {
-    type: 'RESET'
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    userService.toggleOnline(false)
+
+    dispatch({
+      type: 'RESET'
+    })
   }
 }
 
@@ -141,5 +147,19 @@ export const toggleProfileVisible = visible => {
       visible: response
     })
 
+  }
+}
+
+export const toggleOnline = online => {
+  return async (dispatch, getState) => {
+    const { token } = getState().user
+    userService.saveToken(token)
+
+    const response = await userService.toggleOnline(online)
+
+    dispatch({
+      type: 'TOGGLE_ONLINE',
+      online: response
+    })
   }
 }

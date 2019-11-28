@@ -101,6 +101,17 @@ const eraseUser = async () => {
   return response.data
 }
 
+const toggleOnline = async online => {
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+
+  const response = await axios.post(`${baseUrl}/online`, { online }, config)
+  return response.data
+}
+
 
 export default {
   signup,
@@ -112,5 +123,6 @@ export default {
   toggleChatEnabled,
   toggleProfileVisible,
   saveToken,
-  eraseUser
+  eraseUser,
+  toggleOnline
 }

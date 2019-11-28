@@ -4,7 +4,7 @@ import { Paper, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { theme } from '../../theme/theme'
 import { connect } from 'react-redux'
-import { logout, addToFavorites, beingBlocked } from '../../actions/user'
+import { logout, addToFavorites, beingBlocked, toggleOnline } from '../../actions/user'
 import { withRouter } from 'react-router-dom'
 import { receiveChatMessage, destroySession } from '../../actions/chat'
 import { socket } from '../../index'
@@ -62,7 +62,8 @@ const Navigation = props => {
     mailUnread,
     addToFavorites,
     beingBlocked,
-    destroySession
+    destroySession,
+    toggleOnline
   } = props
 
   const classes = useStyles()
@@ -95,7 +96,8 @@ const Navigation = props => {
   useEffect(() => {
     if (username) {
       socket.emit('newUser', username)
-
+      toggleOnline(true)
+    
 
       socket.on('chat', data => {
         if (data.to === username) {
@@ -105,14 +107,14 @@ const Navigation = props => {
       })
 
       socket.on('disconnect', (reason) => {
-        console.log(reason, 'socket disconnect reason *********************')
+        
         if (reason === 'io server disconnect') {
           socket.connect()
         }
       })
     }
-  }, [username])
 
+  }, [username])
 
 
   const handleLogout = async () => {
@@ -161,7 +163,8 @@ const mapDispatchToProps = ({
   mailUnread,
   addToFavorites,
   beingBlocked,
-  destroySession
+  destroySession,
+  toggleOnline
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))

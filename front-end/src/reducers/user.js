@@ -90,6 +90,15 @@ export default (state = initialState, action) => {
         }
       }
 
+    case 'TOGGLE_ONLINE':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          online: action.online
+        }
+      }
+
     default:
       return state
   }

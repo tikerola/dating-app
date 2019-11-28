@@ -29,6 +29,10 @@ const profileSchema = new mongoose.Schema({
   visible: {
     type: Boolean,
     default: true
+  },
+  online: {
+    type: Boolean,
+    default: false
   }
 })
 
