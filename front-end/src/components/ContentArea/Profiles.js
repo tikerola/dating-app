@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
 import { searchProfiles } from '../../actions/profiles'
 import { Link } from 'react-router-dom'
+import Spinner from '../Spinner/Spinner'
 
 
 const useStyles = makeStyles({
@@ -42,8 +43,8 @@ const useStyles = makeStyles({
 })
 
 const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
-  
 
+  const [loading, setLoading] = React.useState(true)
   const classes = useStyles()
 
   const handlePageChange = direction => {
@@ -54,23 +55,27 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
       page: direction === 'next' ? searchOptions.page + 1 : searchOptions.page - 1,
       limit: searchOptions.limit
     })
+
+    setLoading(true)
   }
 
-  
+  const profilesArray = profiles.map((profile, index)=> <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
+    <ProfileThumbnail
+      username={profile.username}
+      image={profile.image.imageUrl}
+      online={profile.online}
+      setLoading={setLoading}
+      index={index}
+    />
+  </Link>)
+
   return (
     <div className={classes.root}>
+      { loading && <Spinner /> }
       <h1>Search Result</h1>
       <div className={classes.center}>
-        <div className={classes.container}>
-          {
-            profiles.map(profile => <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
-              <ProfileThumbnail
-                username={profile.username}
-                image={profile.image.imageUrl}
-                online={profile.online}
-              />
-              </Link>)
-          }
+        <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
+          { profilesArray }
         </div>
       </div>
       {profiles.length > 0 && <div className={classes.pagination}>

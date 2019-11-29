@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   dot: {
     width: '5px',
     height: '5px',
-    backgroundColor: 'green', 
+    backgroundColor: 'green',
     fontSize: '0.8em',
     borderRadius: '50px',
     marginLeft: '10px'
@@ -39,17 +39,20 @@ const useStyles = makeStyles({
 
 const ProfileThumbnail = props => {
   const classes = useStyles()
-  
 
   return (
     <Card className={classes.card} elevation={10}>
       <CardContent className={classes.cardContent}>
-        <img src={props.image} alt="profile" width="90" className={classes.image} />
+        <img src={props.image} alt="profile" width="90" className={classes.image} onLoad={() => {
+          if (props.index === 0) {
+            props.setLoading(false)
+          }
+        }} />
       </CardContent>
       <CardActions>
         <Button size="small" className={classes.button} color="primary">
-          {props.username.length > 5 ? `${props.username.substring(0, 5)}...` : props.username } 
-        <div className={classes.dot} style={{ backgroundColor: props.online ? 'green' : '#333' }} /></Button>
+          {props.username.length > 5 ? `${props.username.substring(0, 5)}...` : props.username}
+          <div className={classes.dot} style={{ backgroundColor: props.online ? 'green' : '#333' }} /></Button>
       </CardActions>
     </Card>
   );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import Spinner from '../Spinner/Spinner'
 
 
 const useStyles = makeStyles({
@@ -42,7 +43,7 @@ const useStyles = makeStyles({
 
 const Favorites = ({ profiles }) => {
   const [page, setPage] = React.useState(1)
-
+  const [loading, setLoading] = React.useState(true)
   const classes = useStyles()
 
   const handlePageChange = direction => {
@@ -51,22 +52,24 @@ const Favorites = ({ profiles }) => {
 
     else if (direction === 'prev')
       setPage(page - 1)
-
   }
 
 
   return (
     <div className={classes.root}>
+      { loading && <Spinner />}
       <h1>{profiles.length > 0 ? 'Your Favorites' : 'No favorites chosen yet'}</h1>
       <div className={classes.center}>
         <div className={classes.container}>
           {
-            profiles.slice((page - 1) * 12, 12 + (page - 1) * 12).map(profile =>
+            profiles.slice((page - 1) * 12, 12 + (page - 1) * 12).map((profile, index) =>
               <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
                 <ProfileThumbnail
                   username={profile.username}
                   image={profile.image.imageUrl}
                   online={profile.online}
+                  setLoading={setLoading}
+                  index={index}
                 />
               </Link>)
           }
