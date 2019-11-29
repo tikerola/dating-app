@@ -96,7 +96,7 @@ const Navigation = props => {
   useEffect(() => {
     if (username) {
       socket.emit('newUser', username)
-      toggleOnline(true)
+      
 
       socket.on('chat', data => {
         if (data.to === username) {
@@ -113,6 +113,12 @@ const Navigation = props => {
     }
 
   }, [username])
+
+  useEffect(() => {
+    if (loggedIn) {
+      toggleOnline(true)
+    }
+  }, [loggedIn])
 
 
   const handleLogout = async () => {

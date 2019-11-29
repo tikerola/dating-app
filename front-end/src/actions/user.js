@@ -155,9 +155,7 @@ export const toggleProfileVisible = visible => {
 export const toggleOnline = online => {
   return async (dispatch, getState) => {
     const { token } = getState().user
-    if (!token)
-      return
-      
+   
     userService.saveToken(token)
 
     const response = await userService.toggleOnline(online)
