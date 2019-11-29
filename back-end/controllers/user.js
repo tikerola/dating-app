@@ -8,13 +8,13 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const io = require('../socket/socket')
 const clients = require('../utils/clients')
+const moment = require('moment')
 
 userRouter.post('/signup', async (req, res, next) => {
-  const { username, password, gender, age } = req.body
+  const { username, password, gender, birthday, age } = req.body
 
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
-
 
   const newProfile = new Profile({
     username,
@@ -33,6 +33,7 @@ userRouter.post('/signup', async (req, res, next) => {
       passwordHash,
       gender,
       age,
+      birthday,
       profile: createdProfile._id
     })
 
@@ -63,11 +64,19 @@ userRouter.post('/login', async (req, res, next) => {
 
     const token = jwt.sign(userForToken, process.env.JWT_SECRET)
 
+    const yearsOld = moment().diff(user.birthday, 'years')
+    
+    if (yearsOld !== user.age) {
+      user.profile.age = yearsOld
+      user.age = yearsOld
+      await user.save()
+    }
+
     res.status(200).send({
       id: user._id,
       username: user.username,
       gender: user.gender,
-      age: user.age,
+      age: user.age === yearsOld ? user.age : yearsOld,
       profile: user.profile.toJSON(),
       inbox: user.inbox,
       sent: user.sent,

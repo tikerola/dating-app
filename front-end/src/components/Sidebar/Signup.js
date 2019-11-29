@@ -9,6 +9,8 @@ import signupService from '../../services/user'
 import { signup } from '../../actions/user'
 import { setNotification } from '../../actions/notification'
 import { connect } from 'react-redux'
+import moment from 'moment'
+
 
 const genders = [
   {
@@ -49,7 +51,7 @@ const useStyles = makeStyles({
   textField: {
     color: theme.inputTextColor,
     background: theme.textFieldBackgroundColor,
-    
+
   },
   cssLabel: {
     color: theme.inputLabelColor
@@ -94,10 +96,10 @@ const Signup = props => {
 
   const [username, resetUsername] = useField('text')
   const [gender, resetGender] = useField('text')
-  const [age, resetAge] = useField('text', /\D|\d{3}/)
+  const [birthday, setBirthday] = React.useState('')
   const [password, resetPassword] = useField('password')
   const [confirmPassword, resetConfirmPassword] = useField('password')
-  
+
   const classes = useStyles()
 
   const handleSubmit = async e => {
@@ -105,31 +107,33 @@ const Signup = props => {
 
     if (!inputValid())
       return
-    
+
     const response = await signupService.signup({
       username: username.value,
       password: password.value,
-      age: +age.value,
-      gender: gender.value
+      age: moment().diff(birthday, 'years'),
+      gender: gender.value,
+      birthday
     })
 
     props.signup(response)
 
     resetUsername()
     resetGender()
-    resetAge()
     resetPassword()
     resetConfirmPassword()
     props.toggleRegister()
   }
 
   const inputValid = () => {
-    if (!username.value || !age.value || !gender.value || !password.value || !confirmPassword.value) {
+
+
+    if (!username.value || !birthday || !gender.value || !password.value || !confirmPassword.value) {
       props.setNotification('All fields must be filled')
       return false
     }
 
-    if (password.value !== confirmPassword.value ) {
+    if (password.value !== confirmPassword.value) {
       props.setNotification('Passwords wont match')
       return false
     }
@@ -143,8 +147,9 @@ const Signup = props => {
       props.setNotification('Username must be at least 4 characters')
       return false
     }
+    const calculatedAge = moment().diff(birthday, 'years')
 
-    if (age.value < 18 || age.value > 99) {
+    if (calculatedAge < 18 || calculatedAge > 99) {
       props.setNotification('Age must be between 18 and 99')
       return false
     }
@@ -159,7 +164,7 @@ const Signup = props => {
           <h1>Sign Up</h1>
         </div>
 
-        <input type="password" style={{display:'none'}} readOnly={true} autoComplete="new-password"></input>
+        <input type="password" style={{ display: 'none' }} readOnly={true} autoComplete="new-password"></input>
 
         <TextField
           {...username}
@@ -170,6 +175,7 @@ const Signup = props => {
           fullWidth
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
@@ -193,12 +199,13 @@ const Signup = props => {
           {...gender}
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
             },
           }}
-          InputProps={{ 
+          InputProps={{
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
@@ -216,18 +223,24 @@ const Signup = props => {
 
         <TextField
           className={classes.textField}
-          {...age}
+          type="date"
+
+          value={birthday}
+          onChange={e => setBirthday(e.target.value)}
           margin="dense"
           required
-          label="Age"
+          label="Date of Birth"
           variant="outlined"
-          InputLabelProps={{ 
+          InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
+
             },
           }}
           InputProps={{
+
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
@@ -245,6 +258,7 @@ const Signup = props => {
           label="Password"
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
@@ -268,6 +282,7 @@ const Signup = props => {
           label="Confirm password"
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
@@ -287,12 +302,12 @@ const Signup = props => {
         </Button>
 
         <div className={classes.register}>
-        Have already an account?
+          Have already an account?
         <p className={classes.link} onClick={props.toggleRegister}>Login here</p>
-      </div>
+        </div>
 
       </div>
-      
+
     </div>
   )
 }

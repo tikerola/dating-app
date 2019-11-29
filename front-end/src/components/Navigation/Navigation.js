@@ -97,7 +97,6 @@ const Navigation = props => {
     if (username) {
       socket.emit('newUser', username)
       toggleOnline(true)
-    
 
       socket.on('chat', data => {
         if (data.to === username) {
