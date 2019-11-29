@@ -57,7 +57,7 @@ const Favorites = ({ profiles }) => {
 
   return (
     <div className={classes.root}>
-      { loading && <Spinner />}
+      { (loading && profiles.length > 0) && <Spinner />}
       <h1>{profiles.length > 0 ? 'Your Favorites' : 'No favorites chosen yet'}</h1>
       <div className={classes.center}>
         <div className={classes.container}>

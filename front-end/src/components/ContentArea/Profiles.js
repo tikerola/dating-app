@@ -71,7 +71,7 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
 
   return (
     <div className={classes.root}>
-      { loading && <Spinner /> }
+      { (loading && profiles.length > 0) && <Spinner /> }
       <h1>Search Result</h1>
       <div className={classes.center}>
         <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>

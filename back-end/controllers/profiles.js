@@ -79,8 +79,9 @@ profilesRouter.get('/favorites', async (req, res, next) => {
       throw new Error('Unauthorized')
 
     const userWithFavorites = await User.findById(user.id).populate('favorites')
+    const favoritesToReturn = userWithFavorites.favorites.filter(user => user.visible === true)
 
-    return res.status(200).send(userWithFavorites.favorites)
+    return res.status(200).send(favoritesToReturn)
 
   }
   catch (error) {
