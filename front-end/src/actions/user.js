@@ -36,11 +36,13 @@ export const logout = () => {
     userService.saveToken(token)
 
     userService.toggleOnline(false)
-    socket.disconnect()
+    
 
-    dispatch({
+    await dispatch({
       type: 'RESET'
     })
+
+    socket.disconnect()
   }
 }
 
