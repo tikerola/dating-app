@@ -11,7 +11,7 @@ let user1
 let user2
 
 describe('adding to favorites', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
 
     await User.deleteMany({})
     await Profile.deleteMany({})
@@ -48,6 +48,11 @@ describe('adding to favorites', () => {
 
     expect(response.body.profile.username).toEqual(user2.body.username)
 
+    const userwithAdded = await User.findOne({ username: user1.body.username }).populate('favorites')
+
+    expect(userwithAdded.favorites.length).toBe(1)
+    expect(userwithAdded.favorites[0].username).toBe(user2.body.username)
+
   })
 
   it('should test removing a user from favorites', async () => {
@@ -62,6 +67,11 @@ describe('adding to favorites', () => {
 
     expect(response.body.profile.username).toEqual(user2.body.username)
     expect(response.body.operation).toEqual('remove')
+
+    const userwithRemoved = await User.findOne({ username: user1.body.username }).populate('favorites')
+    
+    expect(userwithRemoved.favorites.length).toBe(0)
+    
 
   })
 
