@@ -80,7 +80,7 @@ profilesRouter.get('/favorites', async (req, res, next) => {
 
     const userWithFavorites = await User.findById(user.id).populate('favorites')
     const favoritesToReturn = userWithFavorites.favorites.filter(user => user.visible === true)
-
+    
     return res.status(200).send(favoritesToReturn)
 
   }

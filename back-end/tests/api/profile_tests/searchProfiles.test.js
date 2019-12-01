@@ -12,6 +12,7 @@ const api = supertest(app)
 describe('search profiles', () => {
 
   let user1
+  let user2
 
   beforeAll(async () => {
 
@@ -33,6 +34,10 @@ describe('search profiles', () => {
     user1 = await api
     .post('/api/user/login')
     .send({ username: data.newUser1.username, password: data.newUser1.password })
+
+    user2 = await api
+    .post('/api/user/login')
+    .send({ username: data.newUser2.username, password: data.newUser2.password })
     
   })
 
@@ -50,7 +55,7 @@ describe('search profiles', () => {
     .send({ age, gender })
     .expect(200)
 
-    expect(response.body.profiles.length).toBe(1)
+    expect(response.body.count).toBe(1)
     expect(response.body.profiles[0].username).toEqual('minna')
 
   })
@@ -69,7 +74,7 @@ describe('search profiles', () => {
     .send({ age, gender })
     .expect(200)
 
-    expect(response.body.profiles.length).toBe(2)
+    expect(response.body.count).toBe(2)
     expect(response.body.profiles[0].username).toEqual('henriikka')
 
   })
@@ -89,8 +94,51 @@ describe('search profiles', () => {
     .send({ age, gender })
     .expect(200)
 
-    expect(response.body.profiles.length).toBe(0)
+    expect(response.body.count).toBe(0)
     expect(response.body.profiles).toEqual([])
+
+  })
+
+  it('should search certain profile by username', async () => {
+
+    const { token } = user1.body
+
+    const response = await api
+    .post('/api/profiles/searchOne')
+    .set('Authorization', 'bearer ' + token)
+    .send({ username: data.newUser2.username })
+    .expect(200)
+
+    expect(response.body.username).toEqual(data.newUser2.username)
+  })
+
+  it('should not find own profile', async () => {
+
+    const { token } = user1.body
+
+    const response = await api
+    .post('/api/profiles/searchOne')
+    .set('Authorization', 'bearer ' + token)
+    .send({ username: data.newUser1.username })
+    .expect(400)
+
+  })
+
+
+  it('should get favorites', async () => {
+    const { token } = user1.body
+
+    const user = await User.findOne({ username: user1.body.username })
+    user.favorites = user.favorites.concat(user2.body.profile.id)
+    await user.save()
+
+    const response = await api
+    .get('/api/profiles/favorites')
+    .set('Authorization', 'bearer ' + token)
+    .expect(200)
+
+    expect(response.body.length).toBe(1)
+    expect(response.body[0].username).toEqual(user2.body.username)
 
   })
 
