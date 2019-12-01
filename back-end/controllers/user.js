@@ -104,7 +104,7 @@ userRouter.post('/edit', async (req, res, next) => {
     const profileToEdit = await Profile.findOne({ username: user.username })
     profileToEdit.profileText = profileText
     const editedProfile = await profileToEdit.save()
-
+    
     return res.status(201).send(editedProfile)
 
   }
@@ -158,7 +158,7 @@ userRouter.post('/addToFavorites', async (req, res, next) => {
       userWithFavorites.favorites = userWithFavorites.favorites.filter(favProfile => favProfile.toString() !== profileToAddOrRemove._id.toString())
     }
 
-    const savedUser = await userWithFavorites.save()
+    await userWithFavorites.save()
     return res.status(201).send({ operation, profile: profileToAddOrRemove })
 
   } catch (error) {
