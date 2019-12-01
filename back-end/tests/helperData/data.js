@@ -14,5 +14,12 @@ newUser2 = {
   birthday: new Date()
 }
 
+newUser3 = {
+  username: 'henriikka',
+  password: 'sumussa',
+  gender: 'female',
+  age: 32,
+  birthday: new Date()
+}
 
-module.exports = { newUser1, newUser2 }
+module.exports = { newUser1, newUser2, newUser3 }
