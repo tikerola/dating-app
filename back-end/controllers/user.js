@@ -201,10 +201,12 @@ userRouter.post('/blockUser', async (req, res, next) => {
     }
 
     const id = clients[userToBlock]
-    io.getIo().to(`${id}`).emit('block_user', { block, to: userToBlock, from: blockingUser.username })
+    
+    if (id)
+      io.getIo().to(`${id}`).emit('block_user', { block, to: userToBlock, from: blockingUser.username })
 
-
-    return res.send(userToBlock)
+    
+    return res.status(200).send(userToBlock)
 
   } catch (error) {
     next(error)
