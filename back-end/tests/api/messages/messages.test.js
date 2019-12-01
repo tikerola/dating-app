@@ -22,42 +22,42 @@ describe('testing messages', () => {
       username: 'tero',
       password: 'sumussa',
       gender: 'male',
-      age: 23
+      age: 23,
+      birthday: new Date()
     }
 
     newUser2 = {
       username: 'minna',
       password: 'sumussa',
       gender: 'female',
-      age: 23
+      age: 23,
+      birthday: new Date()
     }
 
-    await api
-      .post('/api/signup')
+    const result = await api
+      .post('/api/user/signup')
       .send(newUser1)
 
+
     await api
-      .post('/api/signup')
+      .post('/api/user/signup')
       .send(newUser2)
 
 
+      tero = await api
+      .post('/api/user/login')
+      .send({ username: newUser1.username, password: newUser1.password })
   })
 
   it('should be able to create a message', async () => {
-    tero = await api
-      .post('/api/login')
-      .send({ username: newUser1.username, password: newUser1.password })
-
-    const { token, id } = tero.body
-
-    const { _id } = await User.findOne({ username: newUser2.username })
+   
+    const { token, username } = tero.body
 
     const newMessage = new Message({
       title: "hei, me lennetään",
       content: "no eino wiseguy",
-      createdAt: new Date().toString(),
-      author: id,
-      receiver: _id
+      author: username,
+      receiver: newUser2.username
     })
 
     const response = await api
@@ -66,14 +66,16 @@ describe('testing messages', () => {
       .send(newMessage)
       .expect(201)
 
-    expect(response.body.title).toEqual('hei, me lennetään')
-    expect(response.body.author).toEqual(id)
-    expect(response.body.receiver).toEqual(_id.toString())
+    
 
-    const author = await User.findById(id).populate('sent')
+    expect(response.body.title).toEqual('hei, me lennetään')
+    expect(response.body.author).toEqual(username)
+    expect(response.body.receiver).toEqual(newUser2.username)
+
+    const author = await User.findOne({ username }).populate('sent')
     expect(author.sent[0].title).toEqual('hei, me lennetään')
 
-    const receiver = await User.findById(_id).populate('inbox')
+    const receiver = await User.findOne({ username: newUser2.username }).populate('inbox')
     expect(receiver.inbox[0].title).toEqual('hei, me lennetään')
   })
 
@@ -95,7 +97,7 @@ describe('testing messages', () => {
     const response = await api
       .get('/api/messages/sent')
       .set('Authorization', 'bearer ' + token)
-
+    
     expect(response.body[0].title).toEqual('hei, me lennetään')
   })
 

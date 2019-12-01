@@ -13,18 +13,19 @@ describe('testing login', () => {
     await Profile.deleteMany({})
     
     await api
-      .post('/api/signup')
+      .post('/api/user/signup')
       .send({
         username: 'timo',
         password: 'kauluri',
         gender: 'male',
-        age: 23
+        age: 23,
+        birthday: new Date()
       })
   })
 
   it('should login with good credentials', async () => {
     const response = await api
-      .post('/api/login')
+      .post('/api/user/login')
       .send({
         username: 'timo',
         password: 'kauluri'
@@ -39,7 +40,7 @@ describe('testing login', () => {
 
   it('should fail login with wrong credentials', async () => {
     await api
-      .post('/api/login')
+      .post('/api/user/login')
       .send({
         username: 'timo',
         password: 'autotalli'

@@ -14,6 +14,9 @@ messagesRouter.post('/', async (req, res, next) => {
 
     const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
+    if (!user)
+      throw new Error('Unauthorized')
+
     const newMessage = new Message({
       title,
       content,
@@ -149,6 +152,7 @@ messagesRouter.get('/sent', async (req, res, next) => {
       throw new Error('Unauthorized')
 
     const userWithSent = await User.findById(user.id).populate('sent')
+    
 
     return res.send(userWithSent.sent.sort((a, b) => b.createdAt - a.createdAt))
   }

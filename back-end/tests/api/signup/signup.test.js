@@ -17,7 +17,8 @@ describe('testing signup', () => {
       username: 'maija',
       passwordHash: 'idontgiveashit',
       gender: 'female',
-      age: 23
+      age: 23,
+      birthday: new Date()
     })
 
     await newUser.save()
@@ -28,11 +29,12 @@ describe('testing signup', () => {
       username: 'tero',
       password: 'sumussa',
       gender: 'male',
-      age: 31
+      age: 31,
+      birthday: new Date()
     }
 
     const response = await api
-      .post('/api/signup')
+      .post('/api/user/signup')
       .send(newUser)
       .expect(201)
 
@@ -45,11 +47,12 @@ describe('testing signup', () => {
       username: 'maija',
       password: 'idontgiveashit',
       gender: 'female',
-      age: 23
+      age: 23,
+      birthday: new Date()
     }
 
     const response = await api
-      .post('/api/signup')
+      .post('/api/user/signup')
       .send(newUser)
       .expect(409)
 
