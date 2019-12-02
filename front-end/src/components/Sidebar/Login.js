@@ -75,7 +75,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Login = props => {
+export const Login = props => {
 
   const [username, resetUsername] = useField('text')
   const [password, resetPassword] = useField('password')
@@ -107,6 +107,7 @@ const Login = props => {
 
         <TextField
           {...username}
+          id="username"
           className={classes.textField}
           label="Username"
           margin="normal"
@@ -130,6 +131,7 @@ const Login = props => {
 
         <TextField
           className={classes.textField}
+          id="password"
           {...password}
           label="Password"
           margin="normal"
@@ -151,7 +153,7 @@ const Login = props => {
           }}
         />
 
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit} id="login">
           Login
         </Button>
       </form>

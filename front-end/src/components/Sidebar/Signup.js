@@ -92,7 +92,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Signup = props => {
+export const Signup = props => {
 
   const [username, resetUsername] = useField('text')
   const [gender, resetGender] = useField('text')
@@ -127,7 +127,7 @@ const Signup = props => {
 
   const inputValid = () => {
 
-
+    console.log(username.value, birthday, gender.value, password.value, confirmPassword.value)
     if (!username.value || !birthday || !gender.value || !password.value || !confirmPassword.value) {
       props.setNotification('All fields must be filled')
       return false
@@ -167,6 +167,7 @@ const Signup = props => {
         <input type="password" style={{ display: 'none' }} readOnly={true} autoComplete="new-password"></input>
 
         <TextField
+          id="username"
           {...username}
           margin="dense"
           required
@@ -192,12 +193,19 @@ const Signup = props => {
 
         <TextField
           select
+          id='dummy'
           margin="dense"
           required
           className={classes.textField}
           label="Gender"
           {...gender}
           variant="outlined"
+          SelectProps={{
+            SelectDisplayProps: {
+              'data-testid': 'gender-select',
+            },
+          }}
+
           InputLabelProps={{
             shrink: true,
             classes: {
@@ -206,6 +214,7 @@ const Signup = props => {
             },
           }}
           InputProps={{
+            id: 'gender',
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
@@ -240,7 +249,7 @@ const Signup = props => {
             },
           }}
           InputProps={{
-
+            id: 'birthday',
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
@@ -253,6 +262,7 @@ const Signup = props => {
         <TextField
           className={classes.textField}
           {...password}
+          id="password"
           margin="dense"
           required
           label="Password"
@@ -277,6 +287,7 @@ const Signup = props => {
         <TextField
           className={classes.textField}
           {...confirmPassword}
+          id="confirm"
           margin="dense"
           required
           label="Confirm password"
