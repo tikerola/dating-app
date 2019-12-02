@@ -7,8 +7,6 @@ const data = require('../../helperData/data')
 
 const api = supertest(app)
 
-
-
 describe('search profiles', () => {
 
   let user1

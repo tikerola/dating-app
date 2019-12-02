@@ -5,7 +5,7 @@ const Message = require('../models/message')
 const User = require('../models/user')
 const moment = require('moment')
 const io = require('../socket/socket')
-
+const clients = require('../utils/clients')
 
 messagesRouter.post('/', async (req, res, next) => {
   const { title, content, author, receiver } = req.body
@@ -89,6 +89,7 @@ messagesRouter.post('/reply', async (req, res, next) => {
 
 messagesRouter.post('/send', async (req, res, next) => {
   const { username, title, content } = req.body
+  
 
   try {
 
@@ -106,7 +107,7 @@ messagesRouter.post('/send', async (req, res, next) => {
     })
 
     const savedMessage = await newMessage.save()
-
+  
     const author = await User.findById(user.id)
 
     author.sent = author.sent.concat(savedMessage)
@@ -117,7 +118,9 @@ messagesRouter.post('/send', async (req, res, next) => {
     receiver.inbox = receiver.inbox.concat(savedMessage)
     await receiver.save()
 
-    io.getIo().emit('mail', { receiver: receiver.username, author: author.username, mail: savedMessage })
+    const id = clients[receiver.username]
+    if (id)
+      io.getIo().emit('mail', { receiver: receiver.username, author: author.username, mail: savedMessage })
 
     return res.status(201).send(savedMessage)
 
