@@ -4,10 +4,17 @@ import { setUnreadMailCount } from './mail'
 import { setNotification } from './notification'
 import { socket } from '../index'
 
+
 export const signup = userData => {
-  return {
-    type: 'SIGNUP',
-    userData
+
+  return async dispatch => {
+
+    const response = await userService.signup(userData)
+
+    dispatch( {
+      type: 'SIGNUP',
+      userData: response
+    })
   }
 }
 

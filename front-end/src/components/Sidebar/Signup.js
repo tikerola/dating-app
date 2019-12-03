@@ -5,7 +5,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { theme } from '../../theme/theme'
 import useField from '../../hooks/useField'
-import signupService from '../../services/user'
 import { signup } from '../../actions/user'
 import { setNotification } from '../../actions/notification'
 import { connect } from 'react-redux'
@@ -108,15 +107,15 @@ export const Signup = props => {
     if (!inputValid())
       return
 
-    const response = await signupService.signup({
+    const userData = {
       username: username.value,
       password: password.value,
       age: moment().diff(birthday, 'years'),
       gender: gender.value,
       birthday
-    })
+    }
 
-    props.signup(response)
+    props.signup(userData)
 
     resetUsername()
     resetGender()
