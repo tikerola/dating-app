@@ -105,7 +105,9 @@ const Navigation = props => {
       })
 
       socket.on('disconnect', (reason) => {
-        //window.location.reload()
+        if(username)
+          window.location.reload()
+          
         if (reason === 'io server disconnect') {
           socket.connect()
         }
