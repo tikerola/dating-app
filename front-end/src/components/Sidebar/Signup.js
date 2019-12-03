@@ -126,7 +126,6 @@ export const Signup = props => {
 
   const inputValid = () => {
 
-    console.log(username.value, birthday, gender.value, password.value, confirmPassword.value)
     if (!username.value || !birthday || !gender.value || !password.value || !confirmPassword.value) {
       props.setNotification('All fields must be filled')
       return false

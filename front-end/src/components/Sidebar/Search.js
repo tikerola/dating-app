@@ -75,7 +75,7 @@ function valuetext(value) {
   return `${value}`;
 }
 
-const Search = props => {
+export const Search = props => {
   const classes = useStyles()
   const [value, setValue] = React.useState([18, 99])
   const [gender, setGender] = React.useState(true)
@@ -126,6 +126,7 @@ const Search = props => {
           <Grid item>Men</Grid>
           <Grid item>
             <Switch
+              id="gender"
               classes={{
                 switchBase: classes.switchBase
               }}

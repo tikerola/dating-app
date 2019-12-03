@@ -105,8 +105,7 @@ const Navigation = props => {
       })
 
       socket.on('disconnect', (reason) => {
-        window.location.reload()
-        console.log('täällä varmaan käytiin')
+        //window.location.reload()
         if (reason === 'io server disconnect') {
           socket.connect()
         }

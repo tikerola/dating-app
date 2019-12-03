@@ -83,9 +83,7 @@ userRouter.post('/login', async (req, res, next) => {
       token,
       favorites: user.favorites,
       blockedBy: user.blockedBy,
-      blocked: user.blocked,
-      chatvisibled: user.chatvisibled,
-      visible: user.visible
+      blocked: user.blocked
     })
   } catch (error) {
     next(error)
