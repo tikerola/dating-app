@@ -28,7 +28,12 @@ app.use(tokenFromHeaders)
 app.use('/api/user', userRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/profiles', profilesRouter)
-app.use('/developer', developerRouter)
+
+
+if (process.env.NODE_ENV === 'test') {
+  app.use('/developer', developerRouter)
+}
+
 
 app.get('*', (req, res) => {                       
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));                               

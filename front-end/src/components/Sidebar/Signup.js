@@ -115,13 +115,19 @@ export const Signup = props => {
       birthday
     }
 
-    props.signup(userData)
+    try {
 
-    resetUsername()
-    resetGender()
-    resetPassword()
-    resetConfirmPassword()
-    props.toggleRegister()
+      await props.signup(userData)
+
+      resetUsername()
+      resetGender()
+      resetPassword()
+      resetConfirmPassword()
+      props.toggleRegister()
+      props.setNotification('Registration successfull')
+    } catch (error) {
+      props.setNotification('Username already taken')
+    }
   }
 
   const inputValid = () => {
@@ -191,7 +197,7 @@ export const Signup = props => {
 
         <TextField
           select
-          id='dummy'
+          id='select-gender'
           margin="dense"
           required
           className={classes.textField}
@@ -321,9 +327,13 @@ export const Signup = props => {
   )
 }
 
+const mapStateToProps = state => ({
+  notification: state.notification
+})
+
 const mapDispatchToProps = {
   signup,
   setNotification
 }
 
-export default connect(null, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)

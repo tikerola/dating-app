@@ -9,12 +9,17 @@ export const signup = userData => {
 
   return async dispatch => {
 
-    const response = await userService.signup(userData)
+    try {
+      const response = await userService.signup(userData)
 
-    dispatch( {
-      type: 'SIGNUP',
-      userData: response
-    })
+      dispatch({
+        type: 'SIGNUP',
+        userData: response
+      })
+
+    } catch (error) {
+      throw error
+    }
   }
 }
 
@@ -43,7 +48,7 @@ export const logout = () => {
     userService.saveToken(token)
 
     userService.toggleOnline(false)
-    
+
 
     await dispatch({
       type: 'RESET'
@@ -165,7 +170,7 @@ export const toggleProfileVisible = visible => {
 export const toggleOnline = online => {
   return async (dispatch, getState) => {
     const { token } = getState().user
-   
+
     userService.saveToken(token)
 
     const response = await userService.toggleOnline(online)
