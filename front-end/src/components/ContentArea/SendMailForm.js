@@ -65,6 +65,7 @@ const SendMailForm = ({ match, history, sendMail }) => {
       {...title}
       className={classes.textField}
       label="Title"
+      id="title"
       margin="normal"
       fullWidth
       variant="outlined"
@@ -84,9 +85,9 @@ const SendMailForm = ({ match, history, sendMail }) => {
     />
 
     <TextField
-      id="outlined-multiline-static"
-      label="Reply"
+      label="Text"
       {...content}
+      id="text"
       multiline
       rows="7"
       className={classes.textField}
@@ -120,6 +121,7 @@ const SendMailForm = ({ match, history, sendMail }) => {
 
       <Button
         variant="contained"
+        id="send"
         color="primary"
         onClick={() => {
           sendMail(match.params.username, title.value, content.value)

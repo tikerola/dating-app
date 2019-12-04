@@ -142,7 +142,7 @@ const Navigation = props => {
             <img src="/assets/images/boygirl.png" width='130' alt='face' />
             <div className={classes.iconAndText}>
               <ExitToAppIcon style={{ paddingRight: '5px' }} />
-              <Button color='primary' size='small' onClick={handleLogout}>Log out</Button>
+              <Button color='primary' size='small' onClick={handleLogout} id="logout">Log out</Button>
             </div>
           </div>
           :

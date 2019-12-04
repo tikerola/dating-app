@@ -142,6 +142,7 @@ export const Search = props => {
 
         <Button
           className={classes.button}
+          id="search1"
           size="small"
           variant="outlined"
           color='primary'
@@ -175,6 +176,7 @@ export const Search = props => {
         />
         <Button
           className={classes.button}
+          id="search2"
           size="small"
           variant="outlined"
           color='primary'
@@ -185,7 +187,7 @@ export const Search = props => {
       </Paper>
 
     </div>
-  );
+  )
 }
 
 

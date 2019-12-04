@@ -33,7 +33,7 @@ describe('signup', function() {
     cy.contains('Submit')
     .click()
 
-    cy.get('#username')
+    cy.get('#login-username')
     .type('tomi')
 
     cy.get('#password')

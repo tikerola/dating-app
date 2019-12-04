@@ -55,7 +55,7 @@ export const logout = () => {
     })
 
     socket.disconnect()
-    window.location.reload()
+    //window.location.reload()
   }
 }
 
