@@ -87,7 +87,7 @@ export const Search = props => {
 
   const handleSearchProfile = () => {
     props.searchProfile(username.value, props.history)
-    
+
     clearUsername()
   }
 
@@ -107,10 +107,11 @@ export const Search = props => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography className={classes.typography} id="age-slider" gutterBottom>
+        <Typography className={classes.typography} gutterBottom>
           Age range
       </Typography>
         <Slider
+          id="age-slider"
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"

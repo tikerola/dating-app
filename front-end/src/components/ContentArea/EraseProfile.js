@@ -36,7 +36,9 @@ const EraseProfile = ({ logout, history, token }) => {
     userService.saveToken(token)
     await userService.eraseUser()
     history.push('/')
-    logout()
+    logout(false)
+    
+    
   }
 
   return <div className={classes.root}>
@@ -48,7 +50,7 @@ const EraseProfile = ({ logout, history, token }) => {
       <img src="./assets/images/tear1.png" width="120" alt="cry" />
     </div>
     <div className={classes.buttonContainer}>
-      <Button color="secondary" variant="contained" onClick={handleErase}>Erase Profile</Button>
+      <Button color="secondary" variant="contained" onClick={handleErase} id="erase-button">Erase Profile</Button>
       <Button color="primary" variant="outlined" onClick={() => history.push("/profile")} >Cancel</Button>
     </div>
 

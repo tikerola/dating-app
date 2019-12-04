@@ -63,7 +63,7 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
   return <div className={classes.root}>
     <h1>Edit profile text</h1>
     <TextField
-      id="outlined-multiline-static"
+      id="profile-text"
 
       label="Edit"
       {...text}

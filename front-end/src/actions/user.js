@@ -42,20 +42,22 @@ export const login = credentials => {
   }
 }
 
-export const logout = () => {
+export const logout = (asyncOk = true) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
     userService.saveToken(token)
 
-    userService.toggleOnline(false)
+    if (asyncOk)
+      await userService.toggleOnline(false)
 
 
     await dispatch({
       type: 'RESET'
     })
 
+    sessionStorage.clear()
+
     socket.disconnect()
-    //window.location.reload()
   }
 }
 

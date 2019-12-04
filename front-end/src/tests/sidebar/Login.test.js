@@ -25,7 +25,7 @@ test('dispatch login if username and pasword have values', () => {
   
   const component = render(<Login login={login} setNotification={setNotification} />)
 
-  const input1 = component.container.querySelector('#username')
+  const input1 = component.container.querySelector('#login-username')
   fireEvent.change(input1, {target: { value: 'timo' }})
   
   const input2 = component.container.querySelector('#password')

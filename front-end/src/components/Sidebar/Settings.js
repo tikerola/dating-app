@@ -17,8 +17,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginTop: '20%'
+    justifyContent: 'center',
   },
   container: {
     width: '100%',
@@ -56,10 +55,10 @@ const useStyles = makeStyles({
   checked: {},
   linkContainer: {
     paddingTop: '20px',
-   
+
   },
-  icon: { 
-    paddingRight: '5px', 
+  icon: {
+    paddingRight: '5px',
     paddingLeft: '15px',
     color: 'red',
 
@@ -82,6 +81,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
           <Grid item>Disabled</Grid>
           <Grid item>
             <Switch
+              id="settings-chat"
               classes={{
                 switchBase: classes.switchBase
               }}
@@ -101,6 +101,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
           <Grid item>Hidden</Grid>
           <Grid item>
             <Switch
+              id="settings-hide"
               classes={{
                 switchBase: classes.switchBase
               }}
