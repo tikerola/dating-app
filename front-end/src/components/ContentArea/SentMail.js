@@ -65,7 +65,7 @@ const SentMail = ({ sent, deleteMail }) => {
         <TableHead>
           <TableRow>
             <StyledTableCell>Title</StyledTableCell>
-            <StyledTableCell align="left">Author</StyledTableCell>
+            <StyledTableCell align="left">Receiver</StyledTableCell>
             <StyledTableCell align="left">Date</StyledTableCell>
             <StyledTableCell align="left">Delete</StyledTableCell>
           </TableRow>
@@ -76,7 +76,7 @@ const SentMail = ({ sent, deleteMail }) => {
               <StyledTableCell component="th" scope="row">
                 <Link to={`/profile/sent/${mail.id}`}>{mail.title}</Link>
               </StyledTableCell>
-              <StyledTableCell align="left">{mail.author}</StyledTableCell>
+              <StyledTableCell align="left">{mail.receiver}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
               <StyledTableCell align="left">
                 <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'sent')} />
