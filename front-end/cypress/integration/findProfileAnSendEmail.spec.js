@@ -59,7 +59,14 @@ describe('find a profile and send mail', function() {
     cy.get('#login')
     .click()
 
-    
+    cy.contains('Inbox')
+    .click()
+
+    cy.contains('moi')
+    .click()
+
+    cy.contains('oot söpö')
+
   })
 
 

@@ -156,6 +156,7 @@ export const Search = props => {
         <TextField
           {...username}
           className={classes.textField}
+          id="search-input"
           label="Search by username"
           margin="dense"
           fullWidth
