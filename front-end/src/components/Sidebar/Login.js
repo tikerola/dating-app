@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   container: {
     width: '90%',
     height: '90%',
-    margin: '10px',
+    margin: '1em',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -35,10 +35,13 @@ const useStyles = makeStyles({
   },
   textField: {
     color: theme.inputTextColor,
-    background: theme.textFieldBackgroundColor
+    background: theme.textFieldBackgroundColor,
+    marginBottom: '1em',
+    width: '100%'
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
@@ -59,11 +62,12 @@ const useStyles = makeStyles({
   },
   button: {
     width: '50%',
-    margin: '20px auto'
+    margin: '2em auto',
+    fontSize: '0.8em'
   },
   register: {
     width: '90%',
-    margin: '10px',
+    margin: '0.5em',
     color: theme.signupHeaderColor,
     fontSize: '1em',
     textAlign: 'left',
@@ -110,11 +114,12 @@ export const Login = props => {
           id="login-username"
           className={classes.textField}
           label="Username"
-          margin="normal"
-          fullWidth
+          margin="dense"
+          
           required
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,
@@ -134,11 +139,12 @@ export const Login = props => {
           id="password"
           {...password}
           label="Password"
-          margin="normal"
-          fullWidth
+          margin="dense"
+          
           required
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,

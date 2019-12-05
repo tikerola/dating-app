@@ -47,7 +47,8 @@ const useStyles = makeStyles({
     marginTop: '10px',
     marginRight: '30px',
     width: '100px',
-    fontSize: '1em'
+    fontSize: '1em',
+    marginBottom: '2em'
   }
 
 })

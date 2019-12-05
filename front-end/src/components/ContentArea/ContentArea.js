@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     marginRight: '1%',
     background: theme.contentAreaBackground,
     border: '2px solid #bbb',
-    overflow: 'hidden'
+    overflowY: 'auto'
   },
   welcome: {
     width: '100%',

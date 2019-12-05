@@ -4,6 +4,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { Signup } from '../../components/Sidebar/Signup'
 
 
+
 test('renders component', () => {
 
   const component = render(<Signup />)
@@ -31,6 +32,8 @@ test('signup called after submit-button click when valid credentials', () => {
   fireEvent.click(male)
   
   const input3 = component.container.querySelector('#birthday')
+  
+
   fireEvent.change(input3, {target: { value: '1968-04-04' }})
 
   const input4 = component.container.querySelector('#password')

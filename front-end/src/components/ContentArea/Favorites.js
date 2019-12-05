@@ -11,9 +11,8 @@ const useStyles = makeStyles({
 
   root: {
     width: '100%',
-    height: '100%',
     color: '#bbb',
-    paddingTop: '15px',
+    paddingTop: '1em',
     textAlign: 'center'
   },
   center: {
@@ -27,11 +26,11 @@ const useStyles = makeStyles({
     width: '80%',
     display: 'grid',
     gridTemplateColumns: 'auto auto auto auto auto auto',
-    gridRowGap: '20px',
+    gridRowGap: '1.5em',
     alignContent: 'space-evenly'
   },
   pagination: {
-    margin: '30px auto',
+    margin: '1.5em auto',
     width: '30%',
     display: 'flex',
     flexDirection: 'row',

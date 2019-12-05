@@ -14,15 +14,18 @@ import { deleteMail, mailRead } from '../../actions/mail'
 
 const StyledTableCell = withStyles({
   head: {
+    fontSize: '1em',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
-    borderWidth: 0
+    borderWidth: 0,
+    fontFamily: 'inherit'
   },
   body: {
-    fontSize: 14,
+    fontSize: '1em',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
-    borderWidth: 0
+    borderWidth: 0,
+    fontFamily: 'inherit'
   },
 })(TableCell);
 
@@ -82,7 +85,7 @@ const Inbox = ({ inbox, deleteMail, mailRead }) => {
               <StyledTableCell align="left">{mail.author}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
               <StyledTableCell align="left">
-                <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'inbox')} />
+                <DeleteForeverIcon style={{ cursor: 'pointer', fontSize: '1em' }} onClick={() => deleteMail(mail.id, 'inbox')} />
               </StyledTableCell>
             </TableRow>
           ))}

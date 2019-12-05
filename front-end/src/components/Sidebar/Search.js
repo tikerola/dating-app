@@ -11,7 +11,7 @@ import useField from '../../hooks/useField'
 
 const useStyles = makeStyles({
   root: {
-    width: '80%',
+    width: '90%',
     height: '90%',
     margin: '0 auto',
     color: '#bbb',
@@ -35,17 +35,19 @@ const useStyles = makeStyles({
     },
     '&$checked + $track': {
       backgroundColor: 'rgb(0, 0, 0, 0)',
-    },
+    }
   },
   track: {},
   checked: {},
   textField: {
     color: '#bbb',
     background: 'rgba(0, 0, 0, 0)',
-    fontSize: '1em'
+    fontSize: '1em',
+    width: '100%'
   },
   cssLabel: {
-    color: '#bbb'
+    color: '#bbb',
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
@@ -68,7 +70,7 @@ const useStyles = makeStyles({
   paper: {
     width: '90%',
     background: theme.sidebarBackground,
-    padding: '15px',
+    padding: '1em',
     color: '#bbb',
     textAlign: 'left'
   }
@@ -120,6 +122,7 @@ export const Search = props => {
           valueLabelDisplay="auto"
           aria-labelledby="age-slider"
           getAriaValueText={valuetext}
+          
         />
 
 
@@ -131,6 +134,7 @@ export const Search = props => {
           <Grid item>
             <Switch
               id="gender"
+              size="small"
               classes={{
                 switchBase: classes.switchBase
               }}
@@ -163,7 +167,6 @@ export const Search = props => {
           id="search-input"
           label="Search by username"
           margin="dense"
-          fullWidth
           variant="outlined"
           InputLabelProps={{
             shrink: true,

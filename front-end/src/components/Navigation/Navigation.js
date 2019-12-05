@@ -130,7 +130,7 @@ const Navigation = props => {
 
 
   return <Paper className={classes.root} elevation={5}>
-    <img src='/assets/images/title3.png' style={{ maxWidth: '50%' }} alt='title' />
+    <img src='/assets/images/title3.png' style={{ maxWidth: '50%', marginBottom: '0.4em' }} alt='title' />
     <div className={classes.loggedInContainer}>
       {
         loggedIn

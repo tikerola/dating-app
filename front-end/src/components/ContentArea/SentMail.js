@@ -16,13 +16,16 @@ const StyledTableCell = withStyles({
   head: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
-    borderWidth: 0
+    borderWidth: 0,
+    fontFamily: 'inherit',
+    fontSize: '1em'
   },
   body: {
-    fontSize: 14,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
-    borderWidth: 0
+    borderWidth: 0,
+    fontFamily: 'inherit',
+    fontSize: '1em'
   },
 })(TableCell);
 
@@ -79,7 +82,7 @@ const SentMail = ({ sent, deleteMail }) => {
               <StyledTableCell align="left">{mail.receiver}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
               <StyledTableCell align="left">
-                <DeleteForeverIcon style={{ cursor: 'pointer' }} onClick={() => deleteMail(mail.id, 'sent')} />
+                <DeleteForeverIcon style={{ cursor: 'pointer', fontSize: '1em' }} onClick={() => deleteMail(mail.id, 'sent')} />
                 </StyledTableCell>
             </TableRow>
           ))}

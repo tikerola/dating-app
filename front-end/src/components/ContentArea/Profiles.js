@@ -12,7 +12,6 @@ const useStyles = makeStyles({
 
   root: {
     width: '100%',
-    height: '100%',
     color: '#bbb',
     paddingTop: '1em',
     textAlign: 'center'

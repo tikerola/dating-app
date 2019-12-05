@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import './index.css'
 
 export const socket = openSocket('http://localhost:3001')
+//export const socket = openSocket('https://love-app777.herokuapp.com')
 
 
 ReactDOM.render(

@@ -50,10 +50,17 @@ const useStyles = makeStyles({
   textField: {
     color: theme.inputTextColor,
     background: theme.textFieldBackgroundColor,
-
+    width: '100%'
+  },
+  input: {
+    fontSize: '0.8em'
+  },
+  formControl: {
+    color: 'yellow'
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
@@ -74,7 +81,8 @@ const useStyles = makeStyles({
   },
   button: {
     width: '50%',
-    margin: '20px auto'
+    margin: '20px auto',
+    fontSize: '0.8em'
   },
   register: {
     width: '90%',
@@ -168,7 +176,7 @@ export const Signup = props => {
           <h1>Sign Up</h1>
         </div>
 
-        <input type="password" style={{ display: 'none' }} readOnly={true} autoComplete="new-password"></input>
+        <input type="password" style={{ display: 'none', width: '1em' }} readOnly={true} autoComplete="new-password"></input>
 
         <TextField
           id="username"
@@ -177,7 +185,7 @@ export const Signup = props => {
           required
           className={classes.textField}
           label="Username"
-          fullWidth
+          
           variant="outlined"
           InputLabelProps={{
             shrink: true,
@@ -191,6 +199,7 @@ export const Signup = props => {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
               notchedOutline: classes.notchedOutline,
+              input: classes.input
             }
           }}
         />
@@ -223,6 +232,7 @@ export const Signup = props => {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
               notchedOutline: classes.notchedOutline,
+              input: classes.input
             }
           }}
         >
@@ -237,7 +247,12 @@ export const Signup = props => {
         <TextField
           className={classes.textField}
           type="date"
-
+          SelectProps={{
+            MenuProps: {
+              icon: { color: "black !important" },
+              backgroundColor: 'inherit !important'
+            }
+          }}
           value={birthday}
           onChange={e => setBirthday(e.target.value)}
           margin="dense"
@@ -248,8 +263,7 @@ export const Signup = props => {
             shrink: true,
             classes: {
               root: classes.cssLabel,
-              focused: classes.cssFocused,
-
+              focused: classes.cssFocused
             },
           }}
           InputProps={{
@@ -257,7 +271,8 @@ export const Signup = props => {
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline
+              notchedOutline: classes.notchedOutline,
+              input: classes.input
             }
           }}
         />
@@ -283,6 +298,7 @@ export const Signup = props => {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
               notchedOutline: classes.notchedOutline,
+              input: classes.input
             }
           }}
         />
@@ -308,6 +324,7 @@ export const Signup = props => {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
               notchedOutline: classes.notchedOutline,
+              input: classes.input
             }
           }}
         />

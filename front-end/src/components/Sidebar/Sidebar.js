@@ -19,8 +19,8 @@ const useStyles = makeStyles({
     height: '90%',
     marginLeft: '1%',
     marginRight: '1%',
-    border: '2px solid #bbb'
-
+    border: '2px solid #bbb',
+    overflowY: 'auto'
   }
 })
 
