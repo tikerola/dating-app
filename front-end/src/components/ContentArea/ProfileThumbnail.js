@@ -21,7 +21,8 @@ const useStyles = makeStyles({
     padding: 0
   },
   image: {
-    margin: '0 auto'
+    margin: '0 auto',
+    width: '100%'
   },
   button: {
     margin: '0 auto',
@@ -43,7 +44,7 @@ const ProfileThumbnail = props => {
   return (
     <Card className={classes.card} elevation={10}>
       <CardContent className={classes.cardContent}>
-        <img src={props.image} alt="profile" width="90" className={classes.image} onLoad={() => {
+        <img src={props.image} alt="profile" className={classes.image} onLoad={() => {
           if (props.index === 0) {
             props.setLoading(false)
           }

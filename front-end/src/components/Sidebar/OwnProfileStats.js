@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     color: '#bbb',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
   postsContainer: {
     width: '80%',
-    
+    marginTop: '3em'
   },
   link: {
     color: '#bbb',

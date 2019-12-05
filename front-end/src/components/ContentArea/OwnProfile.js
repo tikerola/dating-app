@@ -25,7 +25,8 @@ const useStyles = makeStyles({
   image: {
     borderRadius: '5px',
     boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    width: '10em'
   },
   text: {
     width: '90%',
@@ -59,7 +60,6 @@ const Profile = ({ profile }) => {
         <img
           src={profile.image.imageUrl}
           alt={`${profile.username}`}
-          width="150"
           className={classes.image}
           onClick={() => setShowBigPicture(true)}
         />

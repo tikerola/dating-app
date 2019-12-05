@@ -17,9 +17,9 @@ import ChatButtons from '../ContentArea/chat/ChatButtons'
 
 const useStyles = makeStyles({
   root: {
-    width: '96.4%',
+    width: '96.3%',
     height: '10%',
-    padding: '10px',
+    padding: '0.6em',
     margin: '1% auto',
     backgroundColor: theme.navigationBackgound,
     display: 'flex',
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   loggedInContainer: {
     color: '#bbb',
     fontSize: '1.3em',
-    marginRight: '15px',
+    marginRight: '1em',
     width: '35%'
   },
   loggedIn: {
@@ -96,7 +96,7 @@ const Navigation = props => {
   useEffect(() => {
     if (username) {
       socket.emit('newUser', username)
-      
+
 
       socket.on('chat', data => {
         if (data.to === username) {
@@ -105,9 +105,9 @@ const Navigation = props => {
       })
 
       socket.on('disconnect', (reason) => {
-        if(username)
+        if (username)
           window.location.reload()
-          
+
         if (reason === 'io server disconnect') {
           socket.connect()
         }
@@ -130,19 +130,21 @@ const Navigation = props => {
 
 
   return <Paper className={classes.root} elevation={5}>
-    <img src='/assets/images/title3.png' style={{ maxWidth: '50%'}} alt='title' />
+    <img src='/assets/images/title3.png' style={{ maxWidth: '50%' }} alt='title' />
     <div className={classes.loggedInContainer}>
       {
         loggedIn
           ?
           <div className={classes.loggedIn}>
             <div className={classes.iconAndText}>
-              <PersonIcon style={{ paddingRight: '5px', fontSize: '1em' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
+              <PersonIcon style={{ paddingRight: '0.2em', fontSize: '1em' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
             </div>
-            <img src="/assets/images/boygirl.png" style={{ maxWidth: '25%'}} alt='face' />
+            <img src="/assets/images/boygirl.png" style={{ maxWidth: '25%' }} alt='face' />
             <div className={classes.iconAndText}>
-              <ExitToAppIcon style={{ paddingRight: '5px', fontSize: '1em' }} />
-              <Button color='primary' size='small' onClick={handleLogout} id="logout" style={{ fontSize: '0.6em' }}>Log out</Button>
+
+              <Button color='primary' size='small' onClick={handleLogout} id="logout" style={{ fontSize: '0.6em' }}>
+                <ExitToAppIcon style={{ paddingRight: '0.2em', fontSize: '1.5em' }} />
+                Log out</Button>
             </div>
           </div>
           :

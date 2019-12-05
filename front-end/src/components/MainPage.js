@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     width: '100%',
     height: '88%',
     display: 'flex',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap'
   }
 })
 
