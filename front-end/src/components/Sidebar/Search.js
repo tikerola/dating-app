@@ -21,10 +21,12 @@ const useStyles = makeStyles({
     justifyContent: 'space-around'
   },
   typography: {
-    marginRight: 'auto'
+    marginRight: 'auto',
+    fontSize: '1em'
   },
   button: {
-    marginTop: '20px'
+    marginTop: '20px',
+    fontSize: '0.8em'
   },
   switchBase: {
     color: '#1769aa',
@@ -39,7 +41,8 @@ const useStyles = makeStyles({
   checked: {},
   textField: {
     color: '#bbb',
-    background: 'rgba(0, 0, 0, 0)'
+    background: 'rgba(0, 0, 0, 0)',
+    fontSize: '1em'
   },
   cssLabel: {
     color: '#bbb'
@@ -163,6 +166,7 @@ export const Search = props => {
           fullWidth
           variant="outlined"
           InputLabelProps={{
+            shrink: true,
             classes: {
               root: classes.cssLabel,
               focused: classes.cssFocused,

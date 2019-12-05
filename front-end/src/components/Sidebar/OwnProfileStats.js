@@ -41,12 +41,13 @@ const useStyles = makeStyles({
   paper: {
     background: theme.sidebarBackground,
     padding: '12px',
-    paddingLeft: '40px',
+    paddingLeft: '3em',
     color: '#bbb',
     textAlign: 'left'
   },
   icon: {
-    paddingRight: '5px'
+    paddingRight: '5px',
+    fontSize: '1em'
   }
 })
 

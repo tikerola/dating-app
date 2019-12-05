@@ -25,7 +25,8 @@ const useStyles = makeStyles({
     textAlign: 'center'
   },
   typography: {
-    marginRight: 'auto'
+    marginRight: 'auto',
+    fontSize: '1em'
   },
   link: {
     color: 'red',

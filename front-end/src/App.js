@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     margin: 0,
     padding: 0,
     color: theme.signupHeaderColor,
-    fontFamily: 'Forum, cursive'
+    fontFamily: 'Forum, cursive, "Times New Roman", Times, serif',
+    fontSize: '1.1vw'
   },
   container: {
     width: '95%',

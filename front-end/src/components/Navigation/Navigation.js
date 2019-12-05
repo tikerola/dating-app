@@ -130,19 +130,19 @@ const Navigation = props => {
 
 
   return <Paper className={classes.root} elevation={5}>
-    <img src='/assets/images/title3.png' alt='title' />
+    <img src='/assets/images/title3.png' style={{ maxWidth: '50%'}} alt='title' />
     <div className={classes.loggedInContainer}>
       {
         loggedIn
           ?
           <div className={classes.loggedIn}>
             <div className={classes.iconAndText}>
-              <PersonIcon style={{ paddingRight: '5px' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
+              <PersonIcon style={{ paddingRight: '5px', fontSize: '1em' }} /> <p>Logged in: <span className={classes.username}>{username}</span></p>
             </div>
-            <img src="/assets/images/boygirl.png" width='130' alt='face' />
+            <img src="/assets/images/boygirl.png" style={{ maxWidth: '25%'}} alt='face' />
             <div className={classes.iconAndText}>
-              <ExitToAppIcon style={{ paddingRight: '5px' }} />
-              <Button color='primary' size='small' onClick={handleLogout} id="logout">Log out</Button>
+              <ExitToAppIcon style={{ paddingRight: '5px', fontSize: '1em' }} />
+              <Button color='primary' size='small' onClick={handleLogout} id="logout" style={{ fontSize: '0.6em' }}>Log out</Button>
             </div>
           </div>
           :
