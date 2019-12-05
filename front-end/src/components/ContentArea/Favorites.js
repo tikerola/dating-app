@@ -56,10 +56,11 @@ const Favorites = ({ profiles }) => {
 
   return (
     <div className={classes.root}>
-      { (loading && profiles.length > 0) && <Spinner />}
+
       <h1>{profiles.length > 0 ? 'Your Favorites' : 'No favorites chosen yet'}</h1>
+      {(loading && profiles.length > 0) && <Spinner />}
       <div className={classes.center}>
-        <div className={classes.container}>
+        <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
           {
             profiles.slice((page - 1) * 12, 12 + (page - 1) * 12).map((profile, index) =>
               <Link to={`/search/profiles/${profile.username}`} key={profile.id}>

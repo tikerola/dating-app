@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const SpinnerOverlay = styled.div`
-  height: 60vh;
+  height: 50vh;
   width: 100%;
   display: flex;
   justify-content: center;

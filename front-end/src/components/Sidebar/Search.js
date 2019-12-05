@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     fontSize: '1em'
   },
   button: {
-    marginTop: '20px',
+    marginTop: '1em',
     fontSize: '0.8em'
   },
   switchBase: {
@@ -69,6 +69,7 @@ const useStyles = makeStyles({
   },
   paper: {
     width: '90%',
+    maxHeight: '45%',
     background: theme.sidebarBackground,
     padding: '1em',
     color: '#bbb',
@@ -126,7 +127,7 @@ export const Search = props => {
         />
 
 
-        <Typography className={classes.typography} style={{ marginTop: '25px' }} component="div">
+        <Typography className={classes.typography} style={{ marginTop: '1em' }} component="div">
           Looking for
           </Typography>
         <Grid component="label" container alignItems="center" spacing={1}>

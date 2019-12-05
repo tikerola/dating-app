@@ -14,7 +14,9 @@ const useStyles = makeStyles({
     width: '100%',
     color: '#bbb',
     paddingTop: '1em',
-    textAlign: 'center'
+    textAlign: 'center',
+    
+    
   },
   center: {
     display: 'flex',
@@ -71,8 +73,8 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
 
   return (
     <div className={classes.root}>
-      { (loading && profiles.length > 0) && <Spinner /> }
       <h1>Search Result</h1>
+      { (loading && profiles.length > 0) && <Spinner /> }
       <div className={classes.center}>
         <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
           { profilesArray }
