@@ -13,10 +13,10 @@ const useStyles = makeStyles({
   root: {
     width: '100%',
     color: '#bbb',
-    paddingTop: '1em',
+    paddingTop: '0.2em',
     textAlign: 'center',
-    
-    
+
+
   },
   center: {
     display: 'flex',
@@ -34,8 +34,8 @@ const useStyles = makeStyles({
     fontSize: '1em'
   },
   pagination: {
-    margin: '2em auto',
-    width: '30%',
+    margin: '1.5em auto',
+    width: '40%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -61,7 +61,8 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
     setLoading(true)
   }
 
-  const profilesArray = profiles.map((profile, index)=> <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
+  const profilesArray = profiles.map((profile, index) => <Link to={`/search/profiles/${profile.username}`} key={profile.id}
+    style={{ textDecoration: 'none' }}>
     <ProfileThumbnail
       username={profile.username}
       image={profile.image.imageUrl}
@@ -74,16 +75,17 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
   return (
     <div className={classes.root}>
       <h1>Search Result</h1>
-      { (loading && profiles.length > 0) && <Spinner /> }
+      {(loading && profiles.length > 0) && <Spinner />}
       <div className={classes.center}>
-        <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
-          { profilesArray }
+        <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible' }}>
+          {profilesArray}
         </div>
       </div>
       {profiles.length > 0 && <div className={classes.pagination}>
         <Button
           disabled={searchOptions.page === 1}
           onClick={() => handlePageChange('prev')}
+          style={{ fontSize: '0.6em' }}
         >
           {'< '}prev page
         </Button>
@@ -91,6 +93,7 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
         <Button
           disabled={searchOptions.page * searchOptions.limit >= searchOptions.profileCount}
           onClick={() => handlePageChange('next')}
+          style={{ fontSize: '0.6em' }}
         >
           next page{' >'}
         </Button>

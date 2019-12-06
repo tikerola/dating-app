@@ -6,7 +6,6 @@ import { Paper } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    height: '90%',
     width: '100%',
     color: '#bbb',
     display: 'flex',
@@ -25,9 +24,10 @@ const useStyles = makeStyles({
   },
   paper: {
     background: theme.sidebarBackground,
-    padding: '16px',
+    padding: '12px',
+    paddingLeft: '3em',
     color: '#bbb',
-    textAlign: 'center'
+    textAlign: 'left'
   }
 })
 

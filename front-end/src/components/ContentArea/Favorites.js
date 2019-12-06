@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
   pagination: {
     margin: '1.5em auto',
-    width: '30%',
+    width: '40%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -63,7 +63,7 @@ const Favorites = ({ profiles }) => {
         <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
           {
             profiles.slice((page - 1) * 12, 12 + (page - 1) * 12).map((profile, index) =>
-              <Link to={`/search/profiles/${profile.username}`} key={profile.id}>
+              <Link to={`/search/profiles/${profile.username}`} key={profile.id} style={{ textDecoration: 'none' }} >
                 <ProfileThumbnail
                   username={profile.username}
                   image={profile.image.imageUrl}
@@ -79,6 +79,7 @@ const Favorites = ({ profiles }) => {
         <Button
           disabled={page === 1}
           onClick={() => handlePageChange('prev')}
+          style={{ fontSize: '0.6em' }}
         >
           {'< '}prev page
         </Button>
@@ -86,6 +87,7 @@ const Favorites = ({ profiles }) => {
         <Button
           disabled={profiles.length <= page * 12}
           onClick={() => handlePageChange('next')}
+          style={{ fontSize: '0.6em' }}
         >
           next page{' >'}
         </Button>

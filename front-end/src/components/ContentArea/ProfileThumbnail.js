@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
 
 
 const useStyles = makeStyles({
   card: {
-    width: '90px',
+    width: '5em',
     height: '100%',
     background: 'black',
     marginLeft: '10px',
@@ -26,7 +25,13 @@ const useStyles = makeStyles({
   },
   button: {
     margin: '0 auto',
-    fontSize: '0.5em'
+    fontSize: '0.8em',
+    width: '100%',
+    color: '#bbb',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   dot: {
     width: '5px',
@@ -34,7 +39,7 @@ const useStyles = makeStyles({
     backgroundColor: 'green',
     fontSize: '0.8em',
     borderRadius: '50px',
-    marginLeft: '10px'
+    marginLeft: '1.3em'
   }
 });
 
@@ -51,9 +56,10 @@ const ProfileThumbnail = props => {
         }} />
       </CardContent>
       <CardActions>
-        <Button size="small" className={classes.button} color="primary">
-          {props.username.length > 5 ? `${props.username.substring(0, 5)}...` : props.username}
-          <div className={classes.dot} style={{ backgroundColor: props.online ? 'green' : '#333' }} /></Button>
+        <div className={classes.button}>
+          <span>{props.username.length > 5 ? `${props.username.substring(0, 5)}...` : props.username}</span>
+          <div className={classes.dot} style={{ backgroundColor: props.online ? 'green' : '#333' }} />
+        </div>
       </CardActions>
     </Card>
   );
