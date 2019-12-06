@@ -10,7 +10,7 @@ import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded'
 
 const useStyles = makeStyles({
   root: {
-    width: '80%',
+    width: '90%',
     height: '90%',
     margin: '0 auto',
     color: '#bbb',
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
   },
   container: {
     width: '100%',
-    height: '80%',
     textAlign: 'center'
   },
   typography: {
@@ -38,8 +37,7 @@ const useStyles = makeStyles({
   },
   paper: {
     background: theme.sidebarBackground,
-    padding: '16px',
-    paddingLeft: '30px',
+    padding: '1.5em',
     color: '#bbb',
     textAlign: 'left'
   },
@@ -59,8 +57,8 @@ const useStyles = makeStyles({
 
   },
   icon: {
-    paddingRight: '5px',
-    paddingLeft: '15px',
+    paddingRight: '0.3em',
+    paddingLeft: '0.5em',
     color: 'red',
 
   }
@@ -75,7 +73,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
 
       <Paper className={classes.paper} elevation={10}>
         <h2>Settings</h2>
-        <Typography className={classes.typography} style={{ marginTop: '25px' }} component="div">
+        <Typography className={classes.typography} style={{ marginTop: '1em' }} component="div">
           Chat Enabled
           </Typography>
         <Grid component="label" container alignItems="center" spacing={1}>
@@ -83,6 +81,7 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
           <Grid item>
             <Switch
               id="settings-chat"
+              size="small"
               classes={{
                 switchBase: classes.switchBase
               }}
@@ -95,13 +94,14 @@ const Settings = ({ chatEnabled, toggleChatEnabled, visible, toggleProfileVisibl
           <Grid item>Enabled</Grid>
         </Grid>
 
-        <Typography className={classes.typography} style={{ marginTop: '25px' }} component="div">
+        <Typography className={classes.typography} style={{ marginTop: '1em' }} component="div">
           Profile Visible
           </Typography>
         <Grid component="label" container alignItems="center" spacing={1}>
           <Grid item>Hidden</Grid>
           <Grid item>
             <Switch
+              size="small"
               id="settings-hide"
               classes={{
                 switchBase: classes.switchBase
