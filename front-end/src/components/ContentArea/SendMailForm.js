@@ -7,30 +7,34 @@ import { connect } from 'react-redux'
 import { sendMail } from '../../actions/mail'
 
 const useStyles = makeStyles({
-  overflowContainer: { 
-    width: '100%', 
-    height: '60vh', 
-    overflowY: 'auto'
+  overflowContainer: {
+    width: '100%',
+    height: '90%',
+    overflowY: 'auto',
+
   },
   root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    color: '#bbb'
+    color: '#bbb',
+    paddingTop: '1em'
   },
   textField: {
     width: '80%',
     background: 'rgba(0, 0, 0, 0.5)'
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: `${theme.inputFocusedBorderColor} !important`,
     },
-    color: 'white'
+    color: 'white',
+    fontSize: '0.9em'
   },
   cssFocused: {
     color: `${theme.inputFocusedLabelColor} !important`
@@ -51,7 +55,9 @@ const useStyles = makeStyles({
   button: {
     marginTop: '10px',
     marginRight: '30px',
-    width: '100px'
+    width: '100px',
+    fontSize: '0.7em',
+    marginBottom: '2em'
   }
 
 })
@@ -63,81 +69,85 @@ const SendMailForm = ({ match, history, sendMail }) => {
 
   const classes = useStyles()
 
-  return <div className={classes.root}>
-    <h1>Send Mail To: {match.params.username} </h1>
+  return <div className={classes.overflowContainer} >
+    <div className={classes.root}>
+      <h1>Send Mail To: {match.params.username} </h1>
 
-    <TextField
-      {...title}
-      className={classes.textField}
-      label="Title"
-      id="title"
-      margin="normal"
-      fullWidth
-      variant="outlined"
-      InputLabelProps={{
-        classes: {
-          root: classes.cssLabel,
-          focused: classes.cssFocused,
-        },
-      }}
-      InputProps={{
-        classes: {
-          root: classes.cssOutlinedInput,
-          focused: classes.cssFocused,
-          notchedOutline: classes.notchedOutline,
-        }
-      }}
-    />
-
-    <TextField
-      label="Text"
-      {...content}
-      id="text"
-      multiline
-      rows="7"
-      className={classes.textField}
-      margin="normal"
-      variant="outlined"
-      InputLabelProps={{
-        classes: {
-          root: classes.cssLabel,
-          focused: classes.cssFocused,
-        }
-      }}
-      InputProps={{
-        classes: {
-          root: classes.cssOutlinedInput,
-          focused: classes.cssFocused,
-          notchedOutline: classes.notchedOutline,
-        }
-      }}
-    />
-    <div className={classes.buttonContainer}>
-      <Button
+      <TextField
+        {...title}
+        className={classes.textField}
+        label="Title"
+        id="title"
+        margin="normal"
+        fullWidth
         variant="outlined"
-        color="primary"
-        onClick={() => {
-          history.goBack()
+        InputLabelProps={{
+          shrink: true,
+          classes: {
+            root: classes.cssLabel,
+            focused: classes.cssFocused,
+          },
         }}
-        className={classes.button}
-      >
-        Cancel
+        InputProps={{
+          classes: {
+            root: classes.cssOutlinedInput,
+            focused: classes.cssFocused,
+            notchedOutline: classes.notchedOutline,
+          }
+        }}
+      />
+
+      <TextField
+        label="Text"
+        {...content}
+        id="text"
+        multiline
+        rows="7"
+        className={classes.textField}
+        margin="normal"
+        variant="outlined"
+        InputLabelProps={{
+          shrink: true,
+          classes: {
+            root: classes.cssLabel,
+            focused: classes.cssFocused,
+          }
+        }}
+        InputProps={{
+          classes: {
+            root: classes.cssOutlinedInput,
+            focused: classes.cssFocused,
+            notchedOutline: classes.notchedOutline,
+          }
+        }}
+      />
+      <div className={classes.buttonContainer}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            history.goBack()
+          }}
+          className={classes.button}
+        >
+          Cancel
       </Button>
 
-      <Button
-        variant="contained"
-        id="send"
-        color="primary"
-        onClick={() => {
-          sendMail(match.params.username, title.value, content.value)
-          clearContent()
-          clearTitle()
-          history.push('/profile')
-        }}
-        className={classes.button}
-      >
-        Send
+        <Button
+          variant="contained"
+          id="send"
+          color="primary"
+          onClick={() => {
+            sendMail(match.params.username, title.value, content.value)
+            clearContent()
+            clearTitle()
+            history.push('/profile')
+          }}
+          className={classes.button}
+        >
+          Send
       </Button>
+      </div>
     </div>
   </div>
 }

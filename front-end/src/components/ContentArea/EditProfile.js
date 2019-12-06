@@ -9,7 +9,7 @@ import { editProfileText } from '../../actions/user'
 const useStyles = makeStyles({
   overflowContainer: { 
     width: '100%', 
-    height: '60vh', 
+    height: '90%', 
     overflowY: 'auto'
   },
   
@@ -17,21 +17,25 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    color: '#bbb'
+    color: '#bbb',
+    paddingTop: '1em'
   },
   textField: {
     width: '80%',
-    background: 'rgba(0, 0, 0, 0.5)'
+    background: 'rgba(0, 0, 0, 0.5)',
+    
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
-      borderColor: `${theme.inputFocusedBorderColor} !important`,
+      borderColor: `${theme.inputFocusedBorderColor} !important`
     },
-    color: 'white'
+    color: 'white',
+    fontSize: '0.9em'
   },
   cssFocused: {
     color: `${theme.inputFocusedLabelColor} !important`
