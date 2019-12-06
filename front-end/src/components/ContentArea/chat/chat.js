@@ -13,36 +13,37 @@ import { theme } from '../../../theme/theme'
 
 
 const ChatWindowMax = styled('div')({
-  width: '322px',
-  height: '500px',
+  width: '25%',
+  height: '65%',
   overflow: 'hidden',
   color: '#fff',
   textAlign: 'center',
-  borderTopLeftRadius: '50px',
-  borderTopRightRadius: '50px',
-  borderBottomRightRadius: '5px',
-  borderBottomLeftRadius: '5px',
+  borderTopLeftRadius: '1em',
+  borderTopRightRadius: '1em',
+  borderBottomRightRadius: '0.5em',
+  borderBottomLeftRadius: '0.5em',
   position: 'fixed',
   zIndex: 50,
   right: '5%',
-  bottom: '30px',
-  fontSize: '17px',
+  bottom: '1.5em',
+  fontSize: '0.8em',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   backgroundImage: "url('/assets/images/puh1.png')",
+  backgroundSize: 'cover'
 })
 
 const ChatWindowMin = styled('div')({
-  width: '322px',
+  width: '25%',
   backgroundColor: '#1769aa',
   color: '#fff',
   textAlign: 'center',
   borderRadius: '5px',
-  paddingTop: '10px',
-  paddingBottom: '10px',
+  paddingTop: '.7em',
+  paddingBottom: '.7em',
   position: 'fixed',
   zIndex: 50,
   right: '5%',
-  bottom: '30px',
+  bottom: '1.5em',
   fontSize: '17px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   display: 'flex',
@@ -65,8 +66,6 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: '25px',
-
-
   },
   body: {
     height: '80%',
@@ -77,7 +76,7 @@ const useStyles = makeStyles({
 
   },
   text: {
-    paddingTop: '30px',
+    paddingTop: '1em',
     width: '100%',
     height: '85%',
     overflow: 'auto',
@@ -127,7 +126,8 @@ const useStyles = makeStyles({
     padding: '5px',
     marginTop: '10px',
     marginBottom: '10px',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    marginRight: '0.5em'
   },
   button: {
     fontSize: '0.6em',
@@ -156,7 +156,8 @@ const useStyles = makeStyles({
     color: `${theme.inputFocusedLabelColor} !important`
   },
   icon: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    
   },
   icons: {
     display: 'flex',
@@ -222,7 +223,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
       </Button>
       }
 
-      CHAT
+      <span style={{ fontSize: '1em' }}>CHAT</span>
 
       <Button
         size="small"
@@ -242,7 +243,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
           <div className={classes.icons}>
             <MinimizeIcon
               fontSize="small"
-              style={{ paddingRight: '10px', cursor: 'pointer' }}
+              style={{ paddingRight: '10px', cursor: 'pointer', fontSize: '1em' }}
               onClick={() => {
                 setMaximized(false)
                 setMaxWindow(false)
@@ -254,7 +255,7 @@ const Chat = ({ sendChatMessage, username, closeChat, candidates, sessions, chat
                 closeChat()
                 setMaxWindow(false)
               }}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', fontSize: '1em' }}
             />
           </div>
 

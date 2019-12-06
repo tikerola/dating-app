@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 
 const useStyles = makeStyles({
   card: {
-    width: '5em',
+    width: '5.5em',
     height: '100%',
     background: 'black',
     marginLeft: '10px',
@@ -34,12 +34,12 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   dot: {
-    width: '5px',
-    height: '5px',
+    width: '0.8em',
+    height: '0.8em',
     backgroundColor: 'green',
     fontSize: '0.8em',
     borderRadius: '50px',
-    marginLeft: '1.3em'
+    marginLeft: '0.3em'
   }
 });
 

@@ -6,15 +6,15 @@ import { Badge } from '@material-ui/core'
 import ClearIcon from '@material-ui/icons/Clear'
 
 const CustomButton = styled('div')({
-  width: '100px',
-  height: '30px',
+  width: '5em',
+  height: '2em',
   background: 'rgba(0,0,0,0.9)',
   color: '#bbb',
   borderTopRightRadius: '10px',
   borderBottomLeftRadius: '10px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   position: 'fixed',
-  bottom: '30px',
+  bottom: '2em',
   fontSize: '0.8em',
   padding: '5px',
   display: 'flex',
@@ -51,7 +51,7 @@ const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot, dest
 
   const buttonStyles = (index, name) => {
     return {
-      left: 150 + index * 130,
+      left: '5em' + index * 130,
       color: chatWith === name ? 'white' : '#999'
     }
   }
