@@ -7,6 +7,12 @@ import { connect } from 'react-redux'
 import { editProfileText } from '../../actions/user'
 
 const useStyles = makeStyles({
+  overflowContainer: { 
+    width: '100%', 
+    height: '60vh', 
+    overflowY: 'auto'
+  },
+  
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -62,7 +68,8 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
   if (!oldText)
     return <div></div>
 
-  return <div className={classes.root}>
+  return <div className={ classes.overflowContainer }>
+  <div className={classes.root}>
     <h1>Edit profile text</h1>
     <TextField
       id="profile-text"
@@ -113,6 +120,7 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
         Send
       </Button>
     </div>
+  </div>
   </div>
 }
 

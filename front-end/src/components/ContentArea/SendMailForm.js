@@ -7,6 +7,11 @@ import { connect } from 'react-redux'
 import { sendMail } from '../../actions/mail'
 
 const useStyles = makeStyles({
+  overflowContainer: { 
+    width: '100%', 
+    height: '60vh', 
+    overflowY: 'auto'
+  },
   root: {
     display: 'flex',
     flexDirection: 'column',
