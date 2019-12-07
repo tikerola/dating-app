@@ -67,7 +67,7 @@ const OwnProfileStats = ({ user, fetchInbox, fetchSent, countOfUnread, openChat 
     <div className={classes.postsContainer}>
       <Paper elevation={10} className={classes.paper}>
         <p><Link to="/profile/inbox" className={classes.link} onClick={() => fetchInbox()}>
-          <Badge badgeContent={countOfUnread} color="primary" anchorOrigin={{
+          <Badge badgeContent={countOfUnread} color="primary" variant="dot" anchorOrigin={{
             horizontal: "left",
             vertical: "top"
           }}>

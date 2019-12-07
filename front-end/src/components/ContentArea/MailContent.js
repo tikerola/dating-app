@@ -17,9 +17,11 @@ const useStyles = makeStyles({
     background: 'rgba(0, 0, 0, 0.4)',
     width: '80%',
     minHeight: '40%',
+    maxHeight: '65%',
     borderRadius: '5px',
     textAlign: 'left',
-    padding: '20px'
+    padding: '20px',
+    overflowY: 'auto'
   }
 })
 
@@ -31,12 +33,13 @@ const MailContent = ({ mail }) => {
     return <div></div>
 
   return <div className={classes.root}>
-    {<h1>{mail.title}</h1>}
-    <div className={classes.container}>
-      {mail.content}
+      {<h1>{mail.title}</h1>}
+      <div className={classes.container}>
+        {mail.content}
 
+      </div>
     </div>
-  </div>
+  
 }
 
 const mapStateToProps = (state, { match }) => {

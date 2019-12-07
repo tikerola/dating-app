@@ -7,14 +7,13 @@ import ClearIcon from '@material-ui/icons/Clear'
 
 const CustomButton = styled('div')({
   width: '5em',
-  height: '2em',
+  height: '1.8em',
   background: 'rgba(0,0,0,0.9)',
   color: '#bbb',
-  borderTopRightRadius: '10px',
-  borderBottomLeftRadius: '10px',
+  borderRadius: '5px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   position: 'fixed',
-  bottom: '2em',
+  bottom: '1.5em',
   fontSize: '0.8em',
   padding: '5px',
   display: 'flex',
@@ -51,7 +50,7 @@ const ChatButtons = ({ candidates, chatWith, setChatWith, sessions, setDot, dest
 
   const buttonStyles = (index, name) => {
     return {
-      left: '5em' + index * 130,
+      left: 50 + index * 130,
       color: chatWith === name ? 'white' : '#999'
     }
   }

@@ -44,7 +44,7 @@ const ChatWindowMin = styled('div')({
   zIndex: 50,
   right: '5%',
   bottom: '1.5em',
-  fontSize: '17px',
+  fontSize: '0.8em',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   display: 'flex',
   flexDirection: 'row',
