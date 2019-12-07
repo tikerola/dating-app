@@ -53,7 +53,8 @@ const useStyles = makeStyles({
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
-      borderColor: `#1769aa !important`
+      borderColor: `#1769aa !important`,
+      borderWidth: '1px !important'
     }
   },
 
