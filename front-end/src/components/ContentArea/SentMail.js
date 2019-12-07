@@ -18,14 +18,18 @@ const StyledTableCell = withStyles({
     color: 'white',
     borderWidth: 0,
     fontFamily: 'inherit',
-    fontSize: '1em'
+    fontSize: '1em',
+    padding: '0.5em',
+    paddingLeft: '1em'
   },
   body: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     borderWidth: 0,
     fontFamily: 'inherit',
-    fontSize: '1em'
+    fontSize: '1em',
+    padding: '0.5em',
+    paddingLeft: '1em'
   },
 })(TableCell);
 
@@ -44,11 +48,11 @@ const useStyles = makeStyles({
   root: {
     width: '70%',
     overflowX: 'auto',
-    background: 'rgba(0, 0, 0, 0.2)'
+    background: 'rgba(0, 0, 0, 0.2)',
     
   },
   table: {
-    width: '100%',
+    width: '100%'
   },
 })
 

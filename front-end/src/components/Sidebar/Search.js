@@ -43,7 +43,8 @@ const useStyles = makeStyles({
     color: '#bbb',
     background: 'rgba(0, 0, 0, 0)',
     fontSize: '1em',
-    width: '100%'
+    width: '100%',
+    
   },
   cssLabel: {
     color: '#bbb',
@@ -52,20 +53,24 @@ const useStyles = makeStyles({
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
-      borderColor: `#1769aa !important`,
-    },
-    borderColor: '#444',
-    color: '#444'
+      borderColor: `#1769aa !important`
+    }
   },
+
   cssFocused: {
-    color: `${theme.inputFocusedLabelColor} !important`
+    color: `${theme.inputFocusedLabelColor} !important`,
+    padding: 'inherit'
   },
   icon: {
     backgroundColor: 'inherit'
   },
+  noPadding: {
+    padding: '0px'
+  },
   notchedOutline: {
     borderWidth: '1px',
     borderColor: `#1769aa !important`
+
   },
   paper: {
     width: '90%',
@@ -74,6 +79,9 @@ const useStyles = makeStyles({
     padding: '1em',
     color: '#bbb',
     textAlign: 'left'
+  },
+  inputMarginDense: {
+    padding: '1em !important'
   }
 })
 
@@ -123,7 +131,7 @@ export const Search = props => {
           valueLabelDisplay="auto"
           aria-labelledby="age-slider"
           getAriaValueText={valuetext}
-          
+
         />
 
 
@@ -164,10 +172,11 @@ export const Search = props => {
       <Paper className={classes.paper}>
         <TextField
           {...username}
-          className={classes.textField}
+          className={`${classes.textField} ${classes.noPadding}`}
           id="search-input"
           label="Search by username"
           margin="dense"
+          
           variant="outlined"
           InputLabelProps={{
             shrink: true,
@@ -178,10 +187,12 @@ export const Search = props => {
           }}
           InputProps={{
             classes: {
-              root: classes.cssOutlinedInput,
+              root: `${classes.cssOutlinedInput}`,
               focused: classes.cssFocused,
               notchedOutline: classes.notchedOutline,
-            }
+              inputMarginDense: classes.noPadding
+            },
+            style: { fontSize: '1em', padding: '1em'}
           }}
         />
         <Button

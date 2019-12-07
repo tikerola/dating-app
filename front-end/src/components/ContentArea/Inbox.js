@@ -18,14 +18,18 @@ const StyledTableCell = withStyles({
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     borderWidth: 0,
-    fontFamily: 'inherit'
+    fontFamily: 'inherit',
+    padding: '0.5em',
+    paddingLeft: '1em'
   },
   body: {
     fontSize: '1em',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     borderWidth: 0,
-    fontFamily: 'inherit'
+    fontFamily: 'inherit',
+    padding: '0.5em',
+    paddingLeft: '1em'
   },
 })(TableCell);
 
