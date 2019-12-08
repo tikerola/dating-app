@@ -86,7 +86,7 @@ const SentMail = ({ sent, deleteMail }) => {
               <StyledTableCell align="left">{mail.receiver}</StyledTableCell>
               <StyledTableCell align="left">{moment(mail.createdAt).format('LLL')}</StyledTableCell>
               <StyledTableCell align="left">
-                <DeleteForeverIcon style={{ cursor: 'pointer', fontSize: '1em' }} onClick={() => deleteMail(mail.id, 'sent')} />
+                <DeleteForeverIcon className="sent-trash" style={{ cursor: 'pointer', fontSize: '1em' }} onClick={() => deleteMail(mail.id, 'sent')} />
                 </StyledTableCell>
             </TableRow>
           ))}

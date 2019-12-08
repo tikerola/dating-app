@@ -42,7 +42,6 @@ export const reply = (messageId, content) => {
 
     try {
       const response = await mailService.reply({ messageId, content })
-      console.log('WTF')
 
       dispatch({
         type: 'REPLY',

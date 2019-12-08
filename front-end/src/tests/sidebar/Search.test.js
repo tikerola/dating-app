@@ -31,9 +31,7 @@ test('fires search profiles after button click', () => {
   fireEvent.click(searchButton1)
 
   expect(searchProfiles.mock.calls.length).toBe(2)
-
-  const sliderr = component.container.querySelector('#age-slider')
-  console.log(prettyDOM(sliderr))
+  
 })
 
 test('search profile by username', () => {

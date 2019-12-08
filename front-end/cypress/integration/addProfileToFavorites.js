@@ -29,21 +29,26 @@ describe('add profile to favorites', function () {
       .click()
 
     cy.contains('Favorite')
-    .click()
+      .click()
 
     cy.contains('Search')
-    .click()
+      .click()
 
     cy.contains('Your Favorites')
 
     cy.contains('hanna')
-    .click()
+      .click()
 
     cy.contains('Favorited')
-    .click()
+      .click()
 
     cy.contains('Favorite')
 
+  })
+
+  after(function () {
+    cy.get('#logout')
+      .click()
   })
 
 })

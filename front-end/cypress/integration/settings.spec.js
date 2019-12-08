@@ -4,7 +4,7 @@
 describe('can hide and erase profile', function () {
 
   before(function () {
-    cy.request('POST', 'http://localhost:3000/api/user/signup', { username: 'hanna', gender: 'female', age: 51, birthday: '04041968', password: '123456'})
+    
     cy.visit('http://localhost:3000')
 
     cy.get('#login-username')
@@ -104,25 +104,9 @@ describe('can hide and erase profile', function () {
   })
 
   after(function () {
-
-
-    // cy.get('#login-username')
-    //   .type('hanna')
-
-    // cy.get('#password')
-    //   .type('123456')
-
-    // cy.get('#login')
-    //   .click()
-
-    // cy.contains('Settings')
-    //   .click()
-
-    // cy.get('#settings-hide')
-    //   .click()
-
-    // cy.get('#logout')
-    //   .click()
+    
+    cy.request('POST', 'http://localhost:3000/api/user/signup', { username: 'hanna', gender: 'female', age: 51, birthday: '04041968', password: '123456'})
+    
   })
 
 })

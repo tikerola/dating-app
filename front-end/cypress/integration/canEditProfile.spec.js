@@ -46,4 +46,9 @@ describe('can edit profile', function () {
 
   })
 
+  after(function() {
+    cy.get('#logout')
+    .click()
+  })
+
 })

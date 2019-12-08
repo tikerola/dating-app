@@ -1,71 +1,97 @@
 /* eslint-disable no-undef */
 
 
-describe('find a profile and send mail', function() {
+describe('find a profile and send mail', function () {
 
-  beforeEach(function() {
+  beforeEach(function () {
     cy.request('DELETE', 'http://localhost:3000/developer')
+
     cy.visit('http://localhost:3000')
 
     cy.get('#login-username')
-    .type('timo')
+      .type('timo')
 
     cy.get('#password')
-    .type('123456')
+      .type('123456')
 
     cy.get('#login')
-    .click()
+      .click()
 
   })
 
-  it('should find a profile and send mail', function() {
+  it('should find a profile, send mail, reply to a mail and delete the mail from sent mail', function () {
 
     cy.contains('Search')
-    .click()
+      .click()
 
     cy.get('#search1')
-    .click()
+      .click()
 
     cy.contains('hanna')
-    .click()
+      .click()
 
     cy.contains('Send Mail')
-    .click()
+      .click()
 
     cy.get('#title')
-    .type('moi')
+      .type('moi')
 
     cy.get('#text')
-    .type('oot söpö')
+      .type('oot söpö')
 
     cy.get('#send')
-    .click()
+      .click()
 
     cy.contains('Sent mail')
-    .click()
+      .click()
 
     cy.contains('moi')
-    .click()
+      .click()
 
     cy.get('#logout')
-    .click()
+      .click()
 
     cy.get('#login-username')
-    .type('hanna')
+      .type('hanna')
 
     cy.get('#password')
-    .type('123456')
+      .type('123456')
 
     cy.get('#login')
-    .click()
+      .click()
 
     cy.contains('Inbox')
-    .click()
+      .click()
 
     cy.contains('moi')
-    .click()
+      .click()
 
     cy.contains('oot söpö')
+
+    cy.contains('Reply')
+      .click()
+
+    cy.get('#reply-text')
+      .type('ite oot, senkin höpsö')
+
+    cy.contains('Send')
+      .click()
+
+    cy.contains('Sent mail')
+      .click()
+
+    cy.contains('Re: moi')
+
+    cy.get('.sent-trash')
+      .click()
+
+    cy.contains('No Sent Mail')
+
+  })
+  after(function () {
+
+    cy.get('#logout')
+      .click()
 
   })
 

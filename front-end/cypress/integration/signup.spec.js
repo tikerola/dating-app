@@ -44,4 +44,11 @@ describe('signup', function() {
 
   })
 
+  after(function () {
+
+    cy.get('#logout')
+      .click()
+
+  })
+
 })

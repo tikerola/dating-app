@@ -73,7 +73,7 @@ const ReplyMailForm = ({ match, history, reply, mail, blockedBy }) => {
     <div className={classes.root}>
       <h1>Reply to: {mail.author} </h1>
       <TextField
-        id="outlined-multiline-static"
+        id="reply-text"
         label="Reply"
         {...text}
         multiline
