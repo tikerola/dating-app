@@ -21,7 +21,8 @@ const useStyles = makeStyles({
   },
   textField: {
     width: '80%',
-    background: 'rgba(0, 0, 0, 0.5)'
+    background: 'rgba(0, 0, 0, 0.5)',
+    color: '#bbb'
   },
   cssLabel: {
     color: theme.inputLabelColor,
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
     '&$cssFocused $notchedOutline': {
       borderColor: `${theme.inputFocusedBorderColor} !important`,
     },
-    color: 'white',
+    color: '#bbb',
     fontSize: '0.9em'
   },
   cssFocused: {
