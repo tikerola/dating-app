@@ -15,10 +15,12 @@ const useStyles = makeStyles({
   
   root: {
     display: 'flex',
+    height: '90%',
     flexDirection: 'column',
     alignItems: 'center',
     color: '#bbb',
     paddingTop: '1em'
+
   },
   textField: {
     width: '80%',
@@ -81,7 +83,7 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
       label="Edit"
       {...text}
       multiline
-      rows="7"
+      rows="12"
       className={classes.textField}
       margin="normal"
       variant="outlined"

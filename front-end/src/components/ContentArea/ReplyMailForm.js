@@ -7,25 +7,33 @@ import { connect } from 'react-redux'
 import { reply } from '../../actions/mail'
 
 const useStyles = makeStyles({
+  overflowContainer: {
+    width: '100%',
+    height: '90%',
+    overflowY: 'auto'
+  },
   root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    color: '#bbb'
+    color: '#bbb',
+    marginBottom: '2em'
   },
   textField: {
     width: '80%',
     background: 'rgba(0, 0, 0, 0.5)'
   },
   cssLabel: {
-    color: theme.inputLabelColor
+    color: theme.inputLabelColor,
+    fontSize: '1em'
   },
 
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: `${theme.inputFocusedBorderColor} !important`,
     },
-    color: 'white'
+    color: 'white',
+    fontSize: '0.9em'
   },
   cssFocused: {
     color: `${theme.inputFocusedLabelColor} !important`
@@ -46,7 +54,8 @@ const useStyles = makeStyles({
   button: {
     marginTop: '10px',
     marginRight: '30px',
-    width: '100px'
+    width: '100px',
+    fontSize: '0.7em',
   }
 
 })
@@ -60,56 +69,59 @@ const ReplyMailForm = ({ match, history, reply, mail, blockedBy }) => {
   if (!mail)
     return <div></div>
 
-  return <div className={classes.root}>
-    <h1>Reply to: {mail.author} </h1>
-    <TextField
-      id="outlined-multiline-static"
-      label="Reply"
-      {...text}
-      multiline
-      rows="7"
-      className={classes.textField}
-      margin="normal"
-      variant="outlined"
-      InputLabelProps={{
-        classes: {
-          root: classes.cssLabel,
-          focused: classes.cssFocused,
-        }
-      }}
-      InputProps={{
-        classes: {
-          root: classes.cssOutlinedInput,
-          focused: classes.cssFocused,
-          notchedOutline: classes.notchedOutline,
-        }
-      }}
-    />
-    <div className={classes.buttonContainer}>
-      <Button
+  return <div className={classes.overflowContainer} >
+    <div className={classes.root}>
+      <h1>Reply to: {mail.author} </h1>
+      <TextField
+        id="outlined-multiline-static"
+        label="Reply"
+        {...text}
+        multiline
+        rows="7"
+        className={classes.textField}
+        margin="normal"
         variant="outlined"
-        color="primary"
-        onClick={() => {
-          history.goBack()
+        InputLabelProps={{
+          shrink: true,
+          classes: {
+            root: classes.cssLabel,
+            focused: classes.cssFocused,
+          }
         }}
-        className={classes.button}
-      >
-        Cancel
+        InputProps={{
+          classes: {
+            root: classes.cssOutlinedInput,
+            focused: classes.cssFocused,
+            notchedOutline: classes.notchedOutline,
+          }
+        }}
+      />
+      <div className={classes.buttonContainer}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            history.goBack()
+          }}
+          className={classes.button}
+        >
+          Cancel
       </Button>
 
-      <Button
-        disabled={blockedBy.includes(mail.author)}
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          reply(match.params.id, text.value)
-          clearText()
-          history.push('/profile')
-        }}
-        className={classes.button}
-      >
-        Send
+        <Button
+          disabled={blockedBy.includes(mail.author)}
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            reply(match.params.id, text.value)
+            clearText()
+            history.push('/profile')
+          }}
+          className={classes.button}
+        >
+          Send
       </Button>
+      </div>
     </div>
   </div>
 }

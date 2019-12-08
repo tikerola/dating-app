@@ -4,7 +4,7 @@ import { styled } from '@material-ui/styles'
 
 
 const ImageWindow = styled('div')({
-  width: '400px',
+  width: window.innerWidth / 4,
   backgroundColor: 'rgba(0,0,0,0.8)',
   color: '#fff',
   display: 'flex',
@@ -15,8 +15,8 @@ const ImageWindow = styled('div')({
   borderRadius: '5px',
   position: 'fixed',
   zIndex: 50,
-  left: window.innerWidth / 2 - 200,
-  top: window.innerHeight / 2 - 200,
+  left: window.innerWidth / 2 - window.innerWidth / 8,
+  top: 50,
   fontSize: '17px',
   boxShadow: '0px 4px 18px 7px rgba(0,0,0,0.75)',
   cursor: 'pointer'
@@ -26,7 +26,7 @@ const ImageWindow = styled('div')({
 const ProfilePicture = props => {
   
   return <ImageWindow onClick={() => props.showImage(false)} >
-    <img src={props.imageUrl} alt="profile" width="400" />
+    <img src={props.imageUrl} alt="profile" width={window.innerWidth / 4} />
   </ImageWindow>
 }
 

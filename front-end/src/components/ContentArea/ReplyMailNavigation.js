@@ -18,7 +18,8 @@ const useStyles = makeStyles({
     color: 'white'
   },
   icon: {
-    paddingRight: '5px'
+    paddingRight: '5px',
+    fontSize: '1em'
   }
 })
 
