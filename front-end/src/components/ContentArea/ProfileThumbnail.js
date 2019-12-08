@@ -21,7 +21,8 @@ const useStyles = makeStyles({
   },
   image: {
     margin: '0 auto',
-    width: '100%'
+    width: '100%',
+    height: '5.5em'
   },
   button: {
     margin: '0 auto',
