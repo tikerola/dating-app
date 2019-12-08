@@ -1,4 +1,4 @@
-Deittisivusto perusmausteilla. 
+Deittisivusto perusmausteilla. Toistaiseksi kännykällä toimii myös landscape-moodissa.
 
 Löytyy osoitteesta: https://love-app777.herokuapp.com/
 
