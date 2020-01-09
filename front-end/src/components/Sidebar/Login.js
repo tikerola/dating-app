@@ -47,6 +47,7 @@ const useStyles = makeStyles({
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: `${theme.inputFocusedBorderColor} !important`,
+      
     },
     color: 'white'
   },
@@ -102,7 +103,7 @@ export const Login = props => {
 
   return (
     <div className={classes.root}>
-      <form className={classes.container}>
+      <form className={classes.container} onSubmit={handleSubmit}>
         <div className={classes.header}>
           <h1>Login</h1>
         </div>
@@ -159,7 +160,7 @@ export const Login = props => {
           }}
         />
 
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit} id="login">
+        <Button variant="contained" color="primary" className={classes.button} type="submit" id="login">
           Login
         </Button>
       </form>

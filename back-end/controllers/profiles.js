@@ -10,83 +10,70 @@ profilesRouter.post('/search', async (req, res, next) => {
 
   let count = -1
 
+  const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-  try {
-    const user = jwt.verify(req.token, process.env.JWT_SECRET)
+  if (!user)
+    throw new Error('Unauthorized')
 
-    if (!user)
-      throw new Error('Unauthorized')
+  const userWhoSeaches = await User.findById(user.id)
+  const dontSearch = [user.username, ...userWhoSeaches.blockedBy]
 
-    const userWhoSeaches = await User.findById(user.id)
-    const dontSearch = [user.username, ...userWhoSeaches.blockedBy]
-
-    if (page === 1)
-      count = await Profile.find({
-        age: { $gte: age[0], $lte: age[1] },
-        username: { $nin: dontSearch },
-        gender: gender,
-        visible: true
-      })
-        .countDocuments()
-
-    const profiles = await Profile.find({
+  if (page === 1)
+    count = await Profile.find({
       age: { $gte: age[0], $lte: age[1] },
       username: { $nin: dontSearch },
       gender: gender,
       visible: true
     })
-      .sort({ username: 1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
+      .countDocuments()
 
-    return res.status(200).send({ profiles, count })
-  }
-  catch (error) {
-    next(error)
-  }
+  const profiles = await Profile.find({
+    age: { $gte: age[0], $lte: age[1] },
+    username: { $nin: dontSearch },
+    gender: gender,
+    visible: true
+  })
+    .sort({ username: 1 })
+    .skip((page - 1) * limit)
+    .limit(limit)
+
+  return res.status(200).send({ profiles, count })
+
 })
 
 profilesRouter.post('/searchOne', async (req, res, next) => {
   const { username } = req.body
-  try {
-    const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-    if (!user)
-      throw new Error('Unauthorized')
+  const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-    const userWhoSeaches = await User.findById(user.id)
-    const dontSearch = [user.username, ...userWhoSeaches.blockedBy]
+  if (!user)
+    throw new Error('Unauthorized')
 
-    const profile = await Profile.findOne({ $and: [{ username }, { username: { $nin: dontSearch } }], visible: true })
+  const userWhoSeaches = await User.findById(user.id)
+  const dontSearch = [user.username, ...userWhoSeaches.blockedBy]
 
-    if (!profile) {
-      throw new Error('No such username')
-    }
+  const profile = await Profile.findOne({ $and: [{ username }, { username: { $nin: dontSearch } }], visible: true })
 
-    return res.send(profile)
-
+  if (!profile) {
+    throw new Error('No such username')
   }
-  catch (error) {
-    next(error)
-  }
+
+  return res.send(profile)
+
 })
 
 profilesRouter.get('/favorites', async (req, res, next) => {
-  try {
-    const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-    if (!user)
-      throw new Error('Unauthorized')
+  const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-    const userWithFavorites = await User.findById(user.id).populate('favorites')
-    const favoritesToReturn = userWithFavorites.favorites.filter(user => user.visible === true)
-    
-    return res.status(200).send(favoritesToReturn)
+  if (!user)
+    throw new Error('Unauthorized')
 
-  }
-  catch (error) {
-    next(error)
-  }
+  const userWithFavorites = await User.findById(user.id).populate('favorites')
+  const favoritesToReturn = userWithFavorites.favorites.filter(user => user.visible === true)
+
+  return res.status(200).send(favoritesToReturn)
+
 })
 
 

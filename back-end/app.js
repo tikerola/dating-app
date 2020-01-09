@@ -1,4 +1,5 @@
 const express = require('express')
+require('express-async-errors')
 const compression = require('compression')
 const app = express()
 const mongoose = require('mongoose')
