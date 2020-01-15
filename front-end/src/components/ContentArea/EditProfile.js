@@ -71,8 +71,8 @@ const EditProfile = ({ history, editProfileText, oldText }) => {
 
   const classes = useStyles()
 
-  if (!oldText)
-    return <div></div>
+  // if (!oldText)
+  //   return <div></div>
 
   return <div className={ classes.overflowContainer }>
   <div className={classes.root}>

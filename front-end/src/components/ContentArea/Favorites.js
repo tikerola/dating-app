@@ -63,7 +63,7 @@ const Favorites = ({ profiles }) => {
         <div className={classes.container} style={{ visibility: loading ? 'hidden' : 'visible'}}>
           {
             profiles.slice((page - 1) * 12, 12 + (page - 1) * 12).map((profile, index) =>
-              <Link to={`/search/profiles/${profile.username}`} key={profile.id} style={{ textDecoration: 'none' }} >
+              <Link to={`/search/profiles/${profile.username}`} key={profile.id} style={{ textDecoration: 'none', justifySelf: 'center' }} >
                 <ProfileThumbnail
                   username={profile.username}
                   image={profile.image.imageUrl}

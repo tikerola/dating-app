@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const io = require('../socket/socket')
 const clients = require('../utils/clients')
 const moment = require('moment')
+const getCurrentUser = require('../middlewares/getCurrentUser')
 
 userRouter.post('/signup', async (req, res, next) => {
   const { username, password, gender, birthday, age } = req.body
@@ -79,15 +80,15 @@ userRouter.post('/login', async (req, res, next) => {
   })
 })
 
-userRouter.post('/edit', async (req, res, next) => {
+userRouter.post('/edit', getCurrentUser, async (req, res, next) => {
   const { profileText } = req.body
 
-  const user = jwt.verify(req.token, process.env.JWT_SECRET)
+  // const user = jwt.verify(req.token, process.env.JWT_SECRET)
 
-  if (!user)
-    throw new Error('Unauthorized')
+  // if (!user)
+  //   throw new Error('Unauthorized')
 
-  const profileToEdit = await Profile.findOne({ username: user.username })
+  const profileToEdit = await Profile.findOne({ username: req.currentUser.username })
   profileToEdit.profileText = profileText
   const editedProfile = await profileToEdit.save()
 

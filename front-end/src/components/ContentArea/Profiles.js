@@ -62,7 +62,7 @@ const Profiles = ({ profiles, searchOptions, searchProfiles }) => {
   }
 
   const profilesArray = profiles.map((profile, index) => <Link to={`/search/profiles/${profile.username}`} key={profile.id}
-    style={{ textDecoration: 'none' }}>
+    style={{ textDecoration: 'none', justifySelf: 'center' }}>
     <ProfileThumbnail
       username={profile.username}
       image={profile.image.imageUrl}
